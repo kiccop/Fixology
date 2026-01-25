@@ -373,3 +373,24 @@ CREATE TRIGGER strava_tokens_updated_at
 CREATE TRIGGER bikes_updated_at
   BEFORE UPDATE ON public.bikes
   FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+
+-- ============================================
+-- STORAGE POLICIES (for receipts bucket)
+-- ============================================
+
+-- Nota: Assicurati di creare manualmente il bucket 'receipts' nella dashboard di Supabase
+-- prima di applicare queste policy se non esiste già.
+
+CREATE POLICY "Public Receipt Access"
+  ON storage.objects FOR SELECT
+  USING (bucket_id = 'receipts');
+
+CREATE POLICY "Authenticated User Upload"
+  ON storage.objects FOR INSERT
+  TO authenticated
+  WITH CHECK (bucket_id = 'receipts');
+
+CREATE POLICY "Authenticated User Delete"
+  ON storage.objects FOR DELETE
+  TO authenticated
+  USING (bucket_id = 'receipts');
