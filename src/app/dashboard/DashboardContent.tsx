@@ -84,15 +84,15 @@ export function DashboardContent({
             initial="initial"
             animate="animate"
             variants={staggerContainer}
-            className="space-y-6"
+            className="space-y-5 max-w-6xl mx-auto"
         >
-            {/* Header */}
-            <motion.div variants={fadeIn} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            {/* Header - Minimal & Centered */}
+            <motion.div variants={fadeIn} className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-base lg:text-lg font-medium tracking-tight text-neutral-200">
-                        {t('welcome')}, <span className="text-gradient">{userName}</span>! 👋
+                    <p className="text-[11px] text-neutral-500 uppercase tracking-widest mb-1">{t('overview')}</p>
+                    <h1 className="text-sm font-medium text-neutral-300">
+                        {t('welcome')}, <span className="text-gradient font-semibold">{userName}</span> 👋
                     </h1>
-                    <p className="text-[10px] text-neutral-500 mt-0.5 uppercase tracking-widest opacity-80">{t('overview')}</p>
                 </div>
 
                 {stravaConnected && (
@@ -104,8 +104,8 @@ export function DashboardContent({
                 )}
             </motion.div>
 
-            {/* Stats Grid */}
-            <motion.div variants={fadeIn} className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Stats Grid - Compact */}
+            <motion.div variants={fadeIn} className="grid grid-cols-3 gap-3">
                 <StatCard
                     icon={Bike}
                     label={t('totalBikes')}
@@ -131,31 +131,31 @@ export function DashboardContent({
             {/* Strava Connection Banner removed from here - moved exclusively to Settings */}
 
             {/* Main Content Grid */}
-            <div className="grid lg:grid-cols-2 gap-6">
+            <div className="grid lg:grid-cols-2 gap-4">
                 {/* Bikes List */}
                 <motion.div variants={fadeIn}>
                     <Card padding="none">
-                        <div className="p-6 border-b border-white/5">
+                        <div className="p-4 border-b border-white/5">
                             <div className="flex items-center justify-between">
-                                <h2 className="text-lg font-semibold">{t('yourBikes')}</h2>
+                                <h2 className="text-sm font-semibold text-neutral-200">{t('yourBikes')}</h2>
                                 <Link href="/dashboard/settings">
-                                    <Button variant="ghost" icon={<Settings className="w-4 h-4" />}>
-                                        {t('settings')}
+                                    <Button variant="ghost" size="sm" icon={<Settings className="w-3.5 h-3.5" />}>
+                                        <span className="text-xs">{t('settings')}</span>
                                     </Button>
                                 </Link>
                             </div>
-                            <div className="mt-4 flex flex-col items-end pr-2">
-                                <StravaLogo className="scale-75 origin-right" />
+                            <div className="mt-2 flex justify-end">
+                                <StravaLogo className="scale-60 origin-right opacity-70" />
                             </div>
                         </div>
 
                         <div className="divide-y divide-white/5">
                             {bikes.length === 0 ? (
-                                <div className="p-8 text-center">
-                                    <Bike className="w-12 h-12 mx-auto mb-4 text-neutral-600" />
-                                    <p className="text-neutral-400">{tBikes('noBikes')}</p>
+                                <div className="p-6 text-center">
+                                    <Bike className="w-10 h-10 mx-auto mb-3 text-neutral-600" />
+                                    <p className="text-sm text-neutral-400">{tBikes('noBikes')}</p>
                                     <Link href="/dashboard/bikes">
-                                        <Button variant="secondary" size="sm" className="mt-4">
+                                        <Button variant="secondary" size="sm" className="mt-3">
                                             {t('addFirstBike')}
                                         </Button>
                                     </Link>
@@ -165,27 +165,27 @@ export function DashboardContent({
                                     <Link
                                         key={bike.id}
                                         href={`/dashboard/bikes/${bike.id}`}
-                                        className="flex items-center justify-between p-4 hover:bg-white/5 transition-colors"
+                                        className="flex items-center justify-between p-3 hover:bg-white/5 transition-colors"
                                     >
-                                        <div className="flex items-center gap-4">
-                                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-500/20 to-secondary-500/20 flex items-center justify-center">
-                                                <Bike className="w-6 h-6 text-primary-400" />
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary-500/20 to-secondary-500/20 flex items-center justify-center">
+                                                <Bike className="w-4 h-4 text-primary-400" />
                                             </div>
                                             <div>
                                                 <div className="flex items-center gap-2">
-                                                    <h3 className="font-medium">{bike.name}</h3>
+                                                    <h3 className="text-sm font-medium">{bike.name}</h3>
                                                     {bike.is_primary && (
-                                                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-primary-500/20 text-primary-400">
+                                                        <span className="text-[9px] px-1.5 py-0.5 rounded bg-primary-500/20 text-primary-400">
                                                             {tBikes('primary')}
                                                         </span>
                                                     )}
                                                 </div>
-                                                <p className="text-sm text-neutral-400">
+                                                <p className="text-xs text-neutral-500">
                                                     {bike.total_km?.toLocaleString() || 0} km
                                                 </p>
                                             </div>
                                         </div>
-                                        <ChevronRight className="w-5 h-5 text-neutral-500" />
+                                        <ChevronRight className="w-4 h-4 text-neutral-600" />
                                     </Link>
                                 ))
                             )}
@@ -206,34 +206,34 @@ export function DashboardContent({
                 {/* Components Alerts */}
                 <motion.div variants={fadeIn}>
                     <Card padding="none">
-                        <div className="p-6 border-b border-white/5">
+                        <div className="p-4 border-b border-white/5">
                             <div className="flex items-center justify-between">
-                                <h2 className="text-lg font-semibold">{t('upcomingMaintenance')}</h2>
+                                <h2 className="text-sm font-semibold text-neutral-200">{t('upcomingMaintenance')}</h2>
                                 {componentsToCheck > 0 && (
-                                    <Badge status="warning">{componentsToCheck}</Badge>
+                                    <Badge status="warning" size="sm">{componentsToCheck}</Badge>
                                 )}
                             </div>
                         </div>
 
                         <div className="divide-y divide-white/5">
                             {alertComponents.length === 0 ? (
-                                <div className="p-8 text-center">
-                                    <Activity className="w-12 h-12 mx-auto mb-4 text-neutral-600" />
-                                    <p className="text-neutral-400">{t('allClear')}</p>
+                                <div className="p-6 text-center">
+                                    <Activity className="w-10 h-10 mx-auto mb-3 text-neutral-600" />
+                                    <p className="text-sm text-neutral-400">{t('allClear')}</p>
                                 </div>
                             ) : (
                                 alertComponents.slice(0, 5).map((component) => (
-                                    <div key={component.id} className="p-4">
+                                    <div key={component.id} className="p-3">
                                         <div className="flex items-start justify-between mb-2">
                                             <div>
-                                                <h3 className="font-medium">
+                                                <h3 className="text-sm font-medium">
                                                     {tComponents(`types.${component.type}`)}
                                                 </h3>
-                                                <p className="text-sm text-neutral-400">
+                                                <p className="text-xs text-neutral-500">
                                                     {component.bike?.name}
                                                 </p>
                                             </div>
-                                            <Badge status={component.status}>
+                                            <Badge status={component.status} size="sm">
                                                 {tComponents(`status.${component.status}`)}
                                             </Badge>
                                         </div>
@@ -254,7 +254,7 @@ export function DashboardContent({
 
             {/* Last Sync Info */}
             {stravaConnected && lastStravaSync && (
-                <motion.div variants={fadeIn} className="text-center text-sm text-neutral-500">
+                <motion.div variants={fadeIn} className="text-center text-xs text-neutral-600">
                     {t('lastSync')}: {formatDistanceToNow(new Date(lastStravaSync), { addSuffix: true, locale: it })}
                 </motion.div>
             )}
@@ -262,7 +262,7 @@ export function DashboardContent({
     )
 }
 
-// Stat Card Component
+// Stat Card Component - Compact Version
 function StatCard({
     icon: Icon,
     label,
@@ -279,24 +279,24 @@ function StatCard({
     alert?: boolean
 }) {
     return (
-        <Card className={`relative overflow-hidden ${alert ? '!border-danger-500/30' : ''}`}>
-            <div className="flex items-center gap-4">
-                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center`}>
-                    <Icon className="w-6 h-6 text-white" />
+        <Card className={`relative overflow-hidden !p-3 ${alert ? '!border-danger-500/30' : ''}`}>
+            <div className="flex items-center gap-3">
+                <div className={`w-9 h-9 rounded-lg bg-gradient-to-br ${gradient} flex items-center justify-center flex-shrink-0`}>
+                    <Icon className="w-4 h-4 text-white" />
                 </div>
-                <div>
-                    <p className="text-sm text-neutral-400">{label}</p>
-                    <p className="text-2xl font-bold">
+                <div className="min-w-0">
+                    <p className="text-[10px] text-neutral-500 uppercase tracking-wider truncate">{label}</p>
+                    <p className="text-lg font-bold leading-tight">
                         {value}
-                        {suffix && <span className="text-lg text-neutral-400 ml-1">{suffix}</span>}
+                        {suffix && <span className="text-xs text-neutral-500 ml-0.5 font-normal">{suffix}</span>}
                     </p>
                 </div>
             </div>
             {alert && (
                 <div className="absolute top-2 right-2">
-                    <span className="flex h-2 w-2 relative">
+                    <span className="flex h-1.5 w-1.5 relative">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-danger-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-danger-500"></span>
+                        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-danger-500"></span>
                     </span>
                 </div>
             )}
