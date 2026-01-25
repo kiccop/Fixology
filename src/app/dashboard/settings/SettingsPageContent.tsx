@@ -262,6 +262,33 @@ export function SettingsPageContent({
                             </a>
                         </div>
                     )}
+
+                    <div className="mt-6 pt-6 border-t border-white/5 flex justify-center">
+                        <p className="text-[10px] text-neutral-500 uppercase tracking-widest flex items-center gap-2">
+                            Powered by <span className="font-bold text-[#FC4C02]">Strava</span>
+                        </p>
+                    </div>
+                </Card>
+            </motion.div>
+
+            {/* Support Section - NEW for Strava Review */}
+            <motion.div variants={fadeIn}>
+                <Card>
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center">
+                            <Globe className="w-5 h-5 text-blue-400" />
+                        </div>
+                        <h2 className="text-lg font-semibold">Supporto Tecnico</h2>
+                    </div>
+                    <p className="text-neutral-400 text-sm mb-4">
+                        Hai bisogno di aiuto con Fixology o riscontri problemi con la sincronizzazione Strava?
+                    </p>
+                    <div className="p-4 rounded-xl bg-neutral-900 border border-white/5">
+                        <p className="text-sm text-neutral-300">Contattaci via email:</p>
+                        <a href="mailto:support@fixology.app" className="text-primary-400 font-medium hover:underline">
+                            support@fixology.app
+                        </a>
+                    </div>
                 </Card>
             </motion.div>
 
