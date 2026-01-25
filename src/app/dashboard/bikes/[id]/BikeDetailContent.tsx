@@ -388,7 +388,21 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                                                     )}
                                                 </div>
                                                 <div>
-                                                    <h3 className="font-medium">{t(`types.${component.type}`)}</h3>
+                                                    <div className="flex items-center gap-2">
+                                                        <h3 className="font-medium">{t(`types.${component.type}`)}</h3>
+                                                        {component.maintenance_logs?.some((l: any) => l.receipt_url) && (
+                                                            <a
+                                                                href={component.maintenance_logs.find((l: any) => l.receipt_url).receipt_url}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className="text-primary-400 hover:text-primary-300 transition-colors"
+                                                                title="Visualizza ricevuta"
+                                                                onClick={(e) => e.stopPropagation()}
+                                                            >
+                                                                <FileText className="w-4 h-4" />
+                                                            </a>
+                                                        )}
+                                                    </div>
                                                     <p className="text-sm text-neutral-400">
                                                         {component.current_km} km / {component.threshold_km || '∞'} km
                                                     </p>
@@ -429,6 +443,80 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                     )}
                 </Card>
             </motion.div>
+
+            {/* Timeline of all interventions */}
+            {(() => {
+                const allLogs: any[] = []
+                components.forEach((c: any) => {
+                    if (c.maintenance_logs) {
+                        c.maintenance_logs.forEach((log: any) => {
+                            allLogs.push({ ...log, componentType: c.type })
+                        })
+                    }
+                })
+
+                if (allLogs.length === 0) return null
+
+                return (
+                    <motion.div variants={fadeIn}>
+                        <Card padding="none">
+                            <div className="p-6 border-b border-white/5">
+                                <h2 className="text-lg font-semibold flex items-center gap-2">
+                                    <History className="w-5 h-5 text-primary-400" />
+                                    {tMaintenance('title')}
+                                </h2>
+                            </div>
+                            <div className="overflow-x-auto">
+                                <table className="w-full text-left text-sm">
+                                    <thead className="text-[10px] uppercase tracking-widest text-neutral-500 bg-white/2">
+                                        <tr>
+                                            <th className="px-6 py-4 font-black">{tMaintenance('date')}</th>
+                                            <th className="px-6 py-4 font-black">Componente</th>
+                                            <th className="px-6 py-4 font-black">{tMaintenance('action')}</th>
+                                            <th className="px-6 py-4 font-black">{tMaintenance('kmAtAction')}</th>
+                                            <th className="px-6 py-4 font-black text-right">{tMaintenance('cost')}</th>
+                                            <th className="px-6 py-4 text-center">Docs</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-white/5">
+                                        {allLogs.sort((a, b) => new Date(b.date || b.created_at).getTime() - new Date(a.date || a.created_at).getTime()).map((log) => (
+                                            <tr key={log.id} className="hover:bg-white/2 transition-colors">
+                                                <td className="px-6 py-4 font-medium italic">
+                                                    {format(new Date(log.date || log.created_at), 'dd MMM yyyy', { locale: it })}
+                                                </td>
+                                                <td className="px-6 py-4 font-bold uppercase text-[12px] tracking-tight">
+                                                    {t(`types.${log.componentType}`)}
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    <Badge status={log.action_type === 'replaced' ? 'danger' : 'ok'} size="sm">
+                                                        {tMaintenance(`actions.${log.action_type}`)}
+                                                    </Badge>
+                                                </td>
+                                                <td className="px-6 py-4 text-neutral-400">{log.km_at_action?.toLocaleString()} km建设</td>
+                                                <td className="px-6 py-4 text-right font-bold text-success-400">
+                                                    {log.cost ? `${parseFloat(log.cost).toFixed(2)} €` : '-'}
+                                                </td>
+                                                <td className="px-6 py-4 text-center">
+                                                    {log.receipt_url ? (
+                                                        <a
+                                                            href={log.receipt_url}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-primary-500/10 text-primary-400 hover:bg-primary-500/20 transition-colors"
+                                                        >
+                                                            <FileText className="w-4 h-4" />
+                                                        </a>
+                                                    ) : '-'}
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </Card>
+                    </motion.div>
+                )
+            })()}
 
             {/* Replaced Components History */}
             {replacedComponents.length > 0 && (
