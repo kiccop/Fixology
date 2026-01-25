@@ -111,9 +111,10 @@ export default function LandingPage() {
             {/* Subtitle */}
             <motion.p
               variants={fadeInUp}
-              className="text-xl text-neutral-400 max-w-2xl mx-auto"
+              className="text-xl text-neutral-400 mb-8 max-w-2xl mx-auto"
             >
-              {t('hero.subtitle')}
+              La tua bici, al top della forma. Monitora l&apos;usura dei componenti,
+              ricevi avvisi di manutenzione e sincronizza i tuoi km con Strava.
             </motion.p>
 
             {/* CTA Buttons */}
