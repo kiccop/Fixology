@@ -61,11 +61,23 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
     const activeComponents = components.filter((c: any) => c.status !== 'replaced')
     const replacedComponents = components.filter((c: any) => c.status === 'replaced')
 
-    const generatePDF = () => {
+    const generatePDF = async () => {
+        const loadingToast = toast.loading('Generazione PDF in corso, caricamento immagini...')
         try {
             const doc = new jsPDF()
             const dateLocale = locale === 'it' ? it : locale === 'es' ? es : locale === 'fr' ? fr : enUS
             const today = format(new Date(), 'PPP', { locale: dateLocale })
+
+            // Helper to load image from URL
+            const loadImage = (url: string): Promise<HTMLImageElement> => {
+                return new Promise((resolve, reject) => {
+                    const img = new Image()
+                    img.crossOrigin = 'Anonymous'
+                    img.onload = () => resolve(img)
+                    img.onerror = (e) => reject(e)
+                    img.src = url
+                })
+            }
 
             // Colors
             const primaryColor: [number, number, number] = [255, 107, 53] // #ff6b35
@@ -157,7 +169,75 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                 })
             }
 
-            // Footer
+            // --- PHOTO EXHIBIT SECTION ---
+            const logsWithReceipts = allLogs.filter(log => log.receipt_url)
+            if (logsWithReceipts.length > 0) {
+                doc.addPage()
+                doc.setFontSize(18)
+                doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2])
+                doc.text('ALLEGATI E DOCUMENTAZIONE', 105, 20, { align: 'center' })
+                doc.setFontSize(11)
+                doc.setTextColor(100, 100, 100)
+                doc.text('Tutte le prove digitali caricate per questo veicolo', 105, 28, { align: 'center' })
+
+                let currentY = 40
+                for (let j = 0; j < logsWithReceipts.length; j++) {
+                    const log = logsWithReceipts[j]
+
+                    // Check if we need a new page for the next photo
+                    // Roughly estimating 100mm per photo section
+                    if (currentY > 200) {
+                        doc.addPage()
+                        currentY = 20
+                    }
+
+                    try {
+                        const img = await loadImage(log.receipt_url)
+
+                        // Header for the specific photo
+                        doc.setFontSize(12)
+                        doc.setTextColor(0, 0, 0)
+                        doc.text(`${log.componentName} - ${tMaintenance(`actions.${log.action_type}`)}`, 14, currentY)
+                        doc.setFontSize(9)
+                        doc.setTextColor(120, 120, 120)
+                        const logDate = format(new Date(log.created_at), 'dd/MM/yyyy')
+                        doc.text(`Data: ${logDate} | Km: ${log.km_at_action?.toLocaleString()} | Costo: ${log.cost ? `${log.cost} €` : '-'}`, 14, currentY + 5)
+
+                        if (log.notes) {
+                            doc.setFontSize(8)
+                            doc.setFont('helvetica', 'italic')
+                            doc.text(`Note: ${log.notes}`, 14, currentY + 10)
+                            doc.setFont('helvetica', 'normal')
+                        }
+
+                        // Calculate image dimensions to fit
+                        const maxWidth = 180
+                        const maxHeight = 80 // Max height per image section
+                        let imgWidth = img.width
+                        let imgHeight = img.height
+                        const ratio = imgWidth / imgHeight
+
+                        if (imgWidth > maxWidth) {
+                            imgWidth = maxWidth
+                            imgHeight = imgWidth / ratio
+                        }
+                        if (imgHeight > maxHeight) {
+                            imgHeight = maxHeight
+                            imgWidth = imgHeight * ratio
+                        }
+
+                        doc.addImage(img, 'JPEG', 14, currentY + 15, imgWidth, imgHeight)
+                        currentY += imgHeight + 30 // Padding for next item
+                    } catch (err) {
+                        console.error('Error adding image to PDF:', err)
+                        doc.setTextColor(255, 0, 0)
+                        doc.text('Errore nel caricamento dell\'immagine allegata.', 14, currentY + 15)
+                        currentY += 30
+                    }
+                }
+            }
+
+            // Footer (applied to all pages)
             const pageCount = (doc as any).internal.getNumberOfPages()
             for (let i = 1; i <= pageCount; i++) {
                 doc.setPage(i)
@@ -172,8 +252,10 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
             }
 
             doc.save(`Libretto_${bike.name.replace(/\s+/g, '_')}.pdf`)
+            toast.dismiss(loadingToast)
             toast.success('Libretto generato con successo!')
         } catch (error) {
+            toast.dismiss(loadingToast)
             console.error('PDF Generation error:', error)
             toast.error('Errore durante la generazione del PDF. Riprova.')
         }
