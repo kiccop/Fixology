@@ -221,6 +221,7 @@ CREATE TABLE public.maintenance_logs (
   hours_at_action NUMERIC DEFAULT 0,
   notes TEXT,
   cost NUMERIC,
+  receipt_url TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 

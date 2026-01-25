@@ -73,6 +73,7 @@ Fixology è un'applicazione web moderna per la gestione della manutenzione delle
 4. **Configura Supabase**
    - Crea un nuovo progetto su [Supabase](https://supabase.com)
    - Vai su SQL Editor ed esegui lo schema contenuto in `supabase/schema.sql`
+   - **Storage**: Crea un nuovo bucket pubblico chiamato `receipts` per permettere il caricamento delle ricevute di manutenzione.
 
 5. **Configura Strava API**
    - Vai su [Strava Developers](https://developers.strava.com/)

@@ -20,9 +20,12 @@ import {
     Trash2,
     RotateCcw,
     History,
+    FileText,
+    Wrench,
 } from 'lucide-react'
 import { Card, Button, ProgressBar, Badge, Modal } from '@/components/ui'
 import { AddComponentModal } from './AddComponentModal'
+import { AddMaintenanceModal } from './AddMaintenanceModal'
 import { createClient } from '@/lib/supabase/client'
 import jsPDF from 'jspdf'
 import 'jspdf-autotable'
@@ -48,6 +51,7 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
     const supabase = createClient()
 
     const [addComponentOpen, setAddComponentOpen] = useState(false)
+    const [addMaintenanceOpen, setAddMaintenanceOpen] = useState(false)
     const [selectedComponent, setSelectedComponent] = useState<any>(null)
     const [actionModalOpen, setActionModalOpen] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
@@ -135,12 +139,14 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                     format(new Date(log.created_at), 'dd/MM/yyyy'),
                     log.componentName,
                     tMaintenance(`actions.${log.action_type}`),
-                    `${log.km_at_action?.toLocaleString()} km`
+                    `${log.km_at_action?.toLocaleString()} km`,
+                    log.cost ? `${log.cost} €` : '-',
+                    log.receipt_url ? 'SI' : 'NO'
                 ])
 
                 ; (doc as any).autoTable({
                     startY: nextY + 5,
-                    head: [['Data', 'Componente', 'Azione', 'Chilometraggio']],
+                    head: [['Data', 'Componente', 'Azione', 'Km', 'Costo', 'Allegato']],
                     body: logRows,
                     headStyles: { fillColor: primaryColor },
                     alternateRowStyles: { fillColor: [250, 250, 250] },
@@ -271,6 +277,14 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                         >
                             <span className="hidden sm:inline">{tBikes('downloadServiceBooklet')}</span>
                             <span className="sm:hidden">PDF</span>
+                        </Button>
+                        <Button
+                            variant="secondary"
+                            onClick={() => setAddMaintenanceOpen(true)}
+                            icon={<Wrench className="w-4 h-4" />}
+                        >
+                            <span className="hidden sm:inline">Log Intervento</span>
+                            <span className="sm:hidden">Log</span>
                         </Button>
                         <Button
                             onClick={() => setAddComponentOpen(true)}
@@ -419,12 +433,31 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                                 Componenti sostituiti ({replacedComponents.length})
                             </h2>
                         </div>
-                        <div className="divide-y divide-white/5 opacity-60">
+                        <div className="divide-y divide-white/5 opacity-80">
                             {replacedComponents.map((component: any) => (
-                                <div key={component.id} className="p-4">
-                                    <div className="flex items-center justify-between">
-                                        <span>{t(`types.${component.type}`)}</span>
-                                        <Badge status="replaced">Sostituito</Badge>
+                                <div key={component.id} className="p-4 flex items-center justify-between">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center">
+                                            <RotateCcw className="w-4 h-4 text-neutral-500" />
+                                        </div>
+                                        <div>
+                                            <p className="font-medium text-sm">{t(`types.${component.type}`)}</p>
+                                            <p className="text-[10px] text-neutral-500">Sostituito il {format(new Date(component.install_date), 'dd/MM/yyyy')}</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        {component.maintenance_logs?.some((l: any) => l.receipt_url) && (
+                                            <a
+                                                href={component.maintenance_logs.find((l: any) => l.receipt_url).receipt_url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="p-1.5 rounded-md hover:bg-white/10 text-primary-400 transition-colors"
+                                                title="Visualizza ricevuta"
+                                            >
+                                                <FileText className="w-4 h-4" />
+                                            </a>
+                                        )}
+                                        <Badge status="replaced" size="sm">Sostituito</Badge>
                                     </div>
                                 </div>
                             ))}
@@ -438,6 +471,14 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                 isOpen={addComponentOpen}
                 onClose={() => setAddComponentOpen(false)}
                 bikeId={bike.id}
+                currentBikeKm={bike.total_km || 0}
+            />
+
+            <AddMaintenanceModal
+                isOpen={addMaintenanceOpen}
+                onClose={() => setAddMaintenanceOpen(false)}
+                bikeId={bike.id}
+                components={activeComponents}
                 currentBikeKm={bike.total_km || 0}
             />
 

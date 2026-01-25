@@ -1,0 +1,248 @@
+'use client'
+
+import { useState, useRef } from 'react'
+import { useTranslations } from 'next-intl'
+import { toast } from 'sonner'
+import { Upload, X, FileText, Check, Loader2 } from 'lucide-react'
+import { Modal, Button, Input } from '@/components/ui'
+import { createClient } from '@/lib/supabase/client'
+
+interface AddMaintenanceModalProps {
+    isOpen: boolean
+    onClose: () => void
+    bikeId: string
+    components: any[]
+    currentBikeKm: number
+}
+
+export function AddMaintenanceModal({
+    isOpen,
+    onClose,
+    bikeId,
+    components,
+    currentBikeKm
+}: AddMaintenanceModalProps) {
+    const t = useTranslations('maintenance')
+    const tComponents = useTranslations('components')
+    const tCommon = useTranslations('common')
+    const supabase = createClient()
+    const fileInputRef = useRef<HTMLInputElement>(null)
+
+    const [loading, setLoading] = useState(false)
+    const [uploading, setUploading] = useState(false)
+    const [selectedComponent, setSelectedComponent] = useState('')
+    const [actionType, setActionType] = useState('maintained')
+    const [kmAtAction, setKmAtAction] = useState(currentBikeKm.toString())
+    const [cost, setCost] = useState('')
+    const [notes, setNotes] = useState('')
+    const [receiptUrl, setReceiptUrl] = useState('')
+    const [fileName, setFileName] = useState('')
+
+    const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]
+        if (!file) return
+
+        if (file.size > 5 * 1024 * 1024) {
+            toast.error('File troppo grande (max 5MB)')
+            return
+        }
+
+        setUploading(true)
+        try {
+            const fileExt = file.name.split('.').pop()
+            const filePath = `${bikeId}/${Date.now()}.${fileExt}`
+
+            const { error: uploadError } = await supabase.storage
+                .from('receipts')
+                .upload(filePath, file)
+
+            if (uploadError) throw uploadError
+
+            const { data: { publicUrl } } = supabase.storage
+                .from('receipts')
+                .getPublicUrl(filePath)
+
+            setReceiptUrl(publicUrl)
+            setFileName(file.name)
+            toast.success('File caricato correttamente')
+        } catch (error: any) {
+            console.error('Error uploading:', error)
+            toast.error('Errore durante il caricamento del file. Assicurati che il bucket "receipts" esista.')
+        } finally {
+            setUploading(false)
+        }
+    }
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+        if (!selectedComponent) {
+            toast.error('Seleziona un componente')
+            return
+        }
+
+        setLoading(true)
+        try {
+            const { error } = await supabase.from('maintenance_logs').insert({
+                component_id: selectedComponent,
+                action_type: actionType,
+                km_at_action: parseFloat(kmAtAction),
+                cost: cost ? parseFloat(cost) : null,
+                notes,
+                receipt_url: receiptUrl
+            })
+
+            if (error) throw error
+
+            toast.success(tCommon('success'))
+            onClose()
+            window.location.reload() // Force refresh to see the new log
+        } catch (error) {
+            toast.error(tCommon('error'))
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    return (
+        <Modal
+            isOpen={isOpen}
+            onClose={onClose}
+            title={t('addEntry')}
+            size="md"
+        >
+            <form onSubmit={handleSubmit} className="space-y-4 pt-2">
+                <div>
+                    <label className="label">Componente</label>
+                    <select
+                        className="input"
+                        value={selectedComponent}
+                        onChange={(e) => setSelectedComponent(e.target.value)}
+                        required
+                    >
+                        <option value="">Seleziona...</option>
+                        {components.map((c) => (
+                            <option key={c.id} value={c.id}>
+                                {tComponents(`types.${c.type}`)}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                    <div>
+                        <label className="label">{t('action')}</label>
+                        <select
+                            className="input"
+                            value={actionType}
+                            onChange={(e) => setActionType(e.target.value)}
+                        >
+                            <option value="maintained">{t('actions.maintained')}</option>
+                            <option value="replaced">{t('actions.replaced')}</option>
+                            <option value="inspected">{t('actions.inspected')}</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label className="label">{t('kmAtAction')}</label>
+                        <Input
+                            type="number"
+                            value={kmAtAction}
+                            onChange={(e) => setKmAtAction(e.target.value)}
+                            required
+                        />
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                    <div>
+                        <label className="label">{t('cost')} (€)</label>
+                        <Input
+                            type="number"
+                            step="0.01"
+                            value={cost}
+                            onChange={(e) => setCost(e.target.value)}
+                            placeholder="0.00"
+                        />
+                    </div>
+                    <div>
+                        <label className="label">{t('receipt')}</label>
+                        <div className="relative">
+                            <input
+                                type="file"
+                                ref={fileInputRef}
+                                className="hidden"
+                                accept="image/*,.pdf"
+                                onChange={handleFileUpload}
+                            />
+                            {receiptUrl ? (
+                                <div className="flex items-center justify-between p-2.5 rounded-lg bg-success-500/10 border border-success-500/20">
+                                    <div className="flex items-center gap-2 text-success-400 text-sm overflow-hidden">
+                                        <Check className="w-4 h-4" />
+                                        <span className="truncate">{fileName}</span>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setReceiptUrl('')
+                                            setFileName('')
+                                        }}
+                                        className="text-neutral-500 hover:text-white"
+                                    >
+                                        <X className="w-4 h-4" />
+                                    </button>
+                                </div>
+                            ) : (
+                                <button
+                                    type="button"
+                                    onClick={() => fileInputRef.current?.click()}
+                                    disabled={uploading}
+                                    className="w-full flex items-center justify-center gap-2 p-2.5 rounded-lg border border-dashed border-white/10 hover:border-primary-500/50 hover:bg-primary-500/5 transition-all text-neutral-400 text-sm"
+                                >
+                                    {uploading ? (
+                                        <>
+                                            <Loader2 className="w-4 h-4 animate-spin" />
+                                            {t('uploadInProgress')}
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Upload className="w-4 h-4" />
+                                            {t('uploadReceipt')}
+                                        </>
+                                    )}
+                                </button>
+                            )}
+                        </div>
+                        <p className="text-[10px] text-neutral-500 mt-1">{t('onlyImagesOrPdf')}</p>
+                    </div>
+                </div>
+
+                <div>
+                    <label className="label">Note</label>
+                    <textarea
+                        className="input min-h-[80px]"
+                        value={notes}
+                        onChange={(e) => setNotes(e.target.value)}
+                        placeholder="Dettagli dell'intervento..."
+                    />
+                </div>
+
+                <div className="flex gap-3 pt-2">
+                    <Button
+                        type="button"
+                        variant="ghost"
+                        fullWidth
+                        onClick={onClose}
+                    >
+                        {tCommon('cancel')}
+                    </Button>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        loading={loading}
+                    >
+                        {tCommon('save')}
+                    </Button>
+                </div>
+            </form>
+        </Modal>
+    )
+}

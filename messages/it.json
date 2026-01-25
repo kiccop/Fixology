@@ -165,7 +165,13 @@
             "maintained": "Manutenuto",
             "replaced": "Sostituito",
             "inspected": "Ispezionato"
-        }
+        },
+        "receipt": "Ricevuta/Allegato",
+        "uploadReceipt": "Carica ricevuta",
+        "professionalService": "Intervento professionale",
+        "hasReceipt": "Ricevuta allegata",
+        "uploadInProgress": "Caricamento file...",
+        "onlyImagesOrPdf": "Solo immagini o PDF"
     },
     "strava": {
         "connected": "Connesso a Strava",
