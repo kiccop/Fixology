@@ -128,29 +128,7 @@ export function DashboardContent({
                 />
             </motion.div>
 
-            {/* Strava Connection Banner */}
-            {!stravaConnected && (
-                <motion.div variants={fadeIn}>
-                    <Card className="!bg-gradient-to-r from-[#FC4C02]/10 to-[#FC4C02]/5 !border-[#FC4C02]/20">
-                        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-6">
-                            <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 rounded-xl bg-[#FC4C02]/20 flex items-center justify-center p-2.5">
-                                    <StravaLogo variant="mark" />
-                                </div>
-                                <div>
-                                    <h3 className="font-semibold text-lg">{tStrava('connect')}</h3>
-                                    <p className="text-neutral-400 text-sm">
-                                        {t('connectDescription')}
-                                    </p>
-                                </div>
-                            </div>
-                            <Link href="/api/auth/strava">
-                                <StravaLogo variant="connect-button" />
-                            </Link>
-                        </div>
-                    </Card>
-                </motion.div>
-            )}
+            {/* Strava Connection Banner removed from here - moved exclusively to Settings */}
 
             {/* Main Content Grid */}
             <div className="grid lg:grid-cols-2 gap-6">

@@ -163,35 +163,8 @@ export default function RegisterPage() {
                         </Button>
                     </form>
 
-                    {/* Divider */}
-                    <div className="relative my-6">
-                        <div className="absolute inset-0 flex items-center">
-                            <div className="w-full border-t border-white/10" />
-                        </div>
-                        <div className="relative flex justify-center text-sm">
-                            <span className="px-4 bg-neutral-800 text-neutral-500">
-                                {tCommon('or')}
-                            </span>
-                        </div>
-                    </div>
-
-                    {/* Strava Connect */}
-                    <Link href="/api/auth/strava">
-                        <Button
-                            type="button"
-                            variant="secondary"
-                            fullWidth
-                            className="!bg-[#FC4C02]/10 !border-[#FC4C02]/30 hover:!bg-[#FC4C02]/20"
-                        >
-                            <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169" fill="#FC4C02" />
-                            </svg>
-                            {t('loginWithStrava')}
-                        </Button>
-                    </Link>
-
                     {/* Terms */}
-                    <p className="text-xs text-neutral-500 text-center mt-4">
+                    <p className="text-xs text-neutral-500 text-center mt-4 pt-4 border-t border-white/5">
                         Registrandoti accetti i nostri{' '}
                         <a href="#" className="text-primary-400 hover:underline">Termini di Servizio</a>
                         {' '}e la{' '}

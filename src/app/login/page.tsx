@@ -125,23 +125,6 @@ export default function LoginPage() {
                             {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t('login')}
                         </Button>
                     </form>
-
-                    {/* Divider */}
-                    <div className="relative my-6">
-                        <div className="absolute inset-0 flex items-center">
-                            <div className="w-full border-t border-white/10" />
-                        </div>
-                        <div className="relative flex justify-center text-sm">
-                            <span className="px-4 bg-neutral-800 text-neutral-500">
-                                {tCommon('or')}
-                            </span>
-                        </div>
-                    </div>
-
-                    {/* Strava Connect */}
-                    <Link href="/api/auth/strava">
-                        <StravaLogo variant="connect-button" className="w-full justify-center shadow-lg transform active:scale-95 transition-all" />
-                    </Link>
                 </Card>
 
                 {/* Back to home */}
@@ -151,8 +134,8 @@ export default function LoginPage() {
                     </Link>
                 </p>
 
-                <div className="mt-8 pt-8 border-t border-white/5">
-                    <StravaLogo />
+                <div className="mt-8 pt-8 border-t border-white/5 opacity-50">
+                    <p className="text-center text-[10px] text-neutral-600 uppercase tracking-tighter">Powered by mechanical precision</p>
                 </div>
             </motion.div>
         </div>
