@@ -173,16 +173,16 @@ export function DashboardContent({
                                     </Button>
                                 </Link>
                             </div>
-                            <div className="mt-4 flex flex-col items-end gap-2">
+                            <div className="mt-4 flex flex-col items-end gap-2 pr-2">
                                 <div className="text-[9px] text-neutral-500 uppercase tracking-tighter opacity-70">
                                     Official Integration Partner
                                 </div>
-                                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900/50 border border-white/5">
-                                    <span className="text-[10px] text-neutral-500 uppercase tracking-widest">Data sync via</span>
+                                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/40 border border-[#FC4C02]/20">
+                                    <span className="text-[10px] text-neutral-400 uppercase tracking-widest">Powered by</span>
                                     <img
                                         src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Strava_Logo_2021.svg"
                                         alt="Strava"
-                                        className="h-3"
+                                        className="h-3.5"
                                     />
                                 </div>
                             </div>

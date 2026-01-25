@@ -161,11 +161,12 @@ export default function LoginPage() {
                     </Link>
                 </p>
 
-                <div className="mt-8 pt-8 border-t border-white/5 flex justify-center">
+                <div className="mt-8 pt-8 border-t border-white/5 flex flex-col items-center gap-3">
+                    <p className="text-[10px] text-neutral-500 uppercase tracking-widest">Integrated with</p>
                     <img
                         src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Strava_Logo_2021.svg"
                         alt="Powered by Strava"
-                        className="h-4 opacity-50"
+                        className="h-4 opacity-70 hover:opacity-100 transition-opacity"
                     />
                 </div>
             </motion.div>
