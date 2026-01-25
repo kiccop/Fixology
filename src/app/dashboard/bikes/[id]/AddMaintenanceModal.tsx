@@ -67,7 +67,7 @@ export function AddMaintenanceModal({
             toast.success('File caricato correttamente')
         } catch (error: any) {
             console.error('Error uploading:', error)
-            toast.error('Errore durante il caricamento del file. Assicurati che il bucket "receipts" esista.')
+            toast.error(`Errore caricamento: ${error.message || 'Controlla la console'}`)
         } finally {
             setUploading(false)
         }
