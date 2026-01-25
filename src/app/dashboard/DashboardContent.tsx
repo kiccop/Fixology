@@ -89,7 +89,7 @@ export function DashboardContent({
             {/* Header */}
             <motion.div variants={fadeIn} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                    <h1 className="text-2xl lg:text-3xl font-bold">
+                    <h1 className="text-xl lg:text-2xl font-bold">
                         {t('welcome')}, <span className="text-gradient">{userName}</span>! 👋
                     </h1>
                     <p className="text-neutral-400 mt-1">{t('overview')}</p>
