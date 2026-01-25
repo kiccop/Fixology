@@ -92,7 +92,7 @@ export default function LandingPage() {
             <motion.div variants={fadeInUp}>
               <div className="inline-flex items-center px-5 py-2.5 rounded-full glass-card border-white/10 text-primary-400 text-[12px] font-black tracking-[0.2em] uppercase bg-white/5">
                 <StravaLogo variant="mark" className="w-4 h-4 mr-3" />
-                Integrazione Ufficiale Strava
+                Integrazione con Strava
               </div>
             </motion.div>
 
