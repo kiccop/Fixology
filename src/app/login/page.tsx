@@ -10,7 +10,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Bike, Mail, Lock, Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
-import { Button, Input, Card } from '@/components/ui'
+import { Button, Input, Card, StravaLogo } from '@/components/ui'
 import { createClient } from '@/lib/supabase/client'
 
 const loginSchema = z.object({
@@ -140,17 +140,7 @@ export default function LoginPage() {
 
                     {/* Strava Connect */}
                     <Link href="/api/auth/strava">
-                        <Button
-                            type="button"
-                            variant="secondary"
-                            fullWidth
-                            className="!bg-[#FC4C02]/10 !border-[#FC4C02]/30 hover:!bg-[#FC4C02]/20"
-                        >
-                            <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169" fill="#FC4C02" />
-                            </svg>
-                            {t('loginWithStrava')}
-                        </Button>
+                        <StravaLogo variant="connect-button" className="w-full justify-center shadow-lg transform active:scale-95 transition-all" />
                     </Link>
                 </Card>
 
@@ -161,13 +151,8 @@ export default function LoginPage() {
                     </Link>
                 </p>
 
-                <div className="mt-8 pt-8 border-t border-white/5 flex flex-col items-center gap-3">
-                    <p className="text-[10px] text-neutral-500 uppercase tracking-widest">Integrated with</p>
-                    <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Strava_Logo_2021.svg"
-                        alt="Powered by Strava"
-                        className="h-4 opacity-70 hover:opacity-100 transition-opacity"
-                    />
+                <div className="mt-8 pt-8 border-t border-white/5">
+                    <StravaLogo />
                 </div>
             </motion.div>
         </div>

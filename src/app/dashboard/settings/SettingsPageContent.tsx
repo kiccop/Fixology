@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import Cookies from 'js-cookie'
@@ -16,7 +17,7 @@ import {
     LogOut,
     ExternalLink,
 } from 'lucide-react'
-import { Card, Button, Input, Modal } from '@/components/ui'
+import { Card, Button, Input, Modal, StravaLogo } from '@/components/ui'
 import { createClient } from '@/lib/supabase/client'
 import { formatDistanceToNow } from 'date-fns'
 import { it } from 'date-fns/locale'
@@ -219,9 +220,7 @@ export function SettingsPageContent({
                 <Card>
                     <div className="flex items-center gap-3 mb-6">
                         <div className="w-10 h-10 rounded-xl bg-[#FC4C02]/10 flex items-center justify-center">
-                            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="#FC4C02">
-                                <path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169" />
-                            </svg>
+                            <StravaLogo variant="mark" className="w-5 h-5" />
                         </div>
                         <h2 className="text-lg font-semibold">{t('stravaIntegration')}</h2>
                     </div>
@@ -254,19 +253,14 @@ export function SettingsPageContent({
                             <p className="text-neutral-400 mb-4">
                                 Connetti Strava per importare automaticamente le tue bici e sincronizzare i km
                             </p>
-                            <a href="/api/auth/strava">
-                                <Button className="!bg-[#FC4C02] hover:!bg-[#FC4C02]/80">
-                                    <ExternalLink className="w-4 h-4 mr-2" />
-                                    {tStrava('connect')}
-                                </Button>
-                            </a>
+                            <Link href="/api/auth/strava">
+                                <StravaLogo variant="connect-button" />
+                            </Link>
                         </div>
                     )}
 
-                    <div className="mt-6 pt-6 border-t border-white/5 flex justify-center">
-                        <p className="text-[10px] text-neutral-500 uppercase tracking-widest flex items-center gap-2">
-                            Powered by <span className="font-bold text-[#FC4C02]">Strava</span>
-                        </p>
+                    <div className="mt-6 pt-6 border-t border-white/5">
+                        <StravaLogo />
                     </div>
                 </Card>
             </motion.div>

@@ -17,7 +17,7 @@ import {
     TrendingUp,
     Settings,
 } from 'lucide-react'
-import { Card, CardHeader, Button, ProgressBar, Badge } from '@/components/ui'
+import { Card, CardHeader, Button, ProgressBar, Badge, StravaLogo } from '@/components/ui'
 import { formatDistanceToNow } from 'date-fns'
 import { it } from 'date-fns/locale'
 
@@ -95,14 +95,11 @@ export function DashboardContent({
                 </div>
 
                 {stravaConnected && (
-                    <Button
-                        variant="secondary"
+                    <StravaLogo
+                        variant="sync-button"
                         onClick={handleSync}
                         loading={syncing}
-                        icon={syncing ? undefined : <RefreshCw className="w-4 h-4" />}
-                    >
-                        {syncing ? tStrava('syncing') : tStrava('syncNow')}
-                    </Button>
+                    />
                 )}
             </motion.div>
 
@@ -149,10 +146,7 @@ export function DashboardContent({
                                 </div>
                             </div>
                             <Link href="/api/auth/strava">
-                                <Button className="!bg-[#FC4C02] hover:!bg-[#FC4C02]/80">
-                                    <Zap className="w-4 h-4 mr-2" />
-                                    Connetti Strava
-                                </Button>
+                                <StravaLogo variant="connect-button" />
                             </Link>
                         </div>
                     </Card>
@@ -173,18 +167,8 @@ export function DashboardContent({
                                     </Button>
                                 </Link>
                             </div>
-                            <div className="mt-4 flex flex-col items-end gap-2 pr-2">
-                                <div className="text-[9px] text-neutral-500 uppercase tracking-tighter opacity-70">
-                                    Official Integration Partner
-                                </div>
-                                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/40 border border-[#FC4C02]/20">
-                                    <span className="text-[10px] text-neutral-400 uppercase tracking-widest">Powered by</span>
-                                    <img
-                                        src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Strava_Logo_2021.svg"
-                                        alt="Strava"
-                                        className="h-3.5"
-                                    />
-                                </div>
+                            <div className="mt-4 flex flex-col items-end pr-2">
+                                <StravaLogo className="scale-75 origin-right" />
                             </div>
                         </div>
 
