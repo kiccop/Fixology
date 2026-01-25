@@ -15,10 +15,14 @@ import {
     X,
     User,
     ChevronDown,
+    Key,
+    Loader2,
+    Lock
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
-import { StravaLogo } from '@/components/ui'
+import { toast } from 'sonner'
+import { StravaLogo, Modal, Button, Input } from '@/components/ui'
 import { useEffect } from 'react'
 
 const navItems = [
@@ -39,6 +43,12 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     const [userMenuOpen, setUserMenuOpen] = useState(false)
     const [unreadCount, setUnreadCount] = useState(0)
     const [userName, setUserName] = useState('')
+
+    // Password state
+    const [passwordModalOpen, setPasswordModalOpen] = useState(false)
+    const [newPassword, setNewPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [isUpdatingPassword, setIsUpdatingPassword] = useState(false)
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -91,6 +101,34 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         await supabase.auth.signOut()
         router.push('/login')
         router.refresh()
+    }
+
+    const handleUpdatePassword = async (e: React.FormEvent) => {
+        e.preventDefault()
+        if (newPassword !== confirmPassword) {
+            toast.error('Le password non corrispondono')
+            return
+        }
+        if (newPassword.length < 8) {
+            toast.error('La password deve avere almeno 8 caratteri')
+            return
+        }
+
+        setIsUpdatingPassword(true)
+        try {
+            const { error } = await supabase.auth.updateUser({
+                password: newPassword
+            })
+            if (error) throw error
+            toast.success('Password aggiornata con successo')
+            setPasswordModalOpen(false)
+            setNewPassword('')
+            setConfirmPassword('')
+        } catch (error: any) {
+            toast.error(error.message || 'Errore durante l\'aggiornamento')
+        } finally {
+            setIsUpdatingPassword(false)
+        }
     }
 
     return (
@@ -183,6 +221,18 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                                         exit={{ opacity: 0, y: -10 }}
                                         className="absolute bottom-full left-0 right-0 mb-2 p-2 rounded-xl bg-neutral-800 border border-white/10"
                                     >
+                                        <div className="border-b border-white/5 pb-2 mb-2">
+                                            <button
+                                                onClick={() => {
+                                                    setPasswordModalOpen(true)
+                                                    setUserMenuOpen(false)
+                                                }}
+                                                className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-neutral-300 hover:bg-white/5 transition-colors"
+                                            >
+                                                <Key className="w-4 h-4" />
+                                                <span className="text-sm">Cambia Password</span>
+                                            </button>
+                                        </div>
                                         <button
                                             onClick={handleLogout}
                                             className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-danger-400 hover:bg-danger-500/10 transition-colors"
@@ -238,6 +288,56 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                     <X className="w-6 h-6" />
                 </button>
             )}
+
+            {/* Change Password Modal */}
+            <Modal
+                isOpen={passwordModalOpen}
+                onClose={() => {
+                    if (!isUpdatingPassword) setPasswordModalOpen(false)
+                }}
+                title="Aggiorna password"
+                size="sm"
+            >
+                <form onSubmit={handleUpdatePassword} className="space-y-4">
+                    <Input
+                        label="Nuova Password"
+                        type="password"
+                        placeholder="••••••••"
+                        required
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        leftIcon={<Lock className="w-4 h-4" />}
+                    />
+                    <Input
+                        label="Conferma Password"
+                        type="password"
+                        placeholder="••••••••"
+                        required
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        leftIcon={<Lock className="w-4 h-4" />}
+                    />
+                    <div className="flex gap-3 pt-2">
+                        <Button
+                            variant="ghost"
+                            fullWidth
+                            type="button"
+                            onClick={() => setPasswordModalOpen(false)}
+                            disabled={isUpdatingPassword}
+                        >
+                            Annulla
+                        </Button>
+                        <Button
+                            variant="primary"
+                            fullWidth
+                            type="submit"
+                            loading={isUpdatingPassword}
+                        >
+                            Aggiorna
+                        </Button>
+                    </div>
+                </form>
+            </Modal>
         </div>
     )
 }
