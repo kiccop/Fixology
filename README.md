@@ -8,7 +8,7 @@ Fixology è un'applicazione web moderna per la gestione della manutenzione delle
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
 ![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-green?logo=supabase)
 ![Tailwind](https://img.shields.io/badge/Tailwind-CSS-38B2AC?logo=tailwind-css)
-![License](https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-lightgrey.svg)
+![License](https://img.shields.io/badge/License-Proprietary-red)
 
 ## ✨ Features
 
@@ -154,13 +154,10 @@ Made with ❤️ for cyclists everywhere.
 
 ## 📄 Licenza
 
-Copyright © 2026 Enrico.
+Copyright © 2026 Enrico. Tutti i diritti riservati.
 
-Quest'opera è distribuita con Licenza [Creative Commons Attribuzione - Non commerciale - Non opere derivate 4.0 Internazionale](http://creativecommons.org/licenses/by-nc-nd/4.0/).
+Questo progetto è distribuito con una **licenza proprietaria**. È severamente vietata la copia, la modifica, la ridistribuzione o l'uso commerciale (anche parziale) del codice sorgente senza esplicito permesso scritto del proprietario. 
 
-**Cosa significa in breve:**
-- 👤 **Attribuzione**: Devi citare Enrico come autore originale del progetto.
-- 🚫 **Non commerciale**: Non puoi usare questo progetto per scopi commerciali.
-- 🚫 **Non opere derivate**: Non puoi pubblicare versioni modificate del codice.
+Il codice è reso pubblico su GitHub esclusivamente per scopi di consultazione e portfolio. Ogni abuso verrà perseguito a norma di legge.
 
-Per informazioni o richieste di autorizzazioni extra: [support@fixology.app](mailto:support@fixology.app)
+Per informazioni o richieste di autorizzazione: [support@fixology.app](mailto:support@fixology.app)
