@@ -96,8 +96,9 @@ export function AddMaintenanceModal({
             toast.success(tCommon('success'))
             onClose()
             window.location.reload() // Force refresh to see the new log
-        } catch (error) {
-            toast.error(tCommon('error'))
+        } catch (error: any) {
+            console.error('Save error:', error)
+            toast.error(`Errore salvataggio: ${error.message || 'Controlla la console'}`)
         } finally {
             setLoading(false)
         }
