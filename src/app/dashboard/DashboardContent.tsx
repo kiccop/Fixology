@@ -140,7 +140,7 @@ export function DashboardContent({
                                 <div>
                                     <h3 className="font-semibold text-lg">{tStrava('connect')}</h3>
                                     <p className="text-neutral-400 text-sm">
-                                        {t('overview')}
+                                        {t('connectDescription')}
                                     </p>
                                 </div>
                             </div>

@@ -65,7 +65,11 @@
         "noData": "Nessun dato disponibile",
         "syncWithStrava": "Sincronizza con Strava",
         "lastSync": "Ultima sincronizzazione",
-        "settings": "Impostazioni"
+        "settings": "Impostazioni",
+        "yourBikes": "Le tue bici",
+        "addFirstBike": "Aggiungi la tua prima bici",
+        "allClear": "Tutti i componenti sono in ordine! 🎉",
+        "connectDescription": "Importa le tue bici e sincronizza automaticamente i km"
     },
     "bikes": {
         "title": "Le mie bici",
@@ -90,7 +94,13 @@
             "other": "Altro"
         },
         "deleteConfirm": "Sei sicuro di voler eliminare questa bici?",
-        "deleteWarning": "Questa azione eliminerà anche tutti i componenti e lo storico associati."
+        "deleteWarning": "Questa azione eliminerà anche tutti i componenti e lo storico associati.",
+        "registered": "registrate",
+        "kilometers": "Chilometri",
+        "type": "Tipo",
+        "syncedFromStrava": "Sincronizzata da Strava",
+        "addedManually": "Aggiunta manualmente",
+        "confirmDelete": "Elimina bici"
     },
     "components": {
         "title": "Componenti",

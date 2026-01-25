@@ -17,7 +17,7 @@ import {
     RefreshCw,
     Zap,
 } from 'lucide-react'
-import { Card, Button, Modal, Badge } from '@/components/ui'
+import { Card, Button, Modal, Badge, StravaLogo } from '@/components/ui'
 import { AddBikeModal } from './AddBikeModal'
 import { createClient } from '@/lib/supabase/client'
 
@@ -108,7 +108,7 @@ export function BikesPageContent({ bikes, stravaConnected }: BikesPageContentPro
                 <div>
                     <h1 className="text-2xl lg:text-3xl font-bold">{t('title')}</h1>
                     <p className="text-neutral-400 mt-1">
-                        {bikes.length} {bikes.length === 1 ? 'bici' : 'bici'} registrate
+                        {bikes.length} {t('registered')}
                     </p>
                 </div>
 
@@ -120,7 +120,7 @@ export function BikesPageContent({ bikes, stravaConnected }: BikesPageContentPro
                             loading={syncing}
                             icon={syncing ? undefined : <RefreshCw className="w-4 h-4" />}
                         >
-                            {syncing ? 'Sincronizzazione...' : t('importFromStrava')}
+                            {syncing ? tStrava('syncing') : t('importFromStrava')}
                         </Button>
                     )}
                     <Button onClick={() => setAddModalOpen(true)} icon={<Plus className="w-4 h-4" />}>
@@ -141,17 +141,14 @@ export function BikesPageContent({ bikes, stravaConnected }: BikesPageContentPro
                                     </svg>
                                 </div>
                                 <div>
-                                    <h3 className="font-semibold text-lg">Importa le tue bici da Strava</h3>
+                                    <h3 className="font-semibold text-lg">{t('importFromStrava')}</h3>
                                     <p className="text-neutral-400 text-sm">
-                                        Connetti il tuo account per sincronizzare automaticamente
+                                        {tStrava('autoSyncDescription')}
                                     </p>
                                 </div>
                             </div>
                             <Link href="/api/auth/strava">
-                                <Button className="!bg-[#FC4C02] hover:!bg-[#FC4C02]/80">
-                                    <Zap className="w-4 h-4 mr-2" />
-                                    Connetti Strava
-                                </Button>
+                                <StravaLogo variant="connect-button" />
                             </Link>
                         </div>
                     </Card>
@@ -223,13 +220,13 @@ export function BikesPageContent({ bikes, stravaConnected }: BikesPageContentPro
                                     <div className="space-y-3">
                                         {/* Km */}
                                         <div className="flex items-center justify-between text-sm">
-                                            <span className="text-neutral-400">Chilometri</span>
+                                            <span className="text-neutral-400">{t('kilometers')}</span>
                                             <span className="font-medium">{bike.total_km?.toLocaleString() || 0} km</span>
                                         </div>
 
                                         {/* Components */}
                                         <div className="flex items-center justify-between text-sm">
-                                            <span className="text-neutral-400">Componenti</span>
+                                            <span className="text-neutral-400">{t('components')}</span>
                                             <div className="flex items-center gap-2">
                                                 <span className="font-medium">{stats.total}</span>
                                                 {stats.danger > 0 && (
@@ -243,7 +240,7 @@ export function BikesPageContent({ bikes, stravaConnected }: BikesPageContentPro
 
                                         {/* Frame Type */}
                                         <div className="flex items-center justify-between text-sm">
-                                            <span className="text-neutral-400">Tipo</span>
+                                            <span className="text-neutral-400">{t('type')}</span>
                                             <span className="capitalize">{t(`frameTypes.${bike.frame_type}`)}</span>
                                         </div>
                                     </div>
@@ -251,7 +248,7 @@ export function BikesPageContent({ bikes, stravaConnected }: BikesPageContentPro
                                     <div className="mt-4 pt-4 border-t border-white/5">
                                         <div className="flex items-center justify-between">
                                             <span className="text-xs text-neutral-500">
-                                                {bike.strava_id ? 'Sincronizzata da Strava' : 'Aggiunta manualmente'}
+                                                {bike.strava_id ? t('syncedFromStrava') : t('addedManually')}
                                             </span>
                                             <ChevronRight className="w-4 h-4 text-neutral-500" />
                                         </div>
@@ -276,7 +273,7 @@ export function BikesPageContent({ bikes, stravaConnected }: BikesPageContentPro
                     setDeleteModalOpen(false)
                     setSelectedBike(null)
                 }}
-                title="Elimina bici"
+                title={t('confirmDelete')}
                 size="sm"
             >
                 <div className="space-y-4">

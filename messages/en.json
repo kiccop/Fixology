@@ -68,7 +68,8 @@
         "settings": "Settings",
         "yourBikes": "Your bikes",
         "addFirstBike": "Add your first bike",
-        "allClear": "All components are healthy! 🎉"
+        "allClear": "All components are healthy! 🎉",
+        "connectDescription": "Import your bikes and automatically sync your kilometers"
     },
     "bikes": {
         "title": "My Bikes",
@@ -93,7 +94,13 @@
             "other": "Other"
         },
         "deleteConfirm": "Are you sure you want to delete this bike?",
-        "deleteWarning": "This action will also delete all associated components and history."
+        "deleteWarning": "This action will also delete all associated components and history.",
+        "registered": "registered",
+        "kilometers": "Kilometers",
+        "type": "Type",
+        "syncedFromStrava": "Synced from Strava",
+        "addedManually": "Added manually",
+        "confirmDelete": "Delete bike"
     },
     "components": {
         "title": "Components",

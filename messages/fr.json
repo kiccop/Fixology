@@ -68,7 +68,8 @@
         "settings": "Paramètres",
         "yourBikes": "Mes vélos",
         "addFirstBike": "Ajoutez votre premier vélo",
-        "allClear": "Tous les composants sont en bon état ! 🎉"
+        "allClear": "Tous les composants sont en bon état ! 🎉",
+        "connectDescription": "Importez vos vélos et synchronisez automatiquement vos kilomètres"
     },
     "bikes": {
         "title": "Mes vélos",
@@ -93,7 +94,13 @@
             "other": "Autre"
         },
         "deleteConfirm": "Êtes-vous sûr de vouloir supprimer ce vélo ?",
-        "deleteWarning": "Cette action supprimera également tous les composants et l'historique associés."
+        "deleteWarning": "Cette action supprimera également tous les composants et l'historique associés.",
+        "registered": "vélos enregistrés",
+        "kilometers": "Kilomètres",
+        "type": "Type",
+        "syncedFromStrava": "Synchronisé depuis Strava",
+        "addedManually": "Ajouté manuellement",
+        "confirmDelete": "Supprimer le vélo"
     },
     "components": {
         "title": "Composants",
