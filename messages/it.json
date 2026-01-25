@@ -62,7 +62,8 @@
         "recentActivity": "Attività recente",
         "noData": "Nessun dato disponibile",
         "syncWithStrava": "Sincronizza con Strava",
-        "lastSync": "Ultima sincronizzazione"
+        "lastSync": "Ultima sincronizzazione",
+        "settings": "Impostazioni"
     },
     "bikes": {
         "title": "Le mie bici",
