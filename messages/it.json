@@ -1,0 +1,232 @@
+{
+    "common": {
+        "appName": "Fixology",
+        "tagline": "La tua bici, sempre al massimo",
+        "loading": "Caricamento...",
+        "save": "Salva",
+        "cancel": "Annulla",
+        "delete": "Elimina",
+        "edit": "Modifica",
+        "add": "Aggiungi",
+        "close": "Chiudi",
+        "confirm": "Conferma",
+        "back": "Indietro",
+        "next": "Avanti",
+        "search": "Cerca",
+        "filter": "Filtra",
+        "all": "Tutti",
+        "none": "Nessuno",
+        "yes": "Sì",
+        "no": "No",
+        "or": "oppure",
+        "km": "km",
+        "hours": "ore",
+        "error": "Errore",
+        "success": "Successo"
+    },
+    "auth": {
+        "login": "Accedi",
+        "register": "Registrati",
+        "logout": "Esci",
+        "email": "Email",
+        "password": "Password",
+        "confirmPassword": "Conferma password",
+        "name": "Nome",
+        "forgotPassword": "Password dimenticata?",
+        "noAccount": "Non hai un account?",
+        "hasAccount": "Hai già un account?",
+        "loginWithStrava": "Connetti con Strava",
+        "loginSuccess": "Accesso effettuato con successo",
+        "registerSuccess": "Registrazione completata. Controlla la tua email.",
+        "invalidCredentials": "Credenziali non valide",
+        "emailRequired": "L'email è obbligatoria",
+        "passwordRequired": "La password è obbligatoria",
+        "passwordMinLength": "La password deve avere almeno 8 caratteri",
+        "passwordsNotMatch": "Le password non corrispondono",
+        "nameRequired": "Il nome è obbligatorio"
+    },
+    "nav": {
+        "dashboard": "Dashboard",
+        "bikes": "Le mie bici",
+        "settings": "Impostazioni",
+        "notifications": "Notifiche",
+        "profile": "Profilo"
+    },
+    "dashboard": {
+        "welcome": "Bentornato",
+        "overview": "Panoramica",
+        "totalBikes": "Bici totali",
+        "totalKm": "Km totali",
+        "componentsToCheck": "Componenti da controllare",
+        "upcomingMaintenance": "Manutenzioni in arrivo",
+        "recentActivity": "Attività recente",
+        "noData": "Nessun dato disponibile",
+        "syncWithStrava": "Sincronizza con Strava",
+        "lastSync": "Ultima sincronizzazione"
+    },
+    "bikes": {
+        "title": "Le mie bici",
+        "addBike": "Aggiungi bici",
+        "importFromStrava": "Importa da Strava",
+        "noBikes": "Nessuna bici registrata",
+        "noBikesDescription": "Aggiungi la tua prima bici o importala da Strava",
+        "bikeName": "Nome bici",
+        "brand": "Marca",
+        "model": "Modello",
+        "frameType": "Tipo telaio",
+        "totalKm": "Km totali",
+        "components": "Componenti",
+        "history": "Storico",
+        "primary": "Principale",
+        "frameTypes": {
+            "road": "Strada",
+            "mtb": "Mountain Bike",
+            "gravel": "Gravel",
+            "city": "Città",
+            "ebike": "E-Bike",
+            "other": "Altro"
+        },
+        "deleteConfirm": "Sei sicuro di voler eliminare questa bici?",
+        "deleteWarning": "Questa azione eliminerà anche tutti i componenti e lo storico associati."
+    },
+    "components": {
+        "title": "Componenti",
+        "addComponent": "Aggiungi componente",
+        "noComponents": "Nessun componente",
+        "noComponentsDescription": "Aggiungi i componenti della tua bici per monitorarne l'usura",
+        "selectType": "Seleziona tipo",
+        "customComponent": "Componente personalizzato",
+        "installDate": "Data installazione",
+        "installKm": "Km all'installazione",
+        "installHours": "Ore all'installazione",
+        "thresholdKm": "Soglia km",
+        "thresholdHours": "Soglia ore",
+        "currentKm": "Km attuali",
+        "currentHours": "Ore attuali",
+        "wearLevel": "Livello usura",
+        "notes": "Note",
+        "status": {
+            "ok": "OK",
+            "warning": "Attenzione",
+            "danger": "Da sostituire",
+            "replaced": "Sostituito"
+        },
+        "types": {
+            "chain": "Catena",
+            "cassette": "Cassetta pignoni",
+            "chainring": "Corona/Guarnitura",
+            "tire_front": "Pneumatico anteriore",
+            "tire_rear": "Pneumatico posteriore",
+            "brake_pads": "Pastiglie freno",
+            "brake_cable": "Cavi freno",
+            "shift_cable": "Cavi cambio",
+            "jockey_wheels": "Pulegge cambio",
+            "bar_tape": "Nastro manubrio",
+            "bottom_bracket": "Movimento centrale",
+            "cleats": "Tacchette",
+            "suspension_fork": "Forcella ammortizzata",
+            "rear_shock": "Ammortizzatore",
+            "handlebar": "Manubrio",
+            "saddle": "Sella",
+            "pedals": "Pedali",
+            "hubs": "Mozzi",
+            "wheels": "Ruote",
+            "dropper_post": "Reggisella telescopico",
+            "custom": "Personalizzato"
+        },
+        "markAsReplaced": "Segna come sostituito",
+        "resetComponent": "Azzera contatore"
+    },
+    "maintenance": {
+        "title": "Storico manutenzioni",
+        "addEntry": "Aggiungi voce",
+        "noHistory": "Nessuna manutenzione registrata",
+        "date": "Data",
+        "action": "Azione",
+        "kmAtAction": "Km al momento",
+        "cost": "Costo",
+        "actions": {
+            "installed": "Installato",
+            "maintained": "Manutenuto",
+            "replaced": "Sostituito",
+            "inspected": "Ispezionato"
+        }
+    },
+    "strava": {
+        "connected": "Connesso a Strava",
+        "notConnected": "Non connesso a Strava",
+        "connect": "Connetti Strava",
+        "disconnect": "Disconnetti",
+        "syncNow": "Sincronizza ora",
+        "syncing": "Sincronizzazione in corso...",
+        "syncSuccess": "Sincronizzazione completata",
+        "syncError": "Errore durante la sincronizzazione",
+        "bikesImported": "{count} bici importate",
+        "lastSynced": "Ultima sincronizzazione: {date}",
+        "autoSync": "Sincronizzazione automatica",
+        "autoSyncDescription": "Sincronizza automaticamente i km ad ogni accesso"
+    },
+    "settings": {
+        "title": "Impostazioni",
+        "account": "Account",
+        "language": "Lingua",
+        "notifications": "Notifiche",
+        "emailNotifications": "Notifiche email",
+        "pushNotifications": "Notifiche push",
+        "theme": "Tema",
+        "darkMode": "Modalità scura",
+        "deleteAccount": "Elimina account",
+        "deleteAccountWarning": "Questa azione è irreversibile. Tutti i tuoi dati verranno eliminati permanentemente.",
+        "stravaIntegration": "Integrazione Strava",
+        "units": "Unità di misura",
+        "metric": "Metrico (km)",
+        "imperial": "Imperiale (mi)"
+    },
+    "notifications": {
+        "title": "Notifiche",
+        "noNotifications": "Nessuna notifica",
+        "markAllRead": "Segna tutte come lette",
+        "maintenanceNeeded": "Manutenzione necessaria",
+        "componentWorn": "{component} su {bike} ha raggiunto la soglia di usura",
+        "bikeSynced": "Bici sincronizzate da Strava"
+    },
+    "landing": {
+        "hero": {
+            "title": "La tua bici,",
+            "titleHighlight": "sempre al massimo",
+            "subtitle": "Monitora l'usura dei componenti, ricevi notifiche di manutenzione e connetti Strava per sincronizzare automaticamente i tuoi km.",
+            "cta": "Inizia gratis",
+            "secondaryCta": "Scopri di più"
+        },
+        "features": {
+            "title": "Tutto ciò di cui hai bisogno",
+            "sync": {
+                "title": "Sincronizzazione Strava",
+                "description": "Connetti il tuo account Strava e importa automaticamente le tue bici con i km aggiornati."
+            },
+            "components": {
+                "title": "Gestione Componenti",
+                "description": "Monitora l'usura di catena, cassetta, freni e tutti i componenti della tua bici."
+            },
+            "alerts": {
+                "title": "Notifiche Smart",
+                "description": "Ricevi avvisi quando un componente necessita di manutenzione o sostituzione."
+            },
+            "history": {
+                "title": "Storico Completo",
+                "description": "Tieni traccia di tutte le manutenzioni e i costi per ogni bici."
+            }
+        },
+        "cta": {
+            "title": "Pronto a pedalare senza pensieri?",
+            "subtitle": "Unisciti a migliaia di ciclisti che mantengono le loro bici al top.",
+            "button": "Crea account gratuito"
+        }
+    },
+    "errors": {
+        "generic": "Si è verificato un errore. Riprova più tardi.",
+        "notFound": "Pagina non trovata",
+        "unauthorized": "Accesso non autorizzato",
+        "networkError": "Errore di connessione"
+    }
+}

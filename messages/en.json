@@ -1,0 +1,232 @@
+{
+    "common": {
+        "appName": "Fixology",
+        "tagline": "Your bike, always at its best",
+        "loading": "Loading...",
+        "save": "Save",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "edit": "Edit",
+        "add": "Add",
+        "close": "Close",
+        "confirm": "Confirm",
+        "back": "Back",
+        "next": "Next",
+        "search": "Search",
+        "filter": "Filter",
+        "all": "All",
+        "none": "None",
+        "yes": "Yes",
+        "no": "No",
+        "or": "or",
+        "km": "km",
+        "hours": "hours",
+        "error": "Error",
+        "success": "Success"
+    },
+    "auth": {
+        "login": "Login",
+        "register": "Sign Up",
+        "logout": "Logout",
+        "email": "Email",
+        "password": "Password",
+        "confirmPassword": "Confirm password",
+        "name": "Name",
+        "forgotPassword": "Forgot password?",
+        "noAccount": "Don't have an account?",
+        "hasAccount": "Already have an account?",
+        "loginWithStrava": "Connect with Strava",
+        "loginSuccess": "Login successful",
+        "registerSuccess": "Registration complete. Check your email.",
+        "invalidCredentials": "Invalid credentials",
+        "emailRequired": "Email is required",
+        "passwordRequired": "Password is required",
+        "passwordMinLength": "Password must be at least 8 characters",
+        "passwordsNotMatch": "Passwords do not match",
+        "nameRequired": "Name is required"
+    },
+    "nav": {
+        "dashboard": "Dashboard",
+        "bikes": "My Bikes",
+        "settings": "Settings",
+        "notifications": "Notifications",
+        "profile": "Profile"
+    },
+    "dashboard": {
+        "welcome": "Welcome back",
+        "overview": "Overview",
+        "totalBikes": "Total bikes",
+        "totalKm": "Total km",
+        "componentsToCheck": "Components to check",
+        "upcomingMaintenance": "Upcoming maintenance",
+        "recentActivity": "Recent activity",
+        "noData": "No data available",
+        "syncWithStrava": "Sync with Strava",
+        "lastSync": "Last sync"
+    },
+    "bikes": {
+        "title": "My Bikes",
+        "addBike": "Add bike",
+        "importFromStrava": "Import from Strava",
+        "noBikes": "No bikes registered",
+        "noBikesDescription": "Add your first bike or import from Strava",
+        "bikeName": "Bike name",
+        "brand": "Brand",
+        "model": "Model",
+        "frameType": "Frame type",
+        "totalKm": "Total km",
+        "components": "Components",
+        "history": "History",
+        "primary": "Primary",
+        "frameTypes": {
+            "road": "Road",
+            "mtb": "Mountain Bike",
+            "gravel": "Gravel",
+            "city": "City",
+            "ebike": "E-Bike",
+            "other": "Other"
+        },
+        "deleteConfirm": "Are you sure you want to delete this bike?",
+        "deleteWarning": "This action will also delete all associated components and history."
+    },
+    "components": {
+        "title": "Components",
+        "addComponent": "Add component",
+        "noComponents": "No components",
+        "noComponentsDescription": "Add components to your bike to monitor their wear",
+        "selectType": "Select type",
+        "customComponent": "Custom component",
+        "installDate": "Install date",
+        "installKm": "Km at install",
+        "installHours": "Hours at install",
+        "thresholdKm": "Km threshold",
+        "thresholdHours": "Hours threshold",
+        "currentKm": "Current km",
+        "currentHours": "Current hours",
+        "wearLevel": "Wear level",
+        "notes": "Notes",
+        "status": {
+            "ok": "OK",
+            "warning": "Warning",
+            "danger": "Replace",
+            "replaced": "Replaced"
+        },
+        "types": {
+            "chain": "Chain",
+            "cassette": "Cassette",
+            "chainring": "Chainring",
+            "tire_front": "Front tire",
+            "tire_rear": "Rear tire",
+            "brake_pads": "Brake pads",
+            "brake_cable": "Brake cables",
+            "shift_cable": "Shift cables",
+            "jockey_wheels": "Jockey wheels",
+            "bar_tape": "Bar tape",
+            "bottom_bracket": "Bottom bracket",
+            "cleats": "Cleats",
+            "suspension_fork": "Suspension fork",
+            "rear_shock": "Rear shock",
+            "handlebar": "Handlebar",
+            "saddle": "Saddle",
+            "pedals": "Pedals",
+            "hubs": "Hubs",
+            "wheels": "Wheels",
+            "dropper_post": "Dropper post",
+            "custom": "Custom"
+        },
+        "markAsReplaced": "Mark as replaced",
+        "resetComponent": "Reset counter"
+    },
+    "maintenance": {
+        "title": "Maintenance history",
+        "addEntry": "Add entry",
+        "noHistory": "No maintenance recorded",
+        "date": "Date",
+        "action": "Action",
+        "kmAtAction": "Km at time",
+        "cost": "Cost",
+        "actions": {
+            "installed": "Installed",
+            "maintained": "Maintained",
+            "replaced": "Replaced",
+            "inspected": "Inspected"
+        }
+    },
+    "strava": {
+        "connected": "Connected to Strava",
+        "notConnected": "Not connected to Strava",
+        "connect": "Connect Strava",
+        "disconnect": "Disconnect",
+        "syncNow": "Sync now",
+        "syncing": "Syncing...",
+        "syncSuccess": "Sync completed",
+        "syncError": "Sync error",
+        "bikesImported": "{count} bikes imported",
+        "lastSynced": "Last synced: {date}",
+        "autoSync": "Auto sync",
+        "autoSyncDescription": "Automatically sync km on each login"
+    },
+    "settings": {
+        "title": "Settings",
+        "account": "Account",
+        "language": "Language",
+        "notifications": "Notifications",
+        "emailNotifications": "Email notifications",
+        "pushNotifications": "Push notifications",
+        "theme": "Theme",
+        "darkMode": "Dark mode",
+        "deleteAccount": "Delete account",
+        "deleteAccountWarning": "This action is irreversible. All your data will be permanently deleted.",
+        "stravaIntegration": "Strava Integration",
+        "units": "Units",
+        "metric": "Metric (km)",
+        "imperial": "Imperial (mi)"
+    },
+    "notifications": {
+        "title": "Notifications",
+        "noNotifications": "No notifications",
+        "markAllRead": "Mark all as read",
+        "maintenanceNeeded": "Maintenance needed",
+        "componentWorn": "{component} on {bike} has reached the wear threshold",
+        "bikeSynced": "Bikes synced from Strava"
+    },
+    "landing": {
+        "hero": {
+            "title": "Your bike,",
+            "titleHighlight": "always at its best",
+            "subtitle": "Monitor component wear, receive maintenance notifications, and connect Strava to automatically sync your kilometers.",
+            "cta": "Get started free",
+            "secondaryCta": "Learn more"
+        },
+        "features": {
+            "title": "Everything you need",
+            "sync": {
+                "title": "Strava Sync",
+                "description": "Connect your Strava account and automatically import your bikes with updated kilometers."
+            },
+            "components": {
+                "title": "Component Management",
+                "description": "Monitor wear on chains, cassettes, brakes, and all your bike components."
+            },
+            "alerts": {
+                "title": "Smart Notifications",
+                "description": "Get alerts when a component needs maintenance or replacement."
+            },
+            "history": {
+                "title": "Complete History",
+                "description": "Keep track of all maintenance and costs for each bike."
+            }
+        },
+        "cta": {
+            "title": "Ready to ride worry-free?",
+            "subtitle": "Join thousands of cyclists who keep their bikes in top shape.",
+            "button": "Create free account"
+        }
+    },
+    "errors": {
+        "generic": "An error occurred. Please try again later.",
+        "notFound": "Page not found",
+        "unauthorized": "Unauthorized access",
+        "networkError": "Connection error"
+    }
+}
