@@ -55,12 +55,12 @@ export default function LandingPage() {
           {/* Desktop Auth */}
           <div className="hidden md:flex items-center gap-4">
             <Link href="/login">
-              <Button variant="ghost" className="hover:text-blue-400 transition-colors">
+              <Button variant="ghost" className="hover:text-primary-400 transition-colors">
                 {tCommon('back')}
               </Button>
             </Link>
             <Link href="/register">
-              <Button className="!bg-white !text-black hover:!bg-neutral-200 shadow-xl">
+              <Button className="!bg-white !text-black hover:!bg-neutral-200 shadow-xl font-bold uppercase italic tracking-tighter">
                 {t('cta.button')}
               </Button>
             </Link>
@@ -68,41 +68,38 @@ export default function LandingPage() {
         </div>
       </nav>
 
-      {/* Hero Section - Cinematic Professional */}
-      <section className="relative min-h-[100vh] flex items-center pt-20 overflow-hidden">
+      {/* Hero Section - Centered & Impactful */}
+      <section className="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden text-center">
         {/* Dynamic Background */}
         <div className="absolute inset-0 z-0">
-          <div className="absolute top-0 right-0 w-[50%] h-full opacity-40 md:opacity-100 pointer-events-none">
-            {/* Using the generated professional image as a visual anchor */}
-            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-neutral-950 to-neutral-950 z-10" />
-            <img
-              src="https://images.unsplash.com/photo-1541625602330-2277a1cd13a2?q=80&w=2070&auto=format&fit=crop"
-              alt="Bicycle detail"
-              className="w-full h-full object-cover grayscale-[30%] brightness-75 contrast-125"
-            />
-          </div>
-          <div className="absolute inset-0 mesh-gradient opacity-60" />
+          <div className="absolute inset-0 bg-neutral-950/40 z-10" />
+          <img
+            src="https://images.unsplash.com/photo-1541625602330-2277a1cd13a2?q=80&w=2070&auto=format&fit=crop"
+            alt="Bicycle detail"
+            className="w-full h-full object-cover grayscale-[30%] brightness-[0.3] contrast-125 scale-110 blur-[2px]"
+          />
+          <div className="absolute inset-0 mesh-gradient opacity-40" />
         </div>
 
-        <div className="relative z-20 max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+        <div className="relative z-20 max-w-4xl mx-auto px-6">
           <motion.div
             initial="initial"
             animate="animate"
             variants={staggerContainer}
-            className="space-y-8"
+            className="flex flex-col items-center space-y-10"
           >
             {/* Official Partner Badge */}
             <motion.div variants={fadeInUp}>
-              <div className="inline-flex items-center px-4 py-2 rounded-full glass-card border-white/10 text-primary-400 text-[13px] font-bold tracking-widest uppercase">
+              <div className="inline-flex items-center px-5 py-2.5 rounded-full glass-card border-white/10 text-primary-400 text-[12px] font-black tracking-[0.2em] uppercase bg-white/5">
                 <StravaLogo variant="mark" className="w-4 h-4 mr-3" />
-                INTEGRAZIONE UFFICIALE STRAVA
+                Integrazione Ufficiale Strava
               </div>
             </motion.div>
 
             {/* Main Catchphrase */}
             <motion.h1
               variants={fadeInUp}
-              className="text-6xl sm:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tighter uppercase italic"
+              className="text-6xl sm:text-8xl lg:text-9xl font-black leading-[0.8] tracking-tighter uppercase italic"
             >
               Ride <br />
               <span className="text-gradient">Limitless.</span>
@@ -110,7 +107,7 @@ export default function LandingPage() {
 
             <motion.p
               variants={fadeInUp}
-              className="text-xl text-neutral-400 max-w-lg leading-relaxed font-medium"
+              className="text-xl md:text-2xl text-neutral-300 max-w-2xl leading-relaxed font-medium"
             >
               {t('hero.subtitle')}
             </motion.p>
@@ -118,15 +115,15 @@ export default function LandingPage() {
             {/* Action Group */}
             <motion.div
               variants={fadeInUp}
-              className="flex flex-wrap gap-4 pt-4"
+              className="flex flex-col sm:flex-row gap-5 pt-4 w-full sm:w-auto"
             >
               <Link href="/register">
-                <Button size="lg" className="h-16 px-10 text-lg shadow-2xl shadow-primary-600/30" icon={<ArrowRight className="w-6 h-6" />} iconPosition="right">
+                <Button size="lg" className="h-16 px-12 text-xl shadow-2xl shadow-primary-600/30 uppercase italic font-black" icon={<ArrowRight className="w-6 h-6" />} iconPosition="right">
                   {t('hero.cta')}
                 </Button>
               </Link>
               <a href="#features">
-                <Button variant="secondary" size="lg" className="h-16 px-10 text-lg border-white/10 hover:bg-white/5">
+                <Button variant="secondary" size="lg" className="h-16 px-12 text-xl border-white/10 hover:bg-white/5 uppercase italic font-bold">
                   {t('hero.secondaryCta')}
                 </Button>
               </a>
@@ -135,16 +132,16 @@ export default function LandingPage() {
             {/* Social Proof / Stats */}
             <motion.div
               variants={fadeInUp}
-              className="pt-10 flex items-center gap-8 border-t border-white/5 max-w-sm"
+              className="pt-12 flex items-center justify-center gap-12 border-t border-white/5 w-full max-w-md"
             >
-              <div>
+              <div className="text-center">
                 <div className="text-3xl font-black text-white italic tracking-tighter">100%</div>
-                <div className="text-[11px] uppercase tracking-widest text-neutral-500 font-bold">Cloud Sync</div>
+                <div className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold">Cloud Sync</div>
               </div>
               <div className="w-[1px] h-10 bg-white/10" />
-              <div>
+              <div className="text-center">
                 <div className="text-3xl font-black text-white italic tracking-tighter">∞</div>
-                <div className="text-[11px] uppercase tracking-widest text-neutral-500 font-bold">Limit Bici</div>
+                <div className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold">Limit Bici</div>
               </div>
             </motion.div>
           </motion.div>
@@ -152,8 +149,8 @@ export default function LandingPage() {
 
         {/* Scroll Hint */}
         <motion.div
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40"
-          animate={{ y: [0, 10, 0] }}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30"
+          animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
           <span className="text-[9px] uppercase tracking-[0.4em] font-black italic">Discover More</span>
@@ -161,22 +158,20 @@ export default function LandingPage() {
         </motion.div>
       </section>
 
-      {/* Features Grid - Minimalist & Balanced */}
-      <section id="features" className="py-32 relative overflow-hidden bg-white/2">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
-            <div className="max-w-xl">
-              <span className="text-primary-500 text-[11px] font-black uppercase tracking-[0.3em] mb-4 block italic">Engineering Precision</span>
-              <h2 className="text-4xl sm:text-5xl font-black tracking-tighter uppercase italic leading-tight">
-                {t('features.title')}
-              </h2>
-            </div>
-            <p className="text-neutral-500 font-medium md:mb-2 italic max-w-xs">
+      {/* Features Grid - Centered & Symmetrical */}
+      <section id="features" className="py-32 relative overflow-hidden bg-neutral-900/20">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <div className="max-w-3xl mx-auto mb-24">
+            <span className="text-primary-500 text-[11px] font-black uppercase tracking-[0.3em] mb-4 block italic">Engineering Precision</span>
+            <h2 className="text-5xl sm:text-6xl font-black tracking-tighter uppercase italic leading-none mb-6">
+              {t('features.title')}
+            </h2>
+            <p className="text-neutral-500 font-medium italic text-lg">
               Sviluppato per ciclisti che esigono il massimo dalla propria meccanica.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               {
                 icon: RefreshCw,
@@ -211,18 +206,18 @@ export default function LandingPage() {
                 transition={{ delay: i * 0.1 }}
                 className="group"
               >
-                <div className="glass-card h-full p-8 glass-card-hover transition-all duration-500 border-white/5 group-hover:border-primary-500/20">
-                  <div className={`w-14 h-14 rounded-2xl bg-neutral-800 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500`}>
-                    <feature.icon className={`w-7 h-7 ${feature.color}`} />
+                <div className="glass-card h-full p-10 glass-card-hover transition-all duration-500 border-white/5 group-hover:border-primary-500/20 text-center flex flex-col items-center">
+                  <div className={`w-16 h-16 rounded-2xl bg-neutral-800 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500`}>
+                    <feature.icon className={`w-8 h-8 ${feature.color}`} />
                   </div>
-                  <h3 className="text-xl font-bold mb-3 tracking-tight italic uppercase">{feature.title}</h3>
-                  <p className="text-neutral-500 text-[15px] leading-relaxed mb-6 font-medium line-clamp-3">
+                  <h3 className="text-2xl font-bold mb-4 tracking-tight italic uppercase">{feature.title}</h3>
+                  <p className="text-neutral-500 text-sm leading-relaxed font-medium mb-8">
                     {feature.description}
                   </p>
 
                   {feature.title === t('features.sync.title') && (
-                    <div className="pt-4 border-t border-white/5">
-                      <StravaLogo className="!items-start opacity-70 group-hover:opacity-100 transition-opacity" />
+                    <div className="pt-6 border-t border-white/5 w-full flex justify-center">
+                      <StravaLogo className="opacity-70 group-hover:opacity-100 transition-opacity" />
                     </div>
                   )}
                 </div>
@@ -232,145 +227,89 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* How It Works - Process Flow Look */}
-      <section className="py-32 relative bg-black">
+      {/* How It Works - Elegant Flow */}
+      <section className="py-32 relative bg-black text-center">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid lg:grid-cols-12 gap-16 items-center">
-            <div className="lg:col-span-4 lg:sticky lg:top-32 h-fit space-y-6">
-              <span className="text-primary-500 text-[11px] font-black uppercase tracking-[0.3em] italic">Step by Step</span>
-              <h2 className="text-5xl font-black tracking-tighter uppercase italic leading-none">Ready in <br /> Seconds.</h2>
-              <p className="text-neutral-500 font-medium leading-relaxed italic">
-                Il setup è immediato. Accedi, connetti e lascia che Fixology faccia il lavoro sporco per te.
-              </p>
-              <Link href="/register" className="inline-block pt-4">
-                <div className="flex items-center gap-3 text-white font-black uppercase text-sm italic tracking-widest group cursor-pointer hover:text-primary-400 transition-colors">
-                  Get Started <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
-                </div>
-              </Link>
-            </div>
-
-            <div className="lg:col-span-8 space-y-6">
-              {[
-                {
-                  id: "01",
-                  title: "Cloud Connection",
-                  desc: "Collega Strava e importa anni di pedalate in frazioni di secondo.",
-                  icon: Globe
-                },
-                {
-                  id: "02",
-                  title: "Component Stack",
-                  desc: "Definisci le soglie di usura per ogni cuscinetto, catena o pneumatico.",
-                  icon: Settings
-                },
-                {
-                  id: "03",
-                  title: "Smart Monitoring",
-                  desc: "Ricevi push-notifications prima che un guasto rovini la tua uscita domenicale.",
-                  icon: Bell
-                }
-              ].map((step, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="flex gap-8 p-10 rounded-[32px] bg-neutral-900/50 border border-white/5 hover:border-white/10 transition-colors group"
-                >
-                  <div className="text-6xl font-black italic tracking-tighter text-neutral-800 opacity-50 group-hover:text-primary-500 transition-colors">{step.id}</div>
-                  <div className="space-y-2">
-                    <h3 className="text-2xl font-black uppercase italic tracking-tight flex items-center gap-3">
-                      <step.icon className="w-6 h-6 text-primary-500" />
-                      {step.title}
-                    </h3>
-                    <p className="text-neutral-500 font-medium leading-relaxed italic pr-12">{step.desc}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+          <div className="max-w-3xl mx-auto mb-20">
+            <span className="text-primary-500 text-[11px] font-black uppercase tracking-[0.3em] italic mb-4 block">Step by Step</span>
+            <h2 className="text-6xl font-black tracking-tighter uppercase italic leading-none">Ready in Seconds.</h2>
           </div>
-        </div>
-      </section>
 
-      {/* Security & Benefits - Enterprise Aesthetic */}
-      <section className="py-32 relative overflow-hidden bg-neutral-950">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="glass-card p-12 lg:p-20 relative overflow-hidden bg-gradient-to-br from-neutral-900 to-neutral-950 border-white/10">
-            {/* Background Accent */}
-            <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-primary-500/10 rounded-full blur-[100px] pointer-events-none" />
-
-            <div className="grid lg:grid-cols-2 gap-20 items-center relative z-10">
-              <div className="space-y-12">
-                <div className="space-y-4">
-                  <h2 className="text-4xl lg:text-5xl font-black tracking-tighter uppercase italic leading-none">
-                    Massima <br /> <span className="text-gradient">Affidabilità.</span>
-                  </h2>
-                  <p className="text-neutral-400 font-medium leading-relaxed italic">
-                    I tuoi dati sono protetti da crittografia end-to-end e monitorati costantemente tramite Supabase e Vercel Cloud Infrastructure.
-                  </p>
-                </div>
-
-                <div className="grid gap-6">
-                  {[
-                    { icon: Lock, text: "Privacy garantita dei tuoi percorsi" },
-                    { icon: Shield, text: "Infrastruttura di grado Enterprise" },
-                    { icon: CheckCircle2, text: "Sincronizzazione in tempo reale" }
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-center gap-4 group">
-                      <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-primary-500/20 transition-colors border border-white/5">
-                        <item.icon className="w-5 h-5 text-primary-400" />
-                      </div>
-                      <span className="font-bold uppercase tracking-tight italic text-neutral-300 group-hover:text-white transition-colors">{item.text}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Graphical Visual */}
-              <div className="relative">
-                <div className="aspect-square glass-card bg-neutral-900/80 border-white/20 flex flex-col items-center justify-center p-12 text-center group overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                  <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-primary-500 to-secondary-600 flex items-center justify-center mb-8 shadow-[0_0_50px_rgba(255,107,53,0.3)] animate-pulse">
-                    <Bike className="w-12 h-12 text-white" />
-                  </div>
-                  <h3 className="text-3xl font-black italic uppercase tracking-tighter mb-4">Live Dashboard</h3>
-                  <p className="text-neutral-500 font-bold uppercase tracking-widest text-[10px]">Ready for exploration</p>
-                </div>
-              </div>
-            </div>
+          <div className="grid md:grid-cols-3 gap-12">
+            {[
+              {
+                id: "01",
+                title: "Cloud Connection",
+                desc: "Collega Strava e importa anni di pedalate in frazioni di secondo.",
+                icon: Globe
+              },
+              {
+                id: "02",
+                title: "Component Stack",
+                desc: "Definisci le soglie di usura per ogni cuscinetto, catena o pneumatico.",
+                icon: Settings
+              },
+              {
+                id: "03",
+                title: "Smart Monitoring",
+                desc: "Ricevi push-notifications prima che un guasto rovini la tua uscita domenicale.",
+                icon: Bell
+              }
+            ].map((step, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="flex flex-col items-center space-y-6"
+              >
+                <div className="text-7xl font-black italic tracking-tighter text-neutral-800 opacity-30">{step.id}</div>
+                <div className="w-16 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full" />
+                <h3 className="text-2xl font-black uppercase italic tracking-tight flex items-center gap-3">
+                  {step.title}
+                </h3>
+                <p className="text-neutral-500 font-medium leading-relaxed italic max-w-xs">{step.desc}</p>
+              </motion.div>
+            ))}
           </div>
+
+          <Link href="/register" className="inline-block mt-20">
+            <div className="flex items-center gap-4 text-white font-black uppercase text-lg italic tracking-widest group cursor-pointer hover:text-primary-400 transition-colors">
+              Get Started Now <ArrowRight className="w-6 h-6 group-hover:translate-x-3 transition-transform" />
+            </div>
+          </Link>
         </div>
       </section>
 
       {/* Modern CTA Footer */}
-      <section className="py-40 relative bg-neutral-950 flex flex-col items-center justify-center text-center overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary-500/5 rounded-full blur-[200px] pointer-events-none" />
+      <section className="py-48 relative bg-neutral-950 flex flex-col items-center justify-center text-center overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-primary-500/5 rounded-full blur-[200px] pointer-events-none" />
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-4xl px-6 space-y-10 relative z-10"
+          className="max-w-4xl px-6 space-y-12 relative z-10"
         >
-          <h2 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase italic leading-[0.8]">
+          <h2 className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter uppercase italic leading-[0.8]">
             Don&apos;t Just Ride. <br />
             <span className="text-gradient">Optimize.</span>
           </h2>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+          <div className="flex justify-center">
             <Link href="/register">
-              <Button size="lg" className="h-20 px-12 text-xl font-black shadow-2xl uppercase italic tracking-tighter">
+              <Button size="lg" className="h-20 px-16 text-2xl font-black shadow-2xl uppercase italic tracking-tighter">
                 {t('cta.button')}
               </Button>
             </Link>
           </div>
-          <p className="text-neutral-600 font-bold uppercase tracking-[0.5em] text-xs pt-4">Free Forever for Individual Riders</p>
+          <p className="text-neutral-600 font-bold uppercase tracking-[0.6em] text-[10px] pt-4">Free Access for Individual Riders</p>
         </motion.div>
       </section>
 
       {/* Footer Minimalist */}
       <footer className="py-20 border-t border-white/5 bg-neutral-950">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-12">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-12 text-center md:text-left">
           <div className="flex flex-col gap-4 items-center md:items-start">
             <div className="flex items-center gap-3 opacity-80">
               <div className="w-8 h-8 rounded-lg bg-neutral-800 flex items-center justify-center">
@@ -391,3 +330,4 @@ export default function LandingPage() {
     </div>
   )
 }
+

@@ -205,35 +205,35 @@
     },
     "landing": {
         "hero": {
-            "title": "Votre vélo,",
-            "titleHighlight": "toujours au top",
-            "subtitle": "Surveillez l'usure des composants, recevez des notifications d'entretien et connectez Strava pour synchroniser automatiquement vos kilomètres.",
-            "cta": "Commencer gratuitement",
-            "secondaryCta": "En savoir plus"
+            "title": "L'ingénierie au service de votre",
+            "titleHighlight": "Performance.",
+            "subtitle": "La plateforme d'analyse cycliste avancée. Synchronisez Strava, analysez l'usure des composants et prévenez les pannes mécaniques.",
+            "cta": "Commencer maintenant",
+            "secondaryCta": "Explorer les fonctions"
         },
         "features": {
-            "title": "Tout ce dont vous avez besoin",
+            "title": "Précision Mécanique",
             "sync": {
-                "title": "Sync Strava",
-                "description": "Connectez votre compte Strava et importez automatiquement vos vélos avec les kilomètres mis à jour."
+                "title": "Cloud Sync",
+                "description": "Intégration native de l'API Strava pour l'importation instantanée de la flotte et du kilométrage."
             },
             "components": {
-                "title": "Gestion des composants",
-                "description": "Surveillez l'usure des chaînes, cassettes, freins et tous les composants de votre vélo."
+                "title": "Asset Management",
+                "description": "Surveillance granulaire de la chaîne, de la transmission et des freins avec des algorithmes d'usure personnalisés."
             },
             "alerts": {
-                "title": "Notifications intelligentes",
-                "description": "Recevez des alertes lorsqu'un composant nécessite un entretien ou un remplacement."
+                "title": "Smart Monitoring",
+                "description": "Notifications push préventives basées sur des seuils de stress mécanique définis par l'utilisateur."
             },
             "history": {
-                "title": "Historique complet",
-                "description": "Gardez une trace de tous les entretiens et coûts pour chaque vélo."
+                "title": "Service Ledger",
+                "description": "Journal complet de l'entretien et des coûts pour une gestion totale de votre vélo."
             }
         },
         "cta": {
-            "title": "Prêt à rouler sans souci ?",
-            "subtitle": "Rejoignez des milliers de cyclistes qui maintiennent leurs vélos au top.",
-            "button": "Créer un compte gratuit"
+            "title": "L'avenir de la gestion cycliste.",
+            "subtitle": "Rejoignez le réseau Fixology et éliminez les incertitudes. Maîtrisez votre mécanique pour votre prochain défi.",
+            "button": "Créer votre compte"
         }
     },
     "errors": {

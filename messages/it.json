@@ -208,7 +208,7 @@
             "title": "Ingegneria al servizio della tua",
             "titleHighlight": "Performance.",
             "subtitle": "La piattaforma avanzata per il monitoraggio meccanico. Sincronizza Strava, analizza l'usura dei componenti e previeni ogni guasto.",
-            "cta": "Inizia la prova gratuita",
+            "cta": "Inizia ora",
             "secondaryCta": "Esplora le funzioni"
         },
         "features": {
@@ -233,7 +233,7 @@
         "cta": {
             "title": "Porta la tua bici nel futuro.",
             "subtitle": "Unisciti alla rete di Fixology e smetti di affidarti al caso. Prepara la tua prossima sfida con una meccanica impeccabile.",
-            "button": "Crea il tuo Account Pro"
+            "button": "Crea il tuo account"
         }
     },
     "errors": {

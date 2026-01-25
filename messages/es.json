@@ -205,35 +205,35 @@
     },
     "landing": {
         "hero": {
-            "title": "Tu bici,",
-            "titleHighlight": "siempre al máximo",
-            "subtitle": "Monitorea el desgaste de los componentes, recibe notificaciones de mantenimiento y conecta Strava para sincronizar automáticamente tus kilómetros.",
-            "cta": "Empieza gratis",
-            "secondaryCta": "Saber más"
+            "title": "Ingeniería para tu",
+            "titleHighlight": "Rendimiento.",
+            "subtitle": "La plataforma avanzada de análisis para ciclistas. Sincroniza Strava, analiza el desgaste de componentes y prevén fallos mecánicos.",
+            "cta": "Empieza ahora",
+            "secondaryCta": "Explora funciones"
         },
         "features": {
-            "title": "Todo lo que necesitas",
+            "title": "Precisión Mecánica",
             "sync": {
-                "title": "Sync Strava",
-                "description": "Conecta tu cuenta Strava e importa automáticamente tus bicis con los kilómetros actualizados."
+                "title": "Cloud Sync",
+                "description": "Integración nativa con la API de Strava para la importación instantánea de flota y kilometraje."
             },
             "components": {
-                "title": "Gestión de componentes",
-                "description": "Monitorea el desgaste de cadenas, casetes, frenos y todos los componentes de tu bici."
+                "title": "Asset Management",
+                "description": "Monitoreo granular de cadena, transmisión y frenos con algoritmos de desgaste personalizados."
             },
             "alerts": {
-                "title": "Notificaciones inteligentes",
-                "description": "Recibe alertas cuando un componente necesite mantenimiento o reemplazo."
+                "title": "Smart Monitoring",
+                "description": "Notificaciones push preventivas basadas en umbrali de estrés mecánico definidos por el usuario."
             },
             "history": {
-                "title": "Historial completo",
-                "description": "Lleva un registro de todo el mantenimiento y costes de cada bici."
+                "title": "Service Ledger",
+                "description": "Registro completo de mantenimiento y costes para una gestión total de tu bicicleta."
             }
         },
         "cta": {
-            "title": "¿Listo para pedalear sin preocupaciones?",
-            "subtitle": "Únete a miles de ciclistas que mantienen sus bicis en forma.",
-            "button": "Crear cuenta gratis"
+            "title": "El futuro de la gestión ciclista.",
+            "subtitle": "Únete a la red de Fixology y elimina las dudas. Domina tu mecánica para tu próximo desafío.",
+            "button": "Crea tu cuenta"
         }
     },
     "errors": {

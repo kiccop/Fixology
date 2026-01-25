@@ -208,7 +208,7 @@
             "title": "Engineering for your",
             "titleHighlight": "Performance.",
             "subtitle": "The advanced cycle analytics platform. Sync Strava, analyze component wear, and prevent mechanical failure.",
-            "cta": "Start free trial",
+            "cta": "Get started",
             "secondaryCta": "Explore features"
         },
         "features": {
@@ -233,7 +233,7 @@
         "cta": {
             "title": "The future of cycling management.",
             "subtitle": "Join the Fixology network and eliminate guesswork. Master your mechanics for your next challenge.",
-            "button": "Create Pro Account"
+            "button": "Create your account"
         }
     },
     "errors": {
