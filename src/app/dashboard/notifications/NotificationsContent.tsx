@@ -8,7 +8,7 @@ import {
     CheckCheck,
     Trash2,
     AlertTriangle,
-    Sync,
+    RefreshCw,
     Info,
     Clock,
     Check

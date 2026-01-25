@@ -70,7 +70,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 ) : (
                     iconPosition === 'left' && icon
                 )}
-                {children}
+                <>{children}</>
                 {!loading && iconPosition === 'right' && icon}
             </motion.button>
         )
