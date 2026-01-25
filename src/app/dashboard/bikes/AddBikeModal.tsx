@@ -13,10 +13,10 @@ import { createClient } from '@/lib/supabase/client'
 
 const bikeSchema = z.object({
     name: z.string().min(1, 'Il nome è obbligatorio'),
-    brand: z.string().optional(),
-    model: z.string().optional(),
+    brand: z.string(),
+    model: z.string(),
     frame_type: z.enum(['road', 'mtb', 'gravel', 'city', 'ebike', 'other']),
-    total_km: z.coerce.number().min(0).default(0),
+    total_km: z.number().min(0),
 })
 
 type BikeFormData = z.infer<typeof bikeSchema>
@@ -51,6 +51,9 @@ export function AddBikeModal({ isOpen, onClose }: AddBikeModalProps) {
     } = useForm<BikeFormData>({
         resolver: zodResolver(bikeSchema),
         defaultValues: {
+            name: '',
+            brand: '',
+            model: '',
             frame_type: 'road',
             total_km: 0,
         },
@@ -145,7 +148,7 @@ export function AddBikeModal({ isOpen, onClose }: AddBikeModalProps) {
                     type="number"
                     placeholder="0"
                     helperText="Km attuali della bici (opzionale se sincronizzi con Strava)"
-                    {...register('total_km')}
+                    {...register('total_km', { valueAsNumber: true })}
                 />
 
                 <div className="flex gap-3 pt-4">

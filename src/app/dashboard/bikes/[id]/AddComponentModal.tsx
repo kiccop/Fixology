@@ -14,12 +14,12 @@ import { DEFAULT_COMPONENTS, ComponentType } from '@/types'
 
 const componentSchema = z.object({
     type: z.string().min(1, 'Seleziona un tipo'),
-    name: z.string().optional(),
-    install_km: z.coerce.number().min(0).default(0),
-    install_hours: z.coerce.number().min(0).default(0),
-    threshold_km: z.coerce.number().min(0).nullable().optional(),
-    threshold_hours: z.coerce.number().min(0).nullable().optional(),
-    notes: z.string().optional(),
+    name: z.string(),
+    install_km: z.number().min(0),
+    install_hours: z.number().min(0),
+    threshold_km: z.number().min(0).nullable(),
+    threshold_hours: z.number().min(0).nullable(),
+    notes: z.string(),
 })
 
 type ComponentFormData = z.infer<typeof componentSchema>
@@ -54,7 +54,13 @@ export function AddComponentModal({
     } = useForm<ComponentFormData>({
         resolver: zodResolver(componentSchema),
         defaultValues: {
+            type: '',
+            name: '',
             install_km: currentBikeKm,
+            install_hours: 0,
+            threshold_km: null,
+            threshold_hours: null,
+            notes: '',
         },
     })
 
@@ -211,14 +217,14 @@ export function AddComponentModal({
                             type="number"
                             placeholder="0"
                             helperText="Km della bici all'installazione"
-                            {...register('install_km')}
+                            {...register('install_km', { valueAsNumber: true })}
                         />
                         <Input
                             label={t('installHours')}
                             type="number"
                             placeholder="0"
                             helperText="Ore di utilizzo (opzionale)"
-                            {...register('install_hours')}
+                            {...register('install_hours', { valueAsNumber: true })}
                         />
                     </div>
 
@@ -228,14 +234,14 @@ export function AddComponentModal({
                             type="number"
                             placeholder="0"
                             helperText="Km massimi prima della sostituzione"
-                            {...register('threshold_km')}
+                            {...register('threshold_km', { valueAsNumber: true })}
                         />
                         <Input
                             label={t('thresholdHours')}
                             type="number"
                             placeholder="0"
                             helperText="Ore massime (alternativo ai km)"
-                            {...register('threshold_hours')}
+                            {...register('threshold_hours', { valueAsNumber: true })}
                         />
                     </div>
 
