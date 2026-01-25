@@ -50,7 +50,9 @@
         "bikes": "Mes vélos",
         "settings": "Paramètres",
         "notifications": "Notifications",
-        "profile": "Profil"
+        "profile": "Profil",
+        "user": "Utilisateur",
+        "account": "Compte"
     },
     "dashboard": {
         "welcome": "Bon retour",
@@ -62,7 +64,11 @@
         "recentActivity": "Activité récente",
         "noData": "Aucune donnée disponible",
         "syncWithStrava": "Synchroniser avec Strava",
-        "lastSync": "Dernière synchronisation"
+        "lastSync": "Dernière synchronisation",
+        "settings": "Paramètres",
+        "yourBikes": "Mes vélos",
+        "addFirstBike": "Ajoutez votre premier vélo",
+        "allClear": "Tous les composants sont en bon état ! 🎉"
     },
     "bikes": {
         "title": "Mes vélos",

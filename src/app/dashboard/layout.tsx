@@ -30,6 +30,7 @@ const navItems = [
 export default function DashboardLayout({ children }: { children: ReactNode }) {
     const t = useTranslations('nav')
     const tCommon = useTranslations('common')
+    const tAuth = useTranslations('auth')
     const pathname = usePathname()
     const router = useRouter()
     const supabase = createClient()
@@ -118,8 +119,8 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                                     <User className="w-5 h-5 text-primary-400" />
                                 </div>
                                 <div className="flex-1 text-left">
-                                    <div className="font-medium text-sm">Utente</div>
-                                    <div className="text-xs text-neutral-500">Account</div>
+                                    <div className="font-medium text-sm">{t('user')}</div>
+                                    <div className="text-xs text-neutral-500">{t('account')}</div>
                                 </div>
                                 <ChevronDown className={`w-4 h-4 text-neutral-400 transition-transform ${userMenuOpen ? 'rotate-180' : ''}`} />
                             </button>
@@ -137,7 +138,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                                             className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-danger-400 hover:bg-danger-500/10 transition-colors"
                                         >
                                             <LogOut className="w-4 h-4" />
-                                            <span className="text-sm">Esci</span>
+                                            <span className="text-sm">{tAuth('logout')}</span>
                                         </button>
                                     </motion.div>
                                 )}

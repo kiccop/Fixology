@@ -58,6 +58,7 @@ export function DashboardContent({
     const t = useTranslations('dashboard')
     const tStrava = useTranslations('strava')
     const tComponents = useTranslations('components')
+    const tBikes = useTranslations('bikes')
     const [syncing, setSyncing] = useState(false)
 
     const handleSync = async () => {
@@ -139,7 +140,7 @@ export function DashboardContent({
                                 <div>
                                     <h3 className="font-semibold text-lg">{tStrava('connect')}</h3>
                                     <p className="text-neutral-400 text-sm">
-                                        Importa le tue bici e sincronizza automaticamente i km
+                                        {t('overview')}
                                     </p>
                                 </div>
                             </div>
@@ -158,7 +159,7 @@ export function DashboardContent({
                     <Card padding="none">
                         <div className="p-6 border-b border-white/5">
                             <div className="flex items-center justify-between">
-                                <h2 className="text-lg font-semibold">Le tue bici</h2>
+                                <h2 className="text-lg font-semibold">{t('yourBikes')}</h2>
                                 <Link href="/dashboard/settings">
                                     <Button variant="ghost" icon={<Settings className="w-4 h-4" />}>
                                         {t('settings')}
@@ -174,10 +175,10 @@ export function DashboardContent({
                             {bikes.length === 0 ? (
                                 <div className="p-8 text-center">
                                     <Bike className="w-12 h-12 mx-auto mb-4 text-neutral-600" />
-                                    <p className="text-neutral-400">Nessuna bici registrata</p>
+                                    <p className="text-neutral-400">{tBikes('noBikes')}</p>
                                     <Link href="/dashboard/bikes">
                                         <Button variant="secondary" size="sm" className="mt-4">
-                                            Aggiungi la tua prima bici
+                                            {t('addFirstBike')}
                                         </Button>
                                     </Link>
                                 </div>
@@ -197,7 +198,7 @@ export function DashboardContent({
                                                     <h3 className="font-medium">{bike.name}</h3>
                                                     {bike.is_primary && (
                                                         <span className="text-[10px] px-1.5 py-0.5 rounded bg-primary-500/20 text-primary-400">
-                                                            Principale
+                                                            {tBikes('primary')}
                                                         </span>
                                                     )}
                                                 </div>
@@ -240,7 +241,7 @@ export function DashboardContent({
                             {alertComponents.length === 0 ? (
                                 <div className="p-8 text-center">
                                     <Activity className="w-12 h-12 mx-auto mb-4 text-neutral-600" />
-                                    <p className="text-neutral-400">Tutti i componenti sono a posto! 🎉</p>
+                                    <p className="text-neutral-400">{t('allClear')}</p>
                                 </div>
                             ) : (
                                 alertComponents.slice(0, 5).map((component) => (

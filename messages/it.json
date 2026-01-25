@@ -50,7 +50,9 @@
         "bikes": "Le mie bici",
         "settings": "Impostazioni",
         "notifications": "Notifiche",
-        "profile": "Profilo"
+        "profile": "Profilo",
+        "user": "Utente",
+        "account": "Account"
     },
     "dashboard": {
         "welcome": "Bentornato",

@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import { useTranslations } from 'next-intl'
 
 interface StravaLogoProps {
     variant?: 'powered-by' | 'connect-button' | 'sync-button' | 'mark'
@@ -15,6 +16,7 @@ interface StravaLogoProps {
  * Segue le linee guida Strava API 2024.
  */
 export function StravaLogo({ variant = 'powered-by', className = '', loading = false, onClick }: StravaLogoProps) {
+    const tStrava = useTranslations('strava')
 
     // Il tracciato ufficiale del logo "M" di Strava (24x24)
     const officialPath = "M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"
@@ -41,7 +43,7 @@ export function StravaLogo({ variant = 'powered-by', className = '', loading = f
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
                     <path d={officialPath} />
                 </svg>
-                <span className="text-sm">Connect with Strava</span>
+                <span className="text-sm">{tStrava('connect')}</span>
             </button>
         )
     }
@@ -60,7 +62,7 @@ export function StravaLogo({ variant = 'powered-by', className = '', loading = f
                         <path d={officialPath} />
                     </svg>
                 )}
-                <span className="text-xs uppercase font-black tracking-tight">Sincronizza ora</span>
+                <span className="text-xs uppercase font-black tracking-tight">{tStrava('syncNow')}</span>
             </button>
         )
     }
