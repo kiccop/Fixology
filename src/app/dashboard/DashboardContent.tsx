@@ -84,7 +84,7 @@ export function DashboardContent({
             initial="initial"
             animate="animate"
             variants={staggerContainer}
-            className="space-y-5 max-w-6xl mx-auto"
+            className="space-y-8 max-w-6xl mx-auto"
         >
             {/* Header - Minimal & Centered */}
             <motion.div variants={fadeIn} className="flex items-center justify-between">
@@ -105,7 +105,7 @@ export function DashboardContent({
             </motion.div>
 
             {/* Stats Grid - Compact */}
-            <motion.div variants={fadeIn} className="grid grid-cols-3 gap-3">
+            <motion.div variants={fadeIn} className="grid grid-cols-3 gap-5">
                 <StatCard
                     icon={Bike}
                     label={t('totalBikes')}
@@ -131,7 +131,7 @@ export function DashboardContent({
             {/* Strava Connection Banner removed from here - moved exclusively to Settings */}
 
             {/* Main Content Grid */}
-            <div className="grid lg:grid-cols-2 gap-4">
+            <div className="grid lg:grid-cols-2 gap-6">
                 {/* Bikes List */}
                 <motion.div variants={fadeIn}>
                     <Card padding="none">
