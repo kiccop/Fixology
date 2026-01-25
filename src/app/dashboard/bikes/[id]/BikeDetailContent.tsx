@@ -22,6 +22,7 @@ import {
     History,
     FileText,
     Wrench,
+    Trash,
 } from 'lucide-react'
 import { Card, Button, ProgressBar, Badge, Modal } from '@/components/ui'
 import { AddComponentModal } from './AddComponentModal'
@@ -225,6 +226,19 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
             setIsLoading(false)
             setActionModalOpen(false)
             setSelectedComponent(null)
+        }
+    }
+
+    const handleDeleteLog = async (logId: string) => {
+        if (!confirm('Sei sicuro di voler eliminare questa voce dallo storico?')) return
+
+        try {
+            const { error } = await supabase.from('maintenance_logs').delete().eq('id', logId)
+            if (error) throw error
+            toast.success('Voce eliminata correttamente')
+            router.refresh()
+        } catch (error) {
+            toast.error('Errore durante l\'eliminazione del log')
         }
     }
 
@@ -492,21 +506,30 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                                                         {tMaintenance(`actions.${log.action_type}`)}
                                                     </Badge>
                                                 </td>
-                                                <td className="px-6 py-4 text-neutral-400">{log.km_at_action?.toLocaleString()} km建设</td>
+                                                <td className="px-6 py-4 text-neutral-400">{log.km_at_action?.toLocaleString()} km</td>
                                                 <td className="px-6 py-4 text-right font-bold text-success-400">
                                                     {log.cost ? `${parseFloat(log.cost).toFixed(2)} €` : '-'}
                                                 </td>
                                                 <td className="px-6 py-4 text-center">
-                                                    {log.receipt_url ? (
-                                                        <a
-                                                            href={log.receipt_url}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                            className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-primary-500/10 text-primary-400 hover:bg-primary-500/20 transition-colors"
+                                                    <div className="flex items-center justify-center gap-2">
+                                                        {log.receipt_url && (
+                                                            <a
+                                                                href={log.receipt_url}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-primary-500/10 text-primary-400 hover:bg-primary-500/20 transition-colors"
+                                                            >
+                                                                <FileText className="w-4 h-4" />
+                                                            </a>
+                                                        )}
+                                                        <button
+                                                            onClick={() => handleDeleteLog(log.id)}
+                                                            className="inline-flex items-center justify-center w-8 h-8 rounded-lg hover:bg-danger-500/10 text-neutral-600 hover:text-danger-400 transition-colors"
+                                                            title="Elimina"
                                                         >
-                                                            <FileText className="w-4 h-4" />
-                                                        </a>
-                                                    ) : '-'}
+                                                            <Trash className="w-4 h-4" />
+                                                        </button>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         ))}
