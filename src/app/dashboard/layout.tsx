@@ -38,12 +38,14 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const [userMenuOpen, setUserMenuOpen] = useState(false)
     const [unreadCount, setUnreadCount] = useState(0)
+    const [userName, setUserName] = useState('')
 
     useEffect(() => {
-        const fetchUnreadCount = async () => {
+        const fetchUserData = async () => {
             const { data: { user } } = await supabase.auth.getUser()
             if (!user) return
 
+            // Fetch unread notifications
             const { count } = await supabase
                 .from('notifications')
                 .select('*', { count: 'exact', head: true })
@@ -51,9 +53,22 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                 .eq('read', false)
 
             setUnreadCount(count || 0)
+
+            // Fetch user profile name
+            const { data: profile } = await supabase
+                .from('profiles')
+                .select('name')
+                .eq('id', user.id)
+                .single()
+
+            if (profile?.name) {
+                setUserName(profile.name)
+            } else {
+                setUserName(user.email?.split('@')[0] || 'Ciclista')
+            }
         }
 
-        fetchUnreadCount()
+        fetchUserData()
 
         // Optional: Set up real-time subscription
         const channel = supabase
@@ -63,7 +78,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                 schema: 'public',
                 table: 'notifications'
             }, () => {
-                fetchUnreadCount()
+                fetchUserData()
             })
             .subscribe()
 
@@ -154,7 +169,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                                     <User className="w-5 h-5 text-primary-400" />
                                 </div>
                                 <div className="flex-1 text-left">
-                                    <div className="font-medium text-sm">{t('user')}</div>
+                                    <div className="font-medium text-sm truncate max-w-[120px]">{userName || t('user')}</div>
                                     <div className="text-xs text-neutral-500">{t('account')}</div>
                                 </div>
                                 <ChevronDown className={`w-4 h-4 text-neutral-400 transition-transform ${userMenuOpen ? 'rotate-180' : ''}`} />
