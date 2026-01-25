@@ -15,6 +15,7 @@ import {
     Loader2,
     Zap,
     TrendingUp,
+    Settings,
 } from 'lucide-react'
 import { Card, CardHeader, Button, ProgressBar, Badge } from '@/components/ui'
 import { formatDistanceToNow } from 'date-fns'
@@ -166,11 +167,24 @@ export function DashboardContent({
                         <div className="p-6 border-b border-white/5">
                             <div className="flex items-center justify-between">
                                 <h2 className="text-lg font-semibold">Le tue bici</h2>
-                                <Link href="/dashboard/bikes">
-                                    <Button variant="ghost" size="sm" icon={<Plus className="w-4 h-4" />}>
-                                        Aggiungi
+                                <Link href="/dashboard/settings">
+                                    <Button variant="ghost" icon={<Settings className="w-4 h-4" />}>
+                                        {t('settings')}
                                     </Button>
                                 </Link>
+                            </div>
+                            <div className="mt-4 flex flex-col items-end gap-2">
+                                <div className="text-[9px] text-neutral-500 uppercase tracking-tighter opacity-70">
+                                    Official Integration Partner
+                                </div>
+                                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900/50 border border-white/5">
+                                    <span className="text-[10px] text-neutral-500 uppercase tracking-widest">Data sync via</span>
+                                    <img
+                                        src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Strava_Logo_2021.svg"
+                                        alt="Strava"
+                                        className="h-3"
+                                    />
+                                </div>
                             </div>
                         </div>
 

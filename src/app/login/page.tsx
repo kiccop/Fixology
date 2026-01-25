@@ -160,6 +160,14 @@ export default function LoginPage() {
                         ← Torna alla home
                     </Link>
                 </p>
+
+                <div className="mt-8 pt-8 border-t border-white/5 flex justify-center">
+                    <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Strava_Logo_2021.svg"
+                        alt="Powered by Strava"
+                        className="h-4 opacity-50"
+                    />
+                </div>
             </motion.div>
         </div>
     )
