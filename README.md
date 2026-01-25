@@ -8,6 +8,7 @@ Fixology è un'applicazione web moderna per la gestione della manutenzione delle
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
 ![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-green?logo=supabase)
 ![Tailwind](https://img.shields.io/badge/Tailwind-CSS-38B2AC?logo=tailwind-css)
+![License](https://img.shields.io/badge/License-Proprietary-red)
 
 ## ✨ Features
 
@@ -148,3 +149,13 @@ Le pull request sono benvenute! Per modifiche importanti, apri prima un issue pe
 ---
 
 Made with ❤️ for cyclists everywhere.
+
+---
+
+## 📄 Licenza
+
+Copyright © 2026 Enrico. Tutti i diritti riservati.
+
+Questo progetto è distribuito con una **licenza proprietaria**. È vietata la copia, la modifica, la ridistribuzione o l'uso commerciale del codice sorgente senza esplicito permesso scritto del proprietario. 
+
+Per informazioni o richieste commerciali: [support@fixology.app](mailto:support@fixology.app)
