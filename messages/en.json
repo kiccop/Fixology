@@ -235,7 +235,15 @@
             },
             "history": {
                 "title": "Service Ledger",
-                "description": "Complete logging of maintenance and costs for total asset management of your bike."
+                "description": "Complete logging of maintenance and costs to track every cent spent on your bike."
+            },
+            "booklet": {
+                "title": "PDF Booklet",
+                "description": "Generate professional maintenance certificates to present to buyers or mechanics."
+            },
+            "receipts": {
+                "title": "Digital Proof",
+                "description": "Upload photos of mechanic receipts for tamper-proof maintenance tracking."
             }
         },
         "cta": {

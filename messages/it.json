@@ -235,7 +235,15 @@
             },
             "history": {
                 "title": "Service Ledger",
-                "description": "Registro completo degli interventi e dei costi per una gestione patrimoniale della tua bici."
+                "description": "Registro completo di interventi e costi per monitorare quanto investi nella tua passione."
+            },
+            "booklet": {
+                "title": "Libretto PDF",
+                "description": "Genera un certificato professionale di manutenzione da stampare o inviare al futuro acquirente."
+            },
+            "receipts": {
+                "title": "Prove Digitali",
+                "description": "Carica foto delle ricevute del meccanico per una tracciabilità a prova di errore e furto."
             }
         },
         "cta": {

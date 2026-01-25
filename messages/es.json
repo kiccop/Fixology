@@ -229,7 +229,15 @@
             },
             "history": {
                 "title": "Service Ledger",
-                "description": "Registro completo de mantenimiento y costes para una gestión total de tu bicicleta."
+                "description": "Registro completo de mantenimiento y costes para saber exactamente cuánto inviertes."
+            },
+            "booklet": {
+                "title": "Libro PDF",
+                "description": "Genera certificados profesionales para aumentar el valor de reventa de tu bicicleta."
+            },
+            "receipts": {
+                "title": "Pruebas Digitales",
+                "description": "Sube fotos de facturas de mecánicos para un historial verificado y seguro."
             }
         },
         "cta": {

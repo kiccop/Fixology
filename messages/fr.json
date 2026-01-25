@@ -229,7 +229,15 @@
             },
             "history": {
                 "title": "Service Ledger",
-                "description": "Journal complet de l'entretien et des coûts pour une gestion totale de votre vélo."
+                "description": "Journal complet de l'entretien et des coûts pour seguire votre investissement."
+            },
+            "booklet": {
+                "title": "Carnet PDF",
+                "description": "Générez des certificats professionnels pour valoriser votre vélo lors de la revente."
+            },
+            "receipts": {
+                "title": "Preuves Digitales",
+                "description": "Téléchargez vos factures pour un historique d'entretien certifié et sécurisé."
             }
         },
         "cta": {

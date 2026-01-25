@@ -16,7 +16,8 @@ import {
   Smartphone,
   CheckCircle2,
   Lock,
-  Globe
+  Globe,
+  FileText
 } from 'lucide-react'
 import { Button, StravaLogo } from '@/components/ui'
 
@@ -171,7 +172,7 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
                 icon: RefreshCw,
@@ -196,6 +197,18 @@ export default function LandingPage() {
                 title: t('features.history.title'),
                 description: t('features.history.description'),
                 color: "text-purple-500"
+              },
+              {
+                icon: FileText,
+                title: t('features.booklet.title'),
+                description: t('features.booklet.description'),
+                color: "text-primary-400"
+              },
+              {
+                icon: Shield,
+                title: t('features.receipts.title'),
+                description: t('features.receipts.description'),
+                color: "text-secondary-400"
               }
             ].map((feature, i) => (
               <motion.div
