@@ -205,35 +205,35 @@
     },
     "landing": {
         "hero": {
-            "title": "Your bike,",
-            "titleHighlight": "always at its best",
-            "subtitle": "Monitor component wear, receive maintenance notifications, and connect Strava to automatically sync your kilometers.",
-            "cta": "Get started free",
-            "secondaryCta": "Learn more"
+            "title": "Engineering for your",
+            "titleHighlight": "Performance.",
+            "subtitle": "The advanced cycle analytics platform. Sync Strava, analyze component wear, and prevent mechanical failure.",
+            "cta": "Start free trial",
+            "secondaryCta": "Explore features"
         },
         "features": {
-            "title": "Everything you need",
+            "title": "Mechanical Precision",
             "sync": {
-                "title": "Strava Sync",
-                "description": "Connect your Strava account and automatically import your bikes with updated kilometers."
+                "title": "Cloud Sync",
+                "description": "Native API integration with Strava for instant fleet and mileage synchronization."
             },
             "components": {
-                "title": "Component Management",
-                "description": "Monitor wear on chains, cassettes, brakes, and all your bike components."
+                "title": "Asset Management",
+                "description": "Granular monitoring of chain, drivetrain, and brakes with custom wear algorithms."
             },
             "alerts": {
-                "title": "Smart Notifications",
-                "description": "Get alerts when a component needs maintenance or replacement."
+                "title": "Smart Monitoring",
+                "description": "Preventive push-notifications based on user-defined mechanical stress thresholds."
             },
             "history": {
-                "title": "Complete History",
-                "description": "Keep track of all maintenance and costs for each bike."
+                "title": "Service Ledger",
+                "description": "Complete logging of maintenance and costs for total asset management of your bike."
             }
         },
         "cta": {
-            "title": "Ready to ride worry-free?",
-            "subtitle": "Join thousands of cyclists who keep their bikes in top shape.",
-            "button": "Create free account"
+            "title": "The future of cycling management.",
+            "subtitle": "Join the Fixology network and eliminate guesswork. Master your mechanics for your next challenge.",
+            "button": "Create Pro Account"
         }
     },
     "errors": {

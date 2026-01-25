@@ -46,11 +46,11 @@
   --success-400: #4ade80;
   --success-500: #10b981;
   --success-600: #059669;
-  
+
   --warning-400: #fbbf24;
   --warning-500: #f59e0b;
   --warning-600: #d97706;
-  
+
   --danger-400: #f87171;
   --danger-500: #ef4444;
   --danger-600: #dc2626;
@@ -101,7 +101,12 @@ body {
    Typography
    ============================================ */
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.02em;
@@ -124,27 +129,28 @@ h3 {
    ============================================ */
 
 .glass-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--glass-shadow);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
-.glass-button {
-  background: linear-gradient(135deg, rgba(255, 107, 53, 0.2) 0%, rgba(0, 217, 196, 0.1) 100%);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 107, 53, 0.3);
-  border-radius: var(--radius-md);
-  transition: all var(--transition-base);
+.glass-card-hover:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
 }
 
-.glass-button:hover {
-  background: linear-gradient(135deg, rgba(255, 107, 53, 0.3) 0%, rgba(0, 217, 196, 0.2) 100%);
-  border-color: rgba(255, 107, 53, 0.5);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 40px rgba(255, 107, 53, 0.2);
+.mesh-gradient {
+  background-color: var(--neutral-950);
+  background-image:
+    radial-gradient(at 0% 0%, rgba(255, 107, 53, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(0, 216, 196, 0.1) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(255, 107, 53, 0.1) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(0, 216, 196, 0.15) 0px, transparent 50%);
 }
 
 /* ============================================
@@ -385,18 +391,37 @@ h3 {
    ============================================ */
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(255, 107, 53, 0.3); }
-  50% { box-shadow: 0 0 40px rgba(255, 107, 53, 0.5); }
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 40px rgba(255, 107, 53, 0.5);
+  }
 }
 
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 .animate-float {
@@ -408,12 +433,10 @@ h3 {
 }
 
 .skeleton {
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.05) 0%,
-    rgba(255, 255, 255, 0.1) 50%,
-    rgba(255, 255, 255, 0.05) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(255, 255, 255, 0.05) 100%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
   border-radius: var(--radius-md);

@@ -13,21 +13,24 @@ import {
   ChevronDown,
   Zap,
   Shield,
-  Smartphone
+  Smartphone,
+  CheckCircle2,
+  Lock,
+  Globe
 } from 'lucide-react'
 import { Button, StravaLogo } from '@/components/ui'
 
-// Animation variants
+// Animation variants for a professional entrance
 const fadeInUp = {
-  initial: { opacity: 0, y: 30 },
+  initial: { opacity: 0, y: 40 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6 }
+  transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
 }
 
 const staggerContainer = {
   animate: {
     transition: {
-      staggerChildren: 0.1
+      staggerChildren: 0.12
     }
   }
 }
@@ -37,198 +40,190 @@ export default function LandingPage() {
   const tCommon = useTranslations('common')
 
   return (
-    <div className="min-h-screen">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-neutral-900/80 backdrop-blur-xl border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo */}
-            <div className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center">
-                <Bike className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-xl font-bold text-gradient">{tCommon('appName')}</span>
+    <div className="min-h-screen bg-neutral-950 text-white selection:bg-primary-500/30 overflow-x-hidden">
+      {/* Navigation - Ultra Glassmorphism */}
+      <nav className="fixed top-0 left-0 right-0 z-[100] bg-neutral-950/20 backdrop-blur-2xl border-b border-white/5">
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+          {/* Logo */}
+          <div className="flex items-center gap-3 group cursor-pointer">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center shadow-lg shadow-primary-500/20 group-hover:scale-110 transition-transform duration-300">
+              <Bike className="w-6 h-6 text-white" />
             </div>
+            <span className="text-2xl font-black tracking-tight text-white uppercase italic">{tCommon('appName')}</span>
+          </div>
 
-            {/* Auth buttons */}
-            <div className="flex items-center gap-3">
-              <Link href="/login">
-                <Button variant="ghost" size="sm">
-                  Accedi
-                </Button>
-              </Link>
-              <Link href="/register">
-                <Button variant="primary" size="sm">
-                  Registrati
-                </Button>
-              </Link>
-            </div>
+          {/* Desktop Auth */}
+          <div className="hidden md:flex items-center gap-4">
+            <Link href="/login">
+              <Button variant="ghost" className="hover:text-blue-400 transition-colors">
+                {tCommon('back')}
+              </Button>
+            </Link>
+            <Link href="/register">
+              <Button className="!bg-white !text-black hover:!bg-neutral-200 shadow-xl">
+                {t('cta.button')}
+              </Button>
+            </Link>
           </div>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-        {/* Background Effects */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500/20 rounded-full blur-[120px] animate-pulse" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary-500/20 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
+      {/* Hero Section - Cinematic Professional */}
+      <section className="relative min-h-[100vh] flex items-center pt-20 overflow-hidden">
+        {/* Dynamic Background */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute top-0 right-0 w-[50%] h-full opacity-40 md:opacity-100 pointer-events-none">
+            {/* Using the generated professional image as a visual anchor */}
+            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-neutral-950 to-neutral-950 z-10" />
+            <img
+              src="https://images.unsplash.com/photo-1541625602330-2277a1cd13a2?q=80&w=2070&auto=format&fit=crop"
+              alt="Bicycle detail"
+              className="w-full h-full object-cover grayscale-[30%] brightness-75 contrast-125"
+            />
+          </div>
+          <div className="absolute inset-0 mesh-gradient opacity-60" />
         </div>
 
-        {/* Grid pattern */}
-        <div
-          className="absolute inset-0 opacity-[0.02]"
-          style={{
-            backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
-            backgroundSize: '50px 50px'
-          }}
-        />
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="relative z-20 max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
           <motion.div
             initial="initial"
             animate="animate"
             variants={staggerContainer}
-            className="space-y-6"
+            className="space-y-8"
           >
-            {/* Badge */}
+            {/* Official Partner Badge */}
             <motion.div variants={fadeInUp}>
-              <span className="inline-flex items-center px-4 py-2 rounded-full bg-primary-500/10 border border-primary-500/20 text-primary-400 text-sm font-medium">
-                <Zap className="w-4 h-4 mr-2" />
-                Connetti Strava • Monitora • Pedala
-              </span>
+              <div className="inline-flex items-center px-4 py-2 rounded-full glass-card border-white/10 text-primary-400 text-[13px] font-bold tracking-widest uppercase">
+                <StravaLogo variant="mark" className="w-4 h-4 mr-3" />
+                INTEGRAZIONE UFFICIALE STRAVA
+              </div>
             </motion.div>
 
-            {/* Title */}
+            {/* Main Catchphrase */}
             <motion.h1
               variants={fadeInUp}
-              className="text-5xl sm:text-6xl lg:text-7xl font-bold"
+              className="text-6xl sm:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tighter uppercase italic"
             >
-              {t('hero.title')}{' '}
-              <span className="text-gradient">{t('hero.titleHighlight')}</span>
+              Ride <br />
+              <span className="text-gradient">Limitless.</span>
             </motion.h1>
 
-            {/* Subtitle */}
             <motion.p
               variants={fadeInUp}
-              className="text-xl text-neutral-400 mb-8 max-w-2xl mx-auto"
+              className="text-xl text-neutral-400 max-w-lg leading-relaxed font-medium"
             >
-              La tua bici, al top della forma. Monitora l&apos;usura dei componenti,
-              ricevi avvisi di manutenzione e sincronizza i tuoi km con Strava.
+              {t('hero.subtitle')}
             </motion.p>
 
-            {/* CTA Buttons */}
+            {/* Action Group */}
             <motion.div
               variants={fadeInUp}
-              className="flex flex-col sm:flex-row gap-4 justify-center pt-4"
+              className="flex flex-wrap gap-4 pt-4"
             >
               <Link href="/register">
-                <Button size="lg" icon={<ArrowRight className="w-5 h-5" />} iconPosition="right">
+                <Button size="lg" className="h-16 px-10 text-lg shadow-2xl shadow-primary-600/30" icon={<ArrowRight className="w-6 h-6" />} iconPosition="right">
                   {t('hero.cta')}
                 </Button>
               </Link>
               <a href="#features">
-                <Button variant="secondary" size="lg">
+                <Button variant="secondary" size="lg" className="h-16 px-10 text-lg border-white/10 hover:bg-white/5">
                   {t('hero.secondaryCta')}
                 </Button>
               </a>
             </motion.div>
 
-            {/* Stats */}
+            {/* Social Proof / Stats */}
             <motion.div
               variants={fadeInUp}
-              className="pt-12 grid grid-cols-3 gap-8 max-w-lg mx-auto"
+              className="pt-10 flex items-center gap-8 border-t border-white/5 max-w-sm"
             >
-              {[
-                { value: '100%', label: 'Gratuito' },
-                { value: '14+', label: 'Componenti' },
-                { value: '∞', label: 'Bici' },
-              ].map((stat, i) => (
-                <div key={i} className="text-center">
-                  <div className="text-2xl font-bold text-gradient">{stat.value}</div>
-                  <div className="text-sm text-neutral-500">{stat.label}</div>
-                </div>
-              ))}
-            </motion.div>
-          </motion.div>
-
-          {/* Scroll indicator */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.5 }}
-            className="absolute bottom-8 left-1/2 -translate-x-1/2"
-          >
-            <motion.div
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            >
-              <ChevronDown className="w-6 h-6 text-neutral-500" />
+              <div>
+                <div className="text-3xl font-black text-white italic tracking-tighter">100%</div>
+                <div className="text-[11px] uppercase tracking-widest text-neutral-500 font-bold">Cloud Sync</div>
+              </div>
+              <div className="w-[1px] h-10 bg-white/10" />
+              <div>
+                <div className="text-3xl font-black text-white italic tracking-tighter">∞</div>
+                <div className="text-[11px] uppercase tracking-widest text-neutral-500 font-bold">Limit Bici</div>
+              </div>
             </motion.div>
           </motion.div>
         </div>
+
+        {/* Scroll Hint */}
+        <motion.div
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <span className="text-[9px] uppercase tracking-[0.4em] font-black italic">Discover More</span>
+          <ChevronDown className="w-5 h-5" />
+        </motion.div>
       </section>
 
-      {/* Features Section */}
-      <section id="features" className="py-24 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              {t('features.title')}
-            </h2>
-            <p className="text-neutral-400 max-w-2xl mx-auto">
-              Gestisci la manutenzione della tua bici come un professionista
+      {/* Features Grid - Minimalist & Balanced */}
+      <section id="features" className="py-32 relative overflow-hidden bg-white/2">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
+            <div className="max-w-xl">
+              <span className="text-primary-500 text-[11px] font-black uppercase tracking-[0.3em] mb-4 block italic">Engineering Precision</span>
+              <h2 className="text-4xl sm:text-5xl font-black tracking-tighter uppercase italic leading-tight">
+                {t('features.title')}
+              </h2>
+            </div>
+            <p className="text-neutral-500 font-medium md:mb-2 italic max-w-xs">
+              Sviluppato per ciclisti che esigono il massimo dalla propria meccanica.
             </p>
-          </motion.div>
+          </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
               {
                 icon: RefreshCw,
                 title: t('features.sync.title'),
                 description: t('features.sync.description'),
-                gradient: 'from-orange-500 to-red-500',
+                color: "text-orange-500"
               },
               {
                 icon: Settings,
                 title: t('features.components.title'),
                 description: t('features.components.description'),
-                gradient: 'from-blue-500 to-cyan-500',
+                color: "text-blue-500"
               },
               {
                 icon: Bell,
                 title: t('features.alerts.title'),
                 description: t('features.alerts.description'),
-                gradient: 'from-green-500 to-emerald-500',
+                color: "text-emerald-500"
               },
               {
                 icon: History,
                 title: t('features.history.title'),
                 description: t('features.history.description'),
-                gradient: 'from-purple-500 to-pink-500',
-              },
+                color: "text-purple-500"
+              }
             ].map((feature, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
                 className="group"
               >
-                <div className="card h-full p-6 hover:border-white/10 transition-all duration-300 group-hover:-translate-y-1">
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                    <feature.icon className="w-6 h-6 text-white" />
+                <div className="glass-card h-full p-8 glass-card-hover transition-all duration-500 border-white/5 group-hover:border-primary-500/20">
+                  <div className={`w-14 h-14 rounded-2xl bg-neutral-800 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500`}>
+                    <feature.icon className={`w-7 h-7 ${feature.color}`} />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-neutral-400 text-sm leading-relaxed mb-4">{feature.description}</p>
+                  <h3 className="text-xl font-bold mb-3 tracking-tight italic uppercase">{feature.title}</h3>
+                  <p className="text-neutral-500 text-[15px] leading-relaxed mb-6 font-medium line-clamp-3">
+                    {feature.description}
+                  </p>
+
                   {feature.title === t('features.sync.title') && (
-                    <StravaLogo className="!items-start scale-75 origin-left" />
+                    <div className="pt-4 border-t border-white/5">
+                      <StravaLogo className="!items-start opacity-70 group-hover:opacity-100 transition-opacity" />
+                    </div>
                   )}
                 </div>
               </motion.div>
@@ -237,174 +232,159 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* How it works */}
-      <section className="py-24 bg-neutral-800/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Come funziona
-            </h2>
-            <p className="text-neutral-400 max-w-2xl mx-auto">
-              Tre semplici passi per tenere la tua bici sempre efficiente
-            </p>
-          </motion.div>
+      {/* How It Works - Process Flow Look */}
+      <section className="py-32 relative bg-black">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid lg:grid-cols-12 gap-16 items-center">
+            <div className="lg:col-span-4 lg:sticky lg:top-32 h-fit space-y-6">
+              <span className="text-primary-500 text-[11px] font-black uppercase tracking-[0.3em] italic">Step by Step</span>
+              <h2 className="text-5xl font-black tracking-tighter uppercase italic leading-none">Ready in <br /> Seconds.</h2>
+              <p className="text-neutral-500 font-medium leading-relaxed italic">
+                Il setup è immediato. Accedi, connetti e lascia che Fixology faccia il lavoro sporco per te.
+              </p>
+              <Link href="/register" className="inline-block pt-4">
+                <div className="flex items-center gap-3 text-white font-black uppercase text-sm italic tracking-widest group cursor-pointer hover:text-primary-400 transition-colors">
+                  Get Started <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                </div>
+              </Link>
+            </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                step: '01',
-                title: 'Connetti Strava',
-                description: 'Collega il tuo account Strava per importare automaticamente le tue bici e i chilometri percorsi.',
-              },
-              {
-                step: '02',
-                title: 'Configura i componenti',
-                description: 'Aggiungi i componenti della tua bici e imposta le soglie di manutenzione personalizzate.',
-              },
-              {
-                step: '03',
-                title: 'Ricevi notifiche',
-                description: 'Fixology ti avviserà quando è ora di sostituire o controllare un componente.',
-              },
-            ].map((step, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.15 }}
-                className="relative"
-              >
-                <div className="text-6xl font-bold text-gradient opacity-20 absolute -top-4 left-0">
-                  {step.step}
-                </div>
-                <div className="pt-12">
-                  <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
-                  <p className="text-neutral-400">{step.description}</p>
-                </div>
-              </motion.div>
-            ))}
+            <div className="lg:col-span-8 space-y-6">
+              {[
+                {
+                  id: "01",
+                  title: "Cloud Connection",
+                  desc: "Collega Strava e importa anni di pedalate in frazioni di secondo.",
+                  icon: Globe
+                },
+                {
+                  id: "02",
+                  title: "Component Stack",
+                  desc: "Definisci le soglie di usura per ogni cuscinetto, catena o pneumatico.",
+                  icon: Settings
+                },
+                {
+                  id: "03",
+                  title: "Smart Monitoring",
+                  desc: "Ricevi push-notifications prima che un guasto rovini la tua uscita domenicale.",
+                  icon: Bell
+                }
+              ].map((step, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="flex gap-8 p-10 rounded-[32px] bg-neutral-900/50 border border-white/5 hover:border-white/10 transition-colors group"
+                >
+                  <div className="text-6xl font-black italic tracking-tighter text-neutral-800 opacity-50 group-hover:text-primary-500 transition-colors">{step.id}</div>
+                  <div className="space-y-2">
+                    <h3 className="text-2xl font-black uppercase italic tracking-tight flex items-center gap-3">
+                      <step.icon className="w-6 h-6 text-primary-500" />
+                      {step.title}
+                    </h3>
+                    <p className="text-neutral-500 font-medium leading-relaxed italic pr-12">{step.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Benefits */}
-      <section className="py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-                Perché scegliere <span className="text-gradient">Fixology</span>?
-              </h2>
-              <div className="space-y-6">
-                {[
-                  {
-                    icon: Zap,
-                    title: 'Sincronizzazione automatica',
-                    description: 'I chilometri si aggiornano automaticamente da Strava ad ogni accesso.',
-                  },
-                  {
-                    icon: Shield,
-                    title: 'Manutenzione preventiva',
-                    description: 'Evita rotture impreviste sostituendo i componenti al momento giusto.',
-                  },
-                  {
-                    icon: Smartphone,
-                    title: 'Sempre a portata di mano',
-                    description: 'Accedi da qualsiasi dispositivo, ovunque tu sia.',
-                  },
-                ].map((benefit, i) => (
-                  <div key={i} className="flex gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-primary-500/10 flex items-center justify-center flex-shrink-0">
-                      <benefit.icon className="w-5 h-5 text-primary-400" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-1">{benefit.title}</h4>
-                      <p className="text-neutral-400 text-sm">{benefit.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
+      {/* Security & Benefits - Enterprise Aesthetic */}
+      <section className="py-32 relative overflow-hidden bg-neutral-950">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="glass-card p-12 lg:p-20 relative overflow-hidden bg-gradient-to-br from-neutral-900 to-neutral-950 border-white/10">
+            {/* Background Accent */}
+            <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-primary-500/10 rounded-full blur-[100px] pointer-events-none" />
 
-            {/* Decorative element */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="relative"
-            >
-              <div className="aspect-square rounded-3xl bg-gradient-to-br from-neutral-800 to-neutral-900 border border-white/5 p-8 relative overflow-hidden">
-                {/* Background glow */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary-500/10 rounded-full blur-3xl" />
-
-                {/* Content */}
-                <div className="relative z-10 h-full flex flex-col justify-center items-center text-center">
-                  <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center mb-6 animate-float">
-                    <Bike className="w-10 h-10 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold mb-2">Dashboard intuitiva</h3>
-                  <p className="text-neutral-400">
-                    Visualizza lo stato di tutti i componenti a colpo d&apos;occhio
+            <div className="grid lg:grid-cols-2 gap-20 items-center relative z-10">
+              <div className="space-y-12">
+                <div className="space-y-4">
+                  <h2 className="text-4xl lg:text-5xl font-black tracking-tighter uppercase italic leading-none">
+                    Massima <br /> <span className="text-gradient">Affidabilità.</span>
+                  </h2>
+                  <p className="text-neutral-400 font-medium leading-relaxed italic">
+                    I tuoi dati sono protetti da crittografia end-to-end e monitorati costantemente tramite Supabase e Vercel Cloud Infrastructure.
                   </p>
                 </div>
+
+                <div className="grid gap-6">
+                  {[
+                    { icon: Lock, text: "Privacy garantita dei tuoi percorsi" },
+                    { icon: Shield, text: "Infrastruttura di grado Enterprise" },
+                    { icon: CheckCircle2, text: "Sincronizzazione in tempo reale" }
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-center gap-4 group">
+                      <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-primary-500/20 transition-colors border border-white/5">
+                        <item.icon className="w-5 h-5 text-primary-400" />
+                      </div>
+                      <span className="font-bold uppercase tracking-tight italic text-neutral-300 group-hover:text-white transition-colors">{item.text}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </motion.div>
+
+              {/* Graphical Visual */}
+              <div className="relative">
+                <div className="aspect-square glass-card bg-neutral-900/80 border-white/20 flex flex-col items-center justify-center p-12 text-center group overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                  <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-primary-500 to-secondary-600 flex items-center justify-center mb-8 shadow-[0_0_50px_rgba(255,107,53,0.3)] animate-pulse">
+                    <Bike className="w-12 h-12 text-white" />
+                  </div>
+                  <h3 className="text-3xl font-black italic uppercase tracking-tighter mb-4">Live Dashboard</h3>
+                  <p className="text-neutral-500 font-bold uppercase tracking-widest text-[10px]">Ready for exploration</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-500/10 to-secondary-500/10" />
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5" />
+      {/* Modern CTA Footer */}
+      <section className="py-40 relative bg-neutral-950 flex flex-col items-center justify-center text-center overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary-500/5 rounded-full blur-[200px] pointer-events-none" />
 
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-              {t('cta.title')}
-            </h2>
-            <p className="text-xl text-neutral-400 mb-8">
-              {t('cta.subtitle')}
-            </p>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          className="max-w-4xl px-6 space-y-10 relative z-10"
+        >
+          <h2 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase italic leading-[0.8]">
+            Don&apos;t Just Ride. <br />
+            <span className="text-gradient">Optimize.</span>
+          </h2>
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Link href="/register">
-              <Button size="lg" icon={<ArrowRight className="w-5 h-5" />} iconPosition="right">
+              <Button size="lg" className="h-20 px-12 text-xl font-black shadow-2xl uppercase italic tracking-tighter">
                 {t('cta.button')}
               </Button>
             </Link>
-          </motion.div>
-        </div>
+          </div>
+          <p className="text-neutral-600 font-bold uppercase tracking-[0.5em] text-xs pt-4">Free Forever for Individual Riders</p>
+        </motion.div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-12 border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center">
-                <Bike className="w-4 h-4 text-white" />
+      {/* Footer Minimalist */}
+      <footer className="py-20 border-t border-white/5 bg-neutral-950">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-12">
+          <div className="flex flex-col gap-4 items-center md:items-start">
+            <div className="flex items-center gap-3 opacity-80">
+              <div className="w-8 h-8 rounded-lg bg-neutral-800 flex items-center justify-center">
+                <Bike className="w-5 h-5 text-white" />
               </div>
-              <span className="font-semibold">{tCommon('appName')}</span>
+              <span className="text-xl font-black italic tracking-tight uppercase">{tCommon('appName')}</span>
             </div>
+            <p className="text-neutral-600 text-sm font-medium italic">Advanced Cycle Analytics Platform</p>
+          </div>
 
-            <StravaLogo className="opacity-80 hover:opacity-100 transition-opacity" />
+          <StravaLogo className="scale-110" variant="powered-by" />
 
-            <p className="text-sm text-neutral-500">
-              © {new Date().getFullYear()} Fixology. Tutti i diritti riservati.
-            </p>
+          <div className="text-neutral-600 text-[11px] font-black uppercase tracking-[0.2em] italic">
+            © {new Date().getFullYear()} Fixology Labs. All Rights Reserved.
           </div>
         </div>
       </footer>
