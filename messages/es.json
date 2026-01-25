@@ -100,7 +100,9 @@
         "type": "Tipo",
         "syncedFromStrava": "Sincronizada desde Strava",
         "addedManually": "Añadida manualmente",
-        "confirmDelete": "Eliminar bici"
+        "confirmDelete": "Eliminar bici",
+        "downloadServiceBooklet": "Descargar Libro de Mantenimiento",
+        "serviceReport": "Informe de Historial de Servicio"
     },
     "components": {
         "title": "Componentes",

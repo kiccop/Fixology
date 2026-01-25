@@ -100,7 +100,9 @@
         "type": "Type",
         "syncedFromStrava": "Synced from Strava",
         "addedManually": "Added manually",
-        "confirmDelete": "Delete bike"
+        "confirmDelete": "Delete bike",
+        "downloadServiceBooklet": "Download Service Booklet",
+        "serviceReport": "Service History Report"
     },
     "components": {
         "title": "Components",

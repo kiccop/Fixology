@@ -100,7 +100,9 @@
         "type": "Type",
         "syncedFromStrava": "Synchronisé depuis Strava",
         "addedManually": "Ajouté manuellement",
-        "confirmDelete": "Supprimer le vélo"
+        "confirmDelete": "Supprimer le vélo",
+        "downloadServiceBooklet": "Télécharger le Carnet d'Entretien",
+        "serviceReport": "Rapport d'Entretien"
     },
     "components": {
         "title": "Composants",

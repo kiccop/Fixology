@@ -19,10 +19,16 @@ import {
     Edit,
     Trash2,
     RotateCcw,
+    History,
 } from 'lucide-react'
 import { Card, Button, ProgressBar, Badge, Modal } from '@/components/ui'
 import { AddComponentModal } from './AddComponentModal'
 import { createClient } from '@/lib/supabase/client'
+import jsPDF from 'jspdf'
+import 'jspdf-autotable'
+import { format } from 'date-fns'
+import { it, enUS, es, fr } from 'date-fns/locale'
+import { useLocale } from 'next-intl'
 
 interface BikeDetailContentProps {
     bike: any
@@ -36,6 +42,8 @@ const fadeIn = {
 export function BikeDetailContent({ bike }: BikeDetailContentProps) {
     const t = useTranslations('components')
     const tBikes = useTranslations('bikes')
+    const tMaintenance = useTranslations('maintenance')
+    const locale = useLocale()
     const router = useRouter()
     const supabase = createClient()
 
@@ -47,6 +55,116 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
     const components = bike.components || []
     const activeComponents = components.filter((c: any) => c.status !== 'replaced')
     const replacedComponents = components.filter((c: any) => c.status === 'replaced')
+
+    const generatePDF = () => {
+        const doc = new jsPDF()
+        const dateLocale = locale === 'it' ? it : locale === 'es' ? es : locale === 'fr' ? fr : enUS
+        const today = format(new Date(), 'PPP', { locale: dateLocale })
+
+        // Colors
+        const primaryColor = [255, 107, 53] // #ff6b35
+
+        // Header
+        doc.setFontSize(22)
+        doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2])
+        doc.text('FIXOLOGY', 105, 20, { align: 'center' })
+
+        doc.setFontSize(16)
+        doc.setTextColor(60, 60, 60)
+        doc.text(tBikes('serviceReport'), 105, 30, { align: 'center' })
+
+        // Bike Info Box
+        doc.setDrawColor(230, 230, 230)
+        doc.setFillColor(248, 248, 248)
+        doc.roundedRect(14, 40, 182, 35, 3, 3, 'FD')
+
+        doc.setFontSize(14)
+        doc.setTextColor(0, 0, 0)
+        doc.text(`${bike.brand} ${bike.model}`, 20, 50)
+        doc.setFontSize(18)
+        doc.text(bike.name, 20, 60)
+
+        doc.setFontSize(11)
+        doc.setTextColor(100, 100, 100)
+        doc.text(`Km Totali: ${bike.total_km?.toLocaleString()} km`, 190, 50, { align: 'right' })
+        doc.text(`Data Report: ${today}`, 190, 60, { align: 'right' })
+
+        // Active Components Table
+        doc.setFontSize(14)
+        doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2])
+        doc.text(t('title'), 14, 90)
+
+        const componentRows = activeComponents.map((c: any) => [
+            t(`types.${c.type}`),
+            `${c.current_km} / ${c.threshold_km || '∞'} km`,
+            t(`status.${c.status}`).toUpperCase(),
+            format(new Date(c.install_date || new Date()), 'dd/MM/yyyy')
+        ])
+
+            ; (doc as any).autoTable({
+                startY: 95,
+                head: [['Componente', 'Chilometraggio', 'Stato', 'Data Installazione']],
+                body: componentRows,
+                headStyles: { fillColor: [40, 40, 40] },
+                alternateRowStyles: { fillColor: [250, 250, 250] },
+                styles: { fontSize: 10 }
+            })
+
+        // Maintenance History (from logs if available)
+        // Note: logs are often nested in components in the data provided through props
+        const allLogs: any[] = []
+        components.forEach((c: any) => {
+            if (c.maintenance_logs) {
+                c.maintenance_logs.forEach((log: any) => {
+                    allLogs.push({
+                        ...log,
+                        componentName: t(`types.${c.type}`)
+                    })
+                })
+            }
+        })
+
+        if (allLogs.length > 0) {
+            const nextY = (doc as any).lastAutoTable.finalY + 15
+            doc.setFontSize(14)
+            doc.text(tMaintenance('title'), 14, nextY)
+
+            const logRows = allLogs
+                .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+                .map(log => [
+                    format(new Date(log.created_at), 'dd/MM/yyyy'),
+                    log.componentName,
+                    tMaintenance(`actions.${log.action_type}`),
+                    `${log.km_at_action?.toLocaleString()} km`
+                ])
+
+                ; (doc as any).autoTable({
+                    startY: nextY + 5,
+                    head: [['Data', 'Componente', 'Azione', 'Chilometraggio']],
+                    body: logRows,
+                    headStyles: { fillColor: primaryColor },
+                    alternateRowStyles: { fillColor: [250, 250, 250] },
+                    styles: { fontSize: 10 }
+                })
+        }
+
+        // Footer
+        const pageCount = (doc as any).internal.getNumberOfPages()
+        for (let i = 1; i <= pageCount; i++) {
+            doc.setPage(i)
+            doc.setFontSize(9)
+            doc.setTextColor(150, 150, 150)
+            doc.text(
+                'Generato da Fixology - La tua bici, sempre al massimo.',
+                105,
+                285,
+                { align: 'center' }
+            )
+        }
+
+        doc.save(`Libretto_${bike.name.replace(/\s+/g, '_')}.pdf`)
+        toast.success('Libretto generato con successo!')
+    }
 
     const handleResetComponent = async (component: any) => {
         setIsLoading(true)
@@ -145,12 +263,22 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                         </div>
                     </div>
 
-                    <Button
-                        onClick={() => setAddComponentOpen(true)}
-                        icon={<Plus className="w-4 h-4" />}
-                    >
-                        {t('addComponent')}
-                    </Button>
+                    <div className="flex gap-3">
+                        <Button
+                            variant="secondary"
+                            onClick={generatePDF}
+                            icon={<History className="w-4 h-4" />}
+                        >
+                            <span className="hidden sm:inline">{tBikes('downloadServiceBooklet')}</span>
+                            <span className="sm:hidden">PDF</span>
+                        </Button>
+                        <Button
+                            onClick={() => setAddComponentOpen(true)}
+                            icon={<Plus className="w-4 h-4" />}
+                        >
+                            {t('addComponent')}
+                        </Button>
+                    </div>
                 </div>
             </motion.div>
 
