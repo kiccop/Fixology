@@ -89,10 +89,10 @@ export function DashboardContent({
             {/* Header */}
             <motion.div variants={fadeIn} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                    <h1 className="text-lg lg:text-xl font-semibold tracking-tight">
-                        {t('welcome')}, <span className="text-gradient font-bold">{userName}</span>! 👋
+                    <h1 className="text-base lg:text-lg font-medium tracking-tight text-neutral-200">
+                        {t('welcome')}, <span className="text-gradient">{userName}</span>! 👋
                     </h1>
-                    <p className="text-xs text-neutral-500 mt-0.5 uppercase tracking-widest">{t('overview')}</p>
+                    <p className="text-[10px] text-neutral-500 mt-0.5 uppercase tracking-widest opacity-80">{t('overview')}</p>
                 </div>
 
                 {stravaConnected && (

@@ -19,6 +19,7 @@ import {
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import { StravaLogo } from '@/components/ui'
+import { useEffect } from 'react'
 
 const navItems = [
     { href: '/dashboard', icon: LayoutDashboard, labelKey: 'dashboard' },
@@ -36,6 +37,40 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     const supabase = createClient()
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const [userMenuOpen, setUserMenuOpen] = useState(false)
+    const [unreadCount, setUnreadCount] = useState(0)
+
+    useEffect(() => {
+        const fetchUnreadCount = async () => {
+            const { data: { user } } = await supabase.auth.getUser()
+            if (!user) return
+
+            const { count } = await supabase
+                .from('notifications')
+                .select('*', { count: 'exact', head: true })
+                .eq('user_id', user.id)
+                .eq('read', false)
+
+            setUnreadCount(count || 0)
+        }
+
+        fetchUnreadCount()
+
+        // Optional: Set up real-time subscription
+        const channel = supabase
+            .channel('unread-notifications')
+            .on('postgres_changes', {
+                event: '*',
+                schema: 'public',
+                table: 'notifications'
+            }, () => {
+                fetchUnreadCount()
+            })
+            .subscribe()
+
+        return () => {
+            supabase.removeChannel(channel)
+        }
+    }, [supabase])
 
     const handleLogout = async () => {
         await supabase.auth.signOut()
@@ -98,9 +133,9 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                                 >
                                     <item.icon className="w-5 h-5" />
                                     <span className="font-medium">{t(item.labelKey)}</span>
-                                    {item.labelKey === 'notifications' && (
-                                        <span className="ml-auto w-5 h-5 rounded-full bg-danger-500 text-white text-xs flex items-center justify-center">
-                                            3
+                                    {item.labelKey === 'notifications' && unreadCount > 0 && (
+                                        <span className="ml-auto w-5 h-5 rounded-full bg-danger-500 text-white text-[10px] font-bold flex items-center justify-center">
+                                            {unreadCount}
                                         </span>
                                     )}
                                 </Link>
