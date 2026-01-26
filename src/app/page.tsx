@@ -55,14 +55,14 @@ export default function LandingPage() {
 
           {/* Desktop Auth */}
           <div className="hidden md:flex items-center gap-4">
-            <Link href="/login">
-              <Button variant="ghost" className="hover:text-primary-400 transition-colors">
-                {tCommon('back')}
-              </Button>
-            </Link>
             <Link href="/register">
               <Button className="!bg-white !text-black hover:!bg-neutral-200 shadow-xl font-bold uppercase italic tracking-tighter">
                 {t('cta.button')}
+              </Button>
+            </Link>
+            <Link href="/login">
+              <Button variant="ghost" className="hover:text-primary-400 transition-colors font-semibold">
+                Login
               </Button>
             </Link>
           </div>
@@ -309,10 +309,15 @@ export default function LandingPage() {
             Don&apos;t Just Ride. <br />
             <span className="text-gradient">Optimize.</span>
           </h2>
-          <div className="flex justify-center">
+          <div className="flex justify-center gap-4">
             <Link href="/register">
               <Button size="lg" className="h-20 px-16 text-2xl font-black shadow-2xl uppercase italic tracking-tighter">
                 {t('cta.button')}
+              </Button>
+            </Link>
+            <Link href="/login">
+              <Button size="lg" variant="secondary" className="h-20 px-12 text-2xl font-black uppercase italic tracking-tighter border-white/20 hover:bg-white/10">
+                Login
               </Button>
             </Link>
           </div>
