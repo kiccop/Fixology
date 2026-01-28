@@ -162,12 +162,12 @@ export default function LandingPage() {
       {/* Features Grid - Centered & Symmetrical */}
       <section id="features" className="py-32 relative overflow-hidden bg-neutral-900/20">
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <div className="max-w-3xl mx-auto mb-24">
-            <span className="text-primary-500 text-[11px] font-black uppercase tracking-[0.3em] mb-4 block italic">Engineering Precision</span>
-            <h2 className="text-5xl sm:text-6xl font-black tracking-tighter uppercase italic leading-none mb-6">
+          <div className="flex flex-col items-center mb-24">
+            <span className="text-primary-500 text-[11px] font-black uppercase tracking-[0.3em] mb-4 block italic text-center">Engineering Precision</span>
+            <h2 className="text-5xl sm:text-6xl font-black tracking-tighter uppercase italic leading-none mb-6 text-center">
               {t('features.title')}
             </h2>
-            <p className="text-neutral-500 font-medium italic text-lg">
+            <p className="text-neutral-500 font-medium italic text-lg text-center max-w-2xl">
               Sviluppato per ciclisti che esigono il massimo dalla propria meccanica.
             </p>
           </div>
@@ -243,9 +243,9 @@ export default function LandingPage() {
       {/* How It Works - Elegant Flow */}
       <section className="py-32 relative bg-black text-center">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="max-w-3xl mx-auto mb-20">
-            <span className="text-primary-500 text-[11px] font-black uppercase tracking-[0.3em] italic mb-4 block">Step by Step</span>
-            <h2 className="text-6xl font-black tracking-tighter uppercase italic leading-none">Ready in Seconds.</h2>
+          <div className="flex flex-col items-center mb-20">
+            <span className="text-primary-500 text-[11px] font-black uppercase tracking-[0.3em] italic mb-4 block text-center">Step by Step</span>
+            <h2 className="text-5xl sm:text-6xl font-black tracking-tighter uppercase italic leading-none text-center">Ready in Seconds.</h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-12">
@@ -341,7 +341,7 @@ export default function LandingPage() {
           <StravaLogo className="scale-110" variant="powered-by" />
 
           <div className="text-neutral-600 text-[11px] font-black uppercase tracking-[0.2em] italic">
-            © {new Date().getFullYear()} Fixology Labs. All Rights Reserved.
+            © {new Date().getFullYear()} {tCommon('appName')} Labs. All Rights Reserved.
           </div>
         </div>
       </footer>

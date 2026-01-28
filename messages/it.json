@@ -227,7 +227,7 @@
             },
             "components": {
                 "title": "Asset Management",
-                "description": "Monitoraggio granulare di catena, trasmissione e freni con algoritmi di usura personalizzati."
+                "description": "Monitoraggio meticoloso di catena, trasmissione e freni con algoritmi di usura personalizzati."
             },
             "alerts": {
                 "title": "Smart Monitoring",
@@ -243,7 +243,7 @@
             },
             "receipts": {
                 "title": "Prove Digitali",
-                "description": "Carica foto delle ricevute del meccanico per una tracciabilità a prova di errore e furto."
+                "description": "Carica foto delle ricevute del meccanico per una tracciabilità a prova di errore."
             }
         },
         "cta": {
