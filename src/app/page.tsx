@@ -41,7 +41,7 @@ export default function LandingPage() {
   const tCommon = useTranslations('common')
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-white selection:bg-primary-500/30 overflow-x-hidden">
+    <div className="min-h-screen bg-neutral-950 text-white selection:bg-primary-500/30 overflow-x-hidden flex flex-col items-center">
       {/* Navigation - Ultra Glassmorphism */}
       <nav className="fixed top-0 left-0 right-0 z-[100] bg-neutral-950/20 backdrop-blur-2xl border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
@@ -160,7 +160,7 @@ export default function LandingPage() {
       </section>
 
       {/* Features Grid - Centered & Symmetrical */}
-      <section id="features" className="py-32 relative overflow-hidden bg-neutral-900/20">
+      <section id="features" className="py-32 relative overflow-hidden bg-neutral-900/20 w-full flex flex-col items-center">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <div className="flex flex-col items-center mb-24 mx-auto max-w-3xl">
             <span className="text-primary-500 text-[11px] font-black uppercase tracking-[0.3em] mb-4 block italic text-center">Engineering Precision</span>
@@ -172,7 +172,7 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 w-full place-items-center">
             {[
               {
                 icon: RefreshCw,
@@ -241,14 +241,14 @@ export default function LandingPage() {
       </section>
 
       {/* How It Works - Elegant Flow */}
-      <section className="py-32 relative bg-black text-center">
+      <section className="py-32 relative bg-black text-center w-full flex flex-col items-center">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col items-center mb-20 mx-auto max-w-3xl">
             <span className="text-primary-500 text-[11px] font-black uppercase tracking-[0.3em] italic mb-4 block text-center">Step by Step</span>
             <h2 className="text-5xl sm:text-6xl font-black tracking-tighter uppercase italic leading-none text-center">Ready in Seconds.</h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-12">
+          <div className="grid md:grid-cols-3 gap-12 w-full place-items-center">
             {[
               {
                 id: "01",
@@ -326,7 +326,7 @@ export default function LandingPage() {
       </section>
 
       {/* Footer Minimalist */}
-      <footer className="py-20 border-t border-white/5 bg-neutral-950">
+      <footer className="py-20 border-t border-white/5 bg-neutral-950 w-full flex flex-col items-center">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-12 text-center md:text-left">
           <div className="flex flex-col gap-4 items-center md:items-start">
             <div className="flex items-center gap-3 opacity-80">
