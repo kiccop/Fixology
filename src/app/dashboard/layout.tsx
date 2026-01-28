@@ -155,12 +155,12 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
       `}>
                 <div className="flex flex-col h-full">
                     {/* Logo */}
-                    <div className="p-6 border-b border-white/5">
-                        <Link href="/dashboard" className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center">
+                    <div className="p-8 border-b border-white/5 bg-black/20">
+                        <Link href="/dashboard" className="flex items-center gap-3 group">
+                            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center shadow-lg shadow-primary-500/10 group-hover:scale-105 transition-transform">
                                 <Bike className="w-6 h-6 text-white" />
                             </div>
-                            <span className="text-xl font-bold text-gradient">{tCommon('appName')}</span>
+                            <span className="text-xl font-black tracking-tighter text-white uppercase italic group-hover:text-primary-400 transition-colors">{tCommon('appName')}</span>
                         </Link>
                     </div>
 
@@ -247,8 +247,14 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                     </div>
 
                     {/* Strava Attribution - Footer of Sidebar */}
-                    <div className="p-6 border-t border-white/5 bg-black/20">
-                        <StravaLogo className="scale-90" />
+                    <div className="p-8 border-t border-white/5 bg-black/40">
+                        <div className="flex flex-col gap-4">
+                            <StravaLogo className="scale-90" />
+                            <p className="text-[10px] text-neutral-600 font-medium leading-tight">
+                                © {new Date().getFullYear()} {tCommon('appName')}<br />
+                                All Rights Reserved.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </aside>

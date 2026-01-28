@@ -1,6 +1,6 @@
 {
     "common": {
-        "appName": "Fixology",
+        "appName": "myBikeLog",
         "tagline": "Your bike, always at its best",
         "loading": "Loading...",
         "save": "Save",
@@ -248,7 +248,7 @@
         },
         "cta": {
             "title": "The future of cycling management.",
-            "subtitle": "Join the Fixology network and eliminate guesswork. Master your mechanics for your next challenge.",
+            "subtitle": "Join the myBikeLog network and eliminate guesswork. Master your mechanics for your next challenge.",
             "button": "Create your account"
         }
     },

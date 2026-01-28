@@ -1,6 +1,6 @@
 {
-    "name": "Fixology",
-    "short_name": "Fixology",
+    "name": "myBikeLog",
+    "short_name": "myBikeLog",
     "description": "La tua bici, sempre al massimo. Gestione manutenzione e Strava.",
     "start_url": "/dashboard",
     "display": "standalone",

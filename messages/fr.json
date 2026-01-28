@@ -1,6 +1,6 @@
 {
     "common": {
-        "appName": "Fixology",
+        "appName": "myBikeLog",
         "tagline": "Votre vélo, toujours au top",
         "loading": "Chargement...",
         "save": "Enregistrer",
@@ -242,7 +242,7 @@
         },
         "cta": {
             "title": "L'avenir de la gestion cycliste.",
-            "subtitle": "Rejoignez le réseau Fixology et éliminez les incertitudes. Maîtrisez votre mécanique pour votre prochain défi.",
+            "subtitle": "Rejoignez le réseau myBikeLog et éliminez les incertitudes. Maîtrisez votre mécanique pour votre prochain défi.",
             "button": "Créer votre compte"
         }
     },

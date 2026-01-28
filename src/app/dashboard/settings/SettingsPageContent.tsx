@@ -275,12 +275,12 @@ export function SettingsPageContent({
                         <h2 className="text-lg font-semibold">Supporto Tecnico</h2>
                     </div>
                     <p className="text-neutral-400 text-sm mb-4">
-                        Hai bisogno di aiuto con Fixology o riscontri problemi con la sincronizzazione Strava?
+                        Hai bisogno di aiuto con myBikeLog o riscontri problemi con la sincronizzazione Strava?
                     </p>
                     <div className="p-4 rounded-xl bg-neutral-900 border border-white/5">
                         <p className="text-sm text-neutral-300">Contattaci via email:</p>
-                        <a href="mailto:support@fixology.app" className="text-primary-400 font-medium hover:underline">
-                            support@fixology.app
+                        <a href="mailto:support@mybikelog.app" className="text-primary-400 font-medium hover:underline">
+                            support@mybikelog.app
                         </a>
                     </div>
                 </Card>

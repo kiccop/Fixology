@@ -13,12 +13,12 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Fixology - La tua bici, sempre al massimo",
+  title: "myBikeLog - La tua bici, sempre al massimo",
   description: "Monitora l'usura dei componenti della tua bici, ricevi notifiche di manutenzione e sincronizza con Strava per tenere traccia dei tuoi chilometri.",
   keywords: ["bici", "manutenzione", "ciclismo", "strava", "componenti", "usura", "notifiche"],
-  authors: [{ name: "Fixology" }],
+  authors: [{ name: "myBikeLog" }],
   openGraph: {
-    title: "Fixology - La tua bici, sempre al massimo",
+    title: "myBikeLog - La tua bici, sempre al massimo",
     description: "Monitora l'usura dei componenti della tua bici e ricevi notifiche di manutenzione.",
     type: "website",
   },

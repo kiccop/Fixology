@@ -184,23 +184,25 @@ export function BikesPageContent({ bikes, stravaConnected }: BikesPageContentPro
                             >
                                 <Card
                                     interactive
-                                    className="h-full"
+                                    className="h-full overflow-hidden border border-white/5 hover:border-white/20 transition-all duration-300 hover:scale-[1.02] bg-white/[0.02]"
                                     onClick={() => router.push(`/dashboard/bikes/${bike.id}`)}
                                 >
-                                    <div className="flex items-start justify-between mb-4">
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-500/20 to-secondary-500/20 flex items-center justify-center text-2xl">
+                                    <div className="flex items-start justify-between mb-6">
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary-500/20 to-secondary-500/20 flex items-center justify-center text-3xl shadow-inner">
                                                 {frameTypeIcons[bike.frame_type] || '🚴'}
                                             </div>
                                             <div>
                                                 <div className="flex items-center gap-2">
-                                                    <h3 className="font-semibold">{bike.name}</h3>
+                                                    <h3 className="text-lg font-black tracking-tight uppercase italic">{bike.name}</h3>
                                                     {bike.is_primary && (
-                                                        <Star className="w-4 h-4 text-warning-400 fill-warning-400" />
+                                                        <div className="p-1 rounded-full bg-warning-500/10 border border-warning-500/20">
+                                                            <Star className="w-3.5 h-3.5 text-warning-400 fill-warning-400" />
+                                                        </div>
                                                     )}
                                                 </div>
-                                                <p className="text-sm text-neutral-400">
-                                                    {bike.brand} {bike.model}
+                                                <p className="text-xs text-neutral-500 font-medium uppercase tracking-widest">
+                                                    {bike.brand} • {bike.model}
                                                 </p>
                                             </div>
                                         </div>
@@ -211,48 +213,47 @@ export function BikesPageContent({ bikes, stravaConnected }: BikesPageContentPro
                                                 setSelectedBike(bike)
                                                 setDeleteModalOpen(true)
                                             }}
-                                            className="p-2 rounded-lg hover:bg-white/5 transition-colors"
+                                            className="p-2 rounded-lg hover:bg-white/5 text-neutral-600 hover:text-danger-400 transition-colors"
                                         >
-                                            <MoreVertical className="w-4 h-4 text-neutral-400" />
+                                            <Trash2 className="w-4 h-4" />
                                         </button>
                                     </div>
 
-                                    <div className="space-y-3">
-                                        {/* Km */}
-                                        <div className="flex items-center justify-between text-sm">
-                                            <span className="text-neutral-400">{t('kilometers')}</span>
-                                            <span className="font-medium">{bike.total_km?.toLocaleString() || 0} km</span>
-                                        </div>
-
-                                        {/* Components */}
-                                        <div className="flex items-center justify-between text-sm">
-                                            <span className="text-neutral-400">{t('components')}</span>
-                                            <div className="flex items-center gap-2">
-                                                <span className="font-medium">{stats.total}</span>
-                                                {stats.danger > 0 && (
-                                                    <Badge status="danger" size="sm">{stats.danger}</Badge>
-                                                )}
-                                                {stats.warning > 0 && (
-                                                    <Badge status="warning" size="sm">{stats.warning}</Badge>
-                                                )}
+                                    <div className="space-y-4">
+                                        {/* Status Group */}
+                                        <div className="grid grid-cols-2 gap-3">
+                                            <div className="p-3 rounded-xl bg-white/2 border border-white/5">
+                                                <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-1">{t('kilometers')}</p>
+                                                <p className="font-black italic text-lg">{bike.total_km?.toLocaleString() || 0} <span className="text-[10px] font-medium lowercase not-italic opacity-50">km</span></p>
+                                            </div>
+                                            <div className="p-3 rounded-xl bg-white/2 border border-white/5">
+                                                <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-1">{t('components')}</p>
+                                                <div className="flex items-center gap-2">
+                                                    <p className="font-black italic text-lg">{stats.total}</p>
+                                                    <div className="flex gap-1">
+                                                        {stats.danger > 0 && <div className="w-2 h-2 rounded-full bg-danger-500 animate-pulse" />}
+                                                        {stats.warning > 0 && <div className="w-2 h-2 rounded-full bg-warning-500" />}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
 
-                                        {/* Frame Type */}
-                                        <div className="flex items-center justify-between text-sm">
-                                            <span className="text-neutral-400">{t('type')}</span>
-                                            <span className="capitalize">{t(`frameTypes.${bike.frame_type}`)}</span>
+                                        {/* Info Row */}
+                                        <div className="flex items-center justify-between px-1">
+                                            <Badge status="outline" className="text-[10px] uppercase font-bold tracking-tighter border-white/10">
+                                                {t(`frameTypes.${bike.frame_type}`)}
+                                            </Badge>
+                                            <span className="text-[10px] text-neutral-600 font-bold uppercase italic tracking-tighter">
+                                                {bike.strava_id ? 'Synced' : 'Manual'}
+                                            </span>
                                         </div>
                                     </div>
 
-                                    <div className="mt-4 pt-4 border-t border-white/5">
-                                        <div className="flex items-center justify-between">
-                                            <span className="text-xs text-neutral-500">
-                                                {bike.strava_id ? t('syncedFromStrava') : t('addedManually')}
-                                            </span>
-                                            <ChevronRight className="w-4 h-4 text-neutral-500" />
-                                        </div>
+                                    <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-primary-400 group/link">
+                                        <span className="text-[10px] font-black uppercase tracking-widest">Dettaglio Meccanico</span>
+                                        <ChevronRight className="w-4 h-4 transform group-hover/link:translate-x-1 transition-transform" />
                                     </div>
+                                    <div className="absolute -right-8 -bottom-8 w-24 h-24 bg-gradient-to-br from-primary-500/10 to-transparent blur-3xl rounded-full" />
                                 </Card>
                             </motion.div>
                         )

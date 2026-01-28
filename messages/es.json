@@ -1,6 +1,6 @@
 {
     "common": {
-        "appName": "Fixology",
+        "appName": "myBikeLog",
         "tagline": "Tu bici, siempre al máximo",
         "loading": "Cargando...",
         "save": "Guardar",
@@ -242,7 +242,7 @@
         },
         "cta": {
             "title": "El futuro de la gestión ciclista.",
-            "subtitle": "Únete a la red de Fixology y elimina las dudas. Domina tu mecánica para tu próximo desafío.",
+            "subtitle": "Únete a la red de myBikeLog y elimina las dudas. Domina tu mecánica para tu próximo desafío.",
             "button": "Crea tu cuenta"
         }
     },

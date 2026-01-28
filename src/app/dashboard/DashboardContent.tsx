@@ -84,7 +84,7 @@ export function DashboardContent({
             initial="initial"
             animate="animate"
             variants={staggerContainer}
-            className="space-y-8 max-w-6xl mx-auto"
+            className="space-y-12 max-w-6xl mx-auto px-4"
         >
             {/* Header - Minimal & Centered */}
             <motion.div variants={fadeIn} className="flex items-center justify-between">
@@ -144,8 +144,9 @@ export function DashboardContent({
                                     </Button>
                                 </Link>
                             </div>
-                            <div className="mt-2 flex justify-end">
-                                <StravaLogo className="scale-60 origin-right opacity-70" />
+                            <div className="mt-2 flex items-center justify-between">
+                                <p className="text-[10px] text-neutral-500 font-medium italic">Gestione flotta attiva</p>
+                                <StravaLogo className="scale-60 origin-right opacity-60" />
                             </div>
                         </div>
 
@@ -279,27 +280,28 @@ function StatCard({
     alert?: boolean
 }) {
     return (
-        <Card className={`relative overflow-hidden !p-3 ${alert ? '!border-danger-500/30' : ''}`}>
-            <div className="flex items-center gap-3">
-                <div className={`w-9 h-9 rounded-lg bg-gradient-to-br ${gradient} flex items-center justify-center flex-shrink-0`}>
-                    <Icon className="w-4 h-4 text-white" />
+        <Card className={`relative overflow-hidden !p-4 transition-all duration-300 hover:scale-[1.02] border border-white/5 hover:border-white/10 ${alert ? '!border-danger-500/30 bg-danger-500/5' : 'bg-white/[0.02]'}`}>
+            <div className="flex items-center gap-4">
+                <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center flex-shrink-0 shadow-lg`}>
+                    <Icon className="w-5 h-5 text-white" />
                 </div>
                 <div className="min-w-0">
-                    <p className="text-[10px] text-neutral-500 uppercase tracking-wider truncate">{label}</p>
-                    <p className="text-lg font-bold leading-tight">
+                    <p className="text-[10px] text-neutral-500 uppercase tracking-[0.1em] font-bold truncate">{label}</p>
+                    <p className="text-xl font-black leading-tight italic tracking-tight">
                         {value}
-                        {suffix && <span className="text-xs text-neutral-500 ml-0.5 font-normal">{suffix}</span>}
+                        {suffix && <span className="text-xs text-neutral-500 ml-1 font-medium lowercase italic">{suffix}</span>}
                     </p>
                 </div>
             </div>
             {alert && (
                 <div className="absolute top-2 right-2">
-                    <span className="flex h-1.5 w-1.5 relative">
+                    <span className="flex h-2 w-2 relative">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-danger-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-danger-500"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-danger-500"></span>
                     </span>
                 </div>
             )}
+            <div className={`absolute -right-4 -bottom-4 w-16 h-16 bg-gradient-to-br ${gradient} opacity-5 blur-2xl rounded-full`} />
         </Card>
     )
 }

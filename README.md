@@ -1,8 +1,8 @@
-# 🚴 Fixology
+# 🚴 myBikeLog
 
 **La tua bici, sempre al massimo.**
 
-Fixology è un'applicazione web moderna per la gestione della manutenzione delle biciclette. Monitora l'usura dei componenti, ricevi notifiche di manutenzione e connetti Strava per sincronizzare automaticamente i tuoi chilometri.
+myBikeLog è un'applicazione web moderna per la gestione della manutenzione delle biciclette. Monitora l'usura dei componenti, ricevi notifiche di manutenzione e connetti Strava per sincronizzare automaticamente i tuoi chilometri.
 
 ![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
@@ -160,4 +160,4 @@ Questo progetto è distribuito con una **licenza proprietaria**. È severamente 
 
 Il codice è reso pubblico su GitHub esclusivamente per scopi di consultazione e portfolio. Ogni abuso verrà perseguito a norma di legge.
 
-Per informazioni o richieste di autorizzazione: [support@fixology.app](mailto:support@fixology.app)
+Per informazioni o richieste di autorizzazione: [support@mybikelog.app](mailto:support@mybikelog.app)

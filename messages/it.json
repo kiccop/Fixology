@@ -1,6 +1,6 @@
 {
     "common": {
-        "appName": "Fixology",
+        "appName": "myBikeLog",
         "tagline": "La tua bici, sempre al massimo",
         "loading": "Caricamento...",
         "save": "Salva",
@@ -248,7 +248,7 @@
         },
         "cta": {
             "title": "Porta la tua bici nel futuro.",
-            "subtitle": "Unisciti alla rete di Fixology e smetti di affidarti al caso. Prepara la tua prossima sfida con una meccanica impeccabile.",
+            "subtitle": "Unisciti alla rete di myBikeLog e smetti di affidarti al caso. Prepara la tua prossima sfida con una meccanica impeccabile.",
             "button": "Crea il tuo account"
         }
     },

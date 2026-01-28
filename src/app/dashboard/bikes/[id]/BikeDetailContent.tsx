@@ -85,7 +85,7 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
             // Header
             doc.setFontSize(22)
             doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2])
-            doc.text('FIXOLOGY', 105, 20, { align: 'center' })
+            doc.text('MYBIKELOG', 105, 20, { align: 'center' })
 
             doc.setFontSize(16)
             doc.setTextColor(60, 60, 60)
@@ -244,7 +244,7 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                 doc.setFontSize(9)
                 doc.setTextColor(150, 150, 150)
                 doc.text(
-                    'Generato da Fixology - La tua bici, sempre al massimo.',
+                    'Generato da myBikeLog - La tua bici, sempre al massimo.',
                     105,
                     285,
                     { align: 'center' }
