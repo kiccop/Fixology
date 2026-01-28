@@ -100,7 +100,7 @@ export default function LandingPage() {
             {/* Main Catchphrase */}
             <motion.h1
               variants={fadeInUp}
-              className="text-6xl sm:text-8xl lg:text-9xl font-black leading-[0.8] tracking-tighter uppercase italic"
+              className="text-6xl sm:text-8xl lg:text-9xl font-black leading-[0.8] tracking-tighter uppercase italic text-center"
             >
               Ride <br />
               <span className="text-gradient">Limitless.</span>
@@ -108,7 +108,7 @@ export default function LandingPage() {
 
             <motion.p
               variants={fadeInUp}
-              className="text-xl md:text-2xl text-neutral-300 max-w-2xl leading-relaxed font-medium"
+              className="text-xl md:text-2xl text-neutral-300 max-w-2xl leading-relaxed font-medium text-center mx-auto"
             >
               {t('hero.subtitle')}
             </motion.p>
@@ -116,7 +116,7 @@ export default function LandingPage() {
             {/* Action Group */}
             <motion.div
               variants={fadeInUp}
-              className="flex flex-col sm:flex-row gap-5 pt-4 w-full sm:w-auto"
+              className="flex flex-col sm:flex-row gap-5 pt-4 w-full sm:w-auto justify-center items-center"
             >
               <Link href="/register">
                 <Button size="lg" className="h-16 px-12 text-xl shadow-2xl shadow-primary-600/30 uppercase italic font-black" icon={<ArrowRight className="w-6 h-6" />} iconPosition="right">
@@ -162,12 +162,12 @@ export default function LandingPage() {
       {/* Features Grid - Centered & Symmetrical */}
       <section id="features" className="py-32 relative overflow-hidden bg-neutral-900/20">
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <div className="flex flex-col items-center mb-24">
+          <div className="flex flex-col items-center mb-24 mx-auto max-w-3xl">
             <span className="text-primary-500 text-[11px] font-black uppercase tracking-[0.3em] mb-4 block italic text-center">Engineering Precision</span>
             <h2 className="text-5xl sm:text-6xl font-black tracking-tighter uppercase italic leading-none mb-6 text-center">
               {t('features.title')}
             </h2>
-            <p className="text-neutral-500 font-medium italic text-lg text-center max-w-2xl">
+            <p className="text-neutral-500 font-medium italic text-lg text-center mx-auto">
               Sviluppato per ciclisti che esigono il massimo dalla propria meccanica.
             </p>
           </div>
@@ -223,8 +223,8 @@ export default function LandingPage() {
                   <div className={`w-16 h-16 rounded-2xl bg-neutral-800 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500`}>
                     <feature.icon className={`w-8 h-8 ${feature.color}`} />
                   </div>
-                  <h3 className="text-2xl font-bold mb-4 tracking-tight italic uppercase">{feature.title}</h3>
-                  <p className="text-neutral-500 text-sm leading-relaxed font-medium mb-8">
+                  <h3 className="text-2xl font-bold mb-4 tracking-tight italic uppercase text-center">{feature.title}</h3>
+                  <p className="text-neutral-500 text-sm leading-relaxed font-medium mb-8 text-center">
                     {feature.description}
                   </p>
 
@@ -243,7 +243,7 @@ export default function LandingPage() {
       {/* How It Works - Elegant Flow */}
       <section className="py-32 relative bg-black text-center">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col items-center mb-20">
+          <div className="flex flex-col items-center mb-20 mx-auto max-w-3xl">
             <span className="text-primary-500 text-[11px] font-black uppercase tracking-[0.3em] italic mb-4 block text-center">Step by Step</span>
             <h2 className="text-5xl sm:text-6xl font-black tracking-tighter uppercase italic leading-none text-center">Ready in Seconds.</h2>
           </div>
@@ -279,10 +279,10 @@ export default function LandingPage() {
               >
                 <div className="text-7xl font-black italic tracking-tighter text-neutral-800 opacity-30">{step.id}</div>
                 <div className="w-16 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full" />
-                <h3 className="text-2xl font-black uppercase italic tracking-tight flex items-center gap-3">
+                <h3 className="text-2xl font-black uppercase italic tracking-tight flex items-center justify-center gap-3 text-center">
                   {step.title}
                 </h3>
-                <p className="text-neutral-500 font-medium leading-relaxed italic max-w-xs">{step.desc}</p>
+                <p className="text-neutral-500 font-medium leading-relaxed italic max-w-xs text-center mx-auto">{step.desc}</p>
               </motion.div>
             ))}
           </div>
