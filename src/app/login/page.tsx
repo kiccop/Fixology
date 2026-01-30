@@ -8,10 +8,12 @@ import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Bike, Mail, Lock, Loader2 } from 'lucide-react'
+import { Bike, Mail, Lock, Loader2, Fingerprint } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button, Input, Card, StravaLogo } from '@/components/ui'
 import { createClient } from '@/lib/supabase/client'
+import { biometricAuth } from '@/lib/biometric'
+import { useEffect } from 'react'
 
 const loginSchema = z.object({
     email: z.string().email('Email non valida'),
@@ -35,6 +37,39 @@ export default function LoginPage() {
         resolver: zodResolver(loginSchema),
     })
 
+    const [isBiometricAvailable, setIsBiometricAvailable] = useState(false)
+
+    useEffect(() => {
+        const checkBiometric = async () => {
+            const available = await biometricAuth.isAvailable()
+            const lastUser = biometricAuth.getLastUser()
+            const enabled = lastUser ? biometricAuth.isEnabledForUser(lastUser) : false
+            setIsBiometricAvailable(available && enabled)
+
+            // Auto-trigger biometric if available and enabled
+            if (available && enabled) {
+                handleBiometricLogin()
+            }
+        }
+        checkBiometric()
+    }, [])
+
+    const handleBiometricLogin = async () => {
+        const success = await biometricAuth.authenticate()
+        if (success) {
+            // In a real app, we would store a secure token or use Supabase's persistence.
+            // For now, if authentication is successful, we try to refresh the session
+            // or just redirect if the session is already valid.
+            const { data: { session } } = await supabase.auth.getSession()
+            if (session) {
+                toast.success(t('loginSuccess'))
+                router.push('/dashboard')
+            } else {
+                toast.error('Sessione scaduta, effettua il login con password')
+            }
+        }
+    }
+
     const onSubmit = async (data: LoginFormData) => {
         setIsLoading(true)
         try {
@@ -46,6 +81,12 @@ export default function LoginPage() {
             if (error) {
                 toast.error(t('invalidCredentials'))
                 return
+            }
+
+            // Save last user ID for biometric association
+            const { data: { user } } = await supabase.auth.getUser()
+            if (user) {
+                biometricAuth.setLastUser(user.id)
             }
 
             toast.success(t('loginSuccess'))
@@ -124,6 +165,20 @@ export default function LoginPage() {
                         >
                             {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t('login')}
                         </Button>
+
+                        {isBiometricAvailable && (
+                            <div className="pt-2">
+                                <Button
+                                    type="button"
+                                    variant="secondary"
+                                    fullWidth
+                                    onClick={handleBiometricLogin}
+                                    icon={<Fingerprint className="w-5 h-5" />}
+                                >
+                                    Usa Biometria
+                                </Button>
+                            </div>
+                        )}
                     </form>
                 </Card>
 

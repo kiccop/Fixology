@@ -4,6 +4,8 @@ import { Inter } from "next/font/google";
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 import { Toaster } from 'sonner';
+import { MobileInitializer } from '@/components/MobileInitializer';
+import { CookieBanner } from '@/components/CookieBanner';
 import "./globals.css";
 
 const inter = Inter({
@@ -17,6 +19,12 @@ export const metadata: Metadata = {
   description: "Monitora l'usura dei componenti della tua bici, ricevi notifiche di manutenzione e sincronizza con Strava per tenere traccia dei tuoi chilometri.",
   keywords: ["bici", "manutenzione", "ciclismo", "strava", "componenti", "usura", "notifiche"],
   authors: [{ name: "myBikeLog" }],
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+    userScalable: true,
+  },
   openGraph: {
     title: "myBikeLog - La tua bici, sempre al massimo",
     description: "Monitora l'usura dei componenti della tua bici e ricevi notifiche di manutenzione.",
@@ -35,6 +43,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} className="dark">
       <body className={`${inter.variable} font-sans antialiased`}>
+        <MobileInitializer />
         <NextIntlClientProvider messages={messages}>
           {children}
           <Toaster
@@ -47,6 +56,7 @@ export default async function RootLayout({
               },
             }}
           />
+          <CookieBanner />
         </NextIntlClientProvider>
       </body>
     </html>

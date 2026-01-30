@@ -262,10 +262,10 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
             {/* Main Content */}
             <div className="flex-1 flex flex-col min-h-screen">
                 {/* Top Bar */}
-                <header className="sticky top-0 z-30 h-16 bg-neutral-900/80 backdrop-blur-xl border-b border-white/5 px-4 flex items-center lg:hidden">
+                <header className="sticky top-0 z-30 h-16 bg-neutral-900/80 backdrop-blur-xl border-b border-white/5 px-4 flex items-center lg:hidden pt-safe">
                     <button
                         onClick={() => setSidebarOpen(true)}
-                        className="p-2 rounded-lg hover:bg-white/5 transition-colors"
+                        className="p-2 rounded-lg hover:bg-white/5 transition-colors touch-manipulation"
                     >
                         <Menu className="w-6 h-6" />
                     </button>
@@ -278,7 +278,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                 </header>
 
                 {/* Page Content */}
-                <main className="flex-1 p-4 lg:p-8">
+                <main className="flex-1 p-4 lg:p-8 pb-safe">
                     <div className="max-w-7xl mx-auto">
                         {children}
                     </div>

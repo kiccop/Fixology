@@ -20,6 +20,8 @@ import {
 import { Card, Button, Modal, Badge, StravaLogo } from '@/components/ui'
 import { AddBikeModal } from './AddBikeModal'
 import { createClient } from '@/lib/supabase/client'
+import { APP_CONFIG } from '@/lib/config'
+import { Browser } from '@capacitor/browser'
 
 interface BikesPageContentProps {
     bikes: any[]
@@ -54,7 +56,8 @@ export function BikesPageContent({ bikes, stravaConnected }: BikesPageContentPro
     const handleSync = async () => {
         setSyncing(true)
         try {
-            const response = await fetch('/api/strava/sync', { method: 'POST' })
+            const syncUrl = APP_CONFIG.getApiUrl('/api/strava/sync')
+            const response = await fetch(syncUrl, { method: 'POST' })
             if (response.ok) {
                 toast.success(tStrava('syncSuccess'))
                 router.refresh()
@@ -147,9 +150,20 @@ export function BikesPageContent({ bikes, stravaConnected }: BikesPageContentPro
                                     </p>
                                 </div>
                             </div>
-                            <Link href="/api/auth/strava">
+                            <Button
+                                variant="ghost"
+                                className="p-0 h-auto hover:bg-transparent"
+                                onClick={async () => {
+                                    const authUrl = APP_CONFIG.getApiUrl('/api/auth/strava')
+                                    if (APP_CONFIG.isMobile) {
+                                        await Browser.open({ url: authUrl })
+                                    } else {
+                                        window.location.href = authUrl
+                                    }
+                                }}
+                            >
                                 <StravaLogo variant="connect-button" />
-                            </Link>
+                            </Button>
                         </div>
                     </Card>
                 </motion.div>

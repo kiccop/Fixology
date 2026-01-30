@@ -16,11 +16,16 @@ import {
     Check,
     LogOut,
     ExternalLink,
+    Fingerprint,
 } from 'lucide-react'
 import { Card, Button, Input, Modal, StravaLogo } from '@/components/ui'
 import { createClient } from '@/lib/supabase/client'
+import { APP_CONFIG } from '@/lib/config'
+import { Browser } from '@capacitor/browser'
 import { formatDistanceToNow } from 'date-fns'
 import { it } from 'date-fns/locale'
+import { biometricAuth } from '@/lib/biometric'
+import { useEffect } from 'react'
 
 interface SettingsPageContentProps {
     profile: any
@@ -54,9 +59,22 @@ export function SettingsPageContent({
     const [selectedLocale, setSelectedLocale] = useState(profile?.locale || 'it')
     const [emailNotifications, setEmailNotifications] = useState(profile?.email_notifications ?? true)
     const [pushNotifications, setPushNotifications] = useState(profile?.push_notifications ?? true)
+    const [biometricEnabled, setBiometricEnabled] = useState(false)
+    const [biometricAvailable, setBiometricAvailable] = useState(false)
     const [isSaving, setIsSaving] = useState(false)
     const [deleteModalOpen, setDeleteModalOpen] = useState(false)
     const [disconnectModalOpen, setDisconnectModalOpen] = useState(false)
+
+    useEffect(() => {
+        const checkBiometric = async () => {
+            const available = await biometricAuth.isAvailable()
+            setBiometricAvailable(available)
+            if (available && profile?.id) {
+                setBiometricEnabled(biometricAuth.isEnabledForUser(profile.id))
+            }
+        }
+        checkBiometric()
+    }, [profile?.id])
 
     const handleSave = async () => {
         setIsSaving(true)
@@ -77,6 +95,16 @@ export function SettingsPageContent({
             Cookies.set('locale', selectedLocale, { expires: 365 })
 
             toast.success('Impostazioni salvate')
+
+            // Save biometric preference locally
+            if (biometricAvailable && profile?.id) {
+                if (biometricEnabled) {
+                    biometricAuth.enableForUser(profile.id)
+                } else {
+                    biometricAuth.disableForUser(profile.id)
+                }
+            }
+
             router.refresh()
         } catch {
             toast.error('Errore durante il salvataggio')
@@ -211,6 +239,21 @@ export function SettingsPageContent({
                             checked={pushNotifications}
                             onChange={setPushNotifications}
                         />
+
+                        {biometricAvailable && (
+                            <div className="pt-4 border-t border-white/5">
+                                <div className="flex items-center gap-3 mb-4">
+                                    <Fingerprint className="w-5 h-5 text-primary-400" />
+                                    <h3 className="font-semibold">Sicurezza Nativa</h3>
+                                </div>
+                                <ToggleOption
+                                    label="Accesso Biometrico"
+                                    description="Usa FaceID o Impronta Digitale per accedere all'app"
+                                    checked={biometricEnabled}
+                                    onChange={setBiometricEnabled}
+                                />
+                            </div>
+                        )}
                     </div>
                 </Card>
             </motion.div>
@@ -253,9 +296,20 @@ export function SettingsPageContent({
                             <p className="text-neutral-400 mb-4">
                                 Connetti Strava per importare automaticamente le tue bici e sincronizzare i km
                             </p>
-                            <Link href="/api/auth/strava">
+                            <Button
+                                variant="ghost"
+                                className="p-0 h-auto hover:bg-transparent"
+                                onClick={async () => {
+                                    const authUrl = APP_CONFIG.getApiUrl('/api/auth/strava')
+                                    if (APP_CONFIG.isMobile) {
+                                        await Browser.open({ url: authUrl })
+                                    } else {
+                                        window.location.href = authUrl
+                                    }
+                                }}
+                            >
                                 <StravaLogo variant="connect-button" />
-                            </Link>
+                            </Button>
                         </div>
                     )}
 

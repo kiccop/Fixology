@@ -98,9 +98,15 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
 
             doc.setFontSize(14)
             doc.setTextColor(0, 0, 0)
-            doc.text(`${bike.brand} ${bike.model}`, 20, 50)
+
+            // Only show brand/model if they exist
+            const brandModel = [bike.brand, bike.model].filter(Boolean).join(' ')
+            if (brandModel) {
+                doc.text(brandModel, 20, 50)
+            }
+
             doc.setFontSize(18)
-            doc.text(bike.name, 20, 60)
+            doc.text(bike.name, 20, brandModel ? 60 : 50)
 
             doc.setFontSize(11)
             doc.setTextColor(100, 100, 100)
@@ -353,29 +359,30 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                     <span>Torna alle bici</span>
                 </Link>
 
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                    <div className="flex items-center gap-4">
-                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500/20 to-secondary-500/20 flex items-center justify-center">
-                            <Bike className="w-8 h-8 text-primary-400" />
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                    <div className="flex items-start gap-3 sm:gap-4 min-w-0 flex-1">
+                        <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-primary-500/20 to-secondary-500/20 flex items-center justify-center flex-shrink-0">
+                            <Bike className="w-6 h-6 sm:w-8 sm:h-8 text-primary-400" />
                         </div>
-                        <div>
-                            <div className="flex items-center gap-2">
-                                <h1 className="text-2xl lg:text-3xl font-bold">{bike.name}</h1>
+                        <div className="min-w-0 flex-1">
+                            <div className="flex items-center gap-2 flex-wrap">
+                                <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold truncate">{bike.name}</h1>
                                 {bike.is_primary && (
-                                    <Star className="w-5 h-5 text-warning-400 fill-warning-400" />
+                                    <Star className="w-4 h-4 sm:w-5 sm:h-5 text-warning-400 fill-warning-400 flex-shrink-0" />
                                 )}
                             </div>
-                            <p className="text-neutral-400">
+                            <p className="text-sm sm:text-base text-neutral-400 truncate">
                                 {bike.brand} {bike.model} • {bike.total_km?.toLocaleString() || 0} km
                             </p>
                         </div>
                     </div>
 
-                    <div className="flex gap-3">
+                    <div className="flex gap-2 sm:gap-3 flex-wrap">
                         <Button
                             variant="secondary"
                             onClick={generatePDF}
-                            icon={<History className="w-4 h-4" />}
+                            size="sm"
+                            icon={<FileText className="w-4 h-4" />}
                         >
                             <span className="hidden sm:inline">{tBikes('downloadServiceBooklet')}</span>
                             <span className="sm:hidden">PDF</span>
@@ -383,6 +390,7 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                         <Button
                             variant="secondary"
                             onClick={() => setAddMaintenanceOpen(true)}
+                            size="sm"
                             icon={<Wrench className="w-4 h-4" />}
                         >
                             <span className="hidden sm:inline">Log Intervento</span>
@@ -390,9 +398,12 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                         </Button>
                         <Button
                             onClick={() => setAddComponentOpen(true)}
+                            size="sm"
                             icon={<Plus className="w-4 h-4" />}
+                            className="flex-1 sm:flex-initial"
                         >
-                            {t('addComponent')}
+                            <span className="hidden sm:inline">{t('addComponent')}</span>
+                            <span className="sm:hidden">Aggiungi</span>
                         </Button>
                     </div>
                 </div>

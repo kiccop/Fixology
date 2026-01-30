@@ -87,20 +87,22 @@ export function DashboardContent({
             className="space-y-12 max-w-6xl mx-auto px-4"
         >
             {/* Header - Minimal & Centered */}
-            <motion.div variants={fadeIn} className="flex items-center justify-between">
-                <div>
+            <motion.div variants={fadeIn} className="flex items-center justify-between gap-3">
+                <div className="min-w-0 flex-1">
                     <p className="text-[11px] text-neutral-500 uppercase tracking-widest mb-1">{t('overview')}</p>
-                    <h1 className="text-sm font-medium text-neutral-300">
-                        {t('welcome')}, <span className="text-gradient font-semibold">{userName}</span> 👋
+                    <h1 className="text-base sm:text-lg font-medium text-neutral-300 truncate">
+                        {t('welcome')}, <span className="text-gradient font-semibold break-words">{userName}</span> 👋
                     </h1>
                 </div>
 
                 {stravaConnected && (
-                    <StravaLogo
-                        variant="sync-button"
-                        onClick={handleSync}
-                        loading={syncing}
-                    />
+                    <div className="flex-shrink-0">
+                        <StravaLogo
+                            variant="sync-button"
+                            onClick={handleSync}
+                            loading={syncing}
+                        />
+                    </div>
                 )}
             </motion.div>
 
@@ -285,9 +287,9 @@ function StatCard({
                 <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center flex-shrink-0 shadow-lg`}>
                     <Icon className="w-5 h-5 text-white" />
                 </div>
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                     <p className="text-[10px] text-neutral-500 uppercase tracking-[0.1em] font-bold truncate">{label}</p>
-                    <p className="text-xl font-black leading-tight italic tracking-tight">
+                    <p className="text-lg sm:text-xl font-black leading-tight italic tracking-tight truncate">
                         {value}
                         {suffix && <span className="text-xs text-neutral-500 ml-1 font-medium lowercase italic">{suffix}</span>}
                     </p>
