@@ -87,11 +87,11 @@ export function DashboardContent({
             className="space-y-12 max-w-6xl mx-auto px-4"
         >
             {/* Header - Minimal & Centered */}
-            <motion.div variants={fadeIn} className="flex items-center justify-between gap-3">
+            <motion.div variants={fadeIn} className="flex items-start justify-between gap-3">
                 <div className="min-w-0 flex-1">
                     <p className="text-[11px] text-neutral-500 uppercase tracking-widest mb-1">{t('overview')}</p>
-                    <h1 className="text-base sm:text-lg font-medium text-neutral-300 truncate">
-                        {t('welcome')}, <span className="text-gradient font-semibold break-words">{userName}</span> 👋
+                    <h1 className="text-base sm:text-lg font-medium text-neutral-300 leading-tight">
+                        {t('welcome')}, <span className="text-gradient font-semibold">{userName}</span> 👋
                     </h1>
                 </div>
 
@@ -289,10 +289,12 @@ function StatCard({
                 </div>
                 <div className="min-w-0 flex-1">
                     <p className="text-[10px] text-neutral-500 uppercase tracking-[0.1em] font-bold truncate">{label}</p>
-                    <p className="text-lg sm:text-xl font-black leading-tight italic tracking-tight truncate">
-                        {value}
-                        {suffix && <span className="text-xs text-neutral-500 ml-1 font-medium lowercase italic">{suffix}</span>}
-                    </p>
+                    <div className="flex items-baseline gap-1 overflow-hidden">
+                        <p className="text-lg sm:text-xl font-black leading-tight italic tracking-tight truncate">
+                            {value}
+                        </p>
+                        {suffix && <span className="text-[10px] text-neutral-500 font-medium lowercase italic flex-shrink-0">{suffix}</span>}
+                    </div>
                 </div>
             </div>
             {alert && (
