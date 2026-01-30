@@ -44,7 +44,7 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-neutral-950 text-white selection:bg-primary-500/30 overflow-x-hidden flex flex-col items-center">
       {/* Navigation - Ultra Glassmorphism */}
-      <nav className="fixed top-0 left-0 right-0 z-[100] bg-neutral-950/20 backdrop-blur-2xl border-b border-white/5 pt-[env(safe-area-inset-top,20px)]">
+      <nav className="fixed top-0 left-0 right-0 z-[100] bg-neutral-950/20 backdrop-blur-2xl border-b border-white/5 pt-[max(env(safe-area-inset-top),40px)]">
         <div className="max-w-7xl mx-auto px-6 h-28 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-3 group cursor-pointer">
