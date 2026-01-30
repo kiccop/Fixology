@@ -262,7 +262,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
             {/* Main Content */}
             <div className="flex-1 flex flex-col min-h-screen">
                 {/* Top Bar - Improved for Mobile Accessibility */}
-                <header className="sticky top-0 z-30 h-20 bg-neutral-900/80 backdrop-blur-xl border-b border-white/5 px-6 flex items-center lg:hidden pt-[env(safe-area-inset-top)]">
+                <header className="sticky top-0 z-30 h-24 bg-neutral-900/80 backdrop-blur-xl border-b border-white/5 px-6 flex items-center lg:hidden pt-[env(safe-area-inset-top,24px)]">
                     <button
                         onClick={() => setSidebarOpen(true)}
                         className="p-3 -ml-2 rounded-xl hover:bg-white/5 transition-colors touch-manipulation active:scale-95"

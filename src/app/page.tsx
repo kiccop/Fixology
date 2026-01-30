@@ -44,8 +44,8 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-neutral-950 text-white selection:bg-primary-500/30 overflow-x-hidden flex flex-col items-center">
       {/* Navigation - Ultra Glassmorphism */}
-      <nav className="fixed top-0 left-0 right-0 z-[100] bg-neutral-950/20 backdrop-blur-2xl border-b border-white/5 pt-[env(safe-area-inset-top)]">
-        <div className="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+      <nav className="fixed top-0 left-0 right-0 z-[100] bg-neutral-950/20 backdrop-blur-2xl border-b border-white/5 pt-[env(safe-area-inset-top,20px)]">
+        <div className="max-w-7xl mx-auto px-6 h-28 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-3 group cursor-pointer">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center shadow-lg shadow-primary-500/20 group-hover:scale-110 transition-transform duration-300">
@@ -71,7 +71,7 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero Section - Centered & Impactful */}
-      <section className="relative min-h-screen flex items-center justify-center pt-32 sm:pt-24 overflow-hidden text-center">
+      <section className="relative min-h-screen flex items-center justify-center pt-40 sm:pt-32 overflow-hidden text-center">
         {/* Dynamic Background */}
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-neutral-950/40 z-10" />
