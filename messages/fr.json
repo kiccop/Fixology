@@ -223,9 +223,14 @@
         "metric": "Métrique (km)",
         "imperial": "Impérial (mi)",
         "security": {
-            "title": "Sécurité Native",
+            "title": "Sécurité et Compte",
             "biometric": "Accès Biométrique",
-            "biometricDescription": "Utilisez FaceID ou Empreinte Digitale pour accéder à l'app"
+            "biometricDescription": "Utilisez votre empreinte ou visage pour accéder",
+            "password": "Mot de passe",
+            "passwordDescription": "Mettre à jour votre mot de passe d'accès",
+            "changePassword": "Changer le Mot de Passe",
+            "newPassword": "Nouveau Mot de Passe",
+            "confirmPassword": "Confirmer le Mot de Passe"
         },
         "account_section": {
             "name": "Nom",

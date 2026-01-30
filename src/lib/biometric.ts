@@ -61,6 +61,44 @@ export const biometricAuth = {
         return localStorage.getItem(`biometric-enabled-${userId}`) === 'true'
     },
 
+    async setCredentials(userId: string, email: string, password: string) {
+        if (!APP_CONFIG.isMobile) return
+        try {
+            await NativeBiometric.setCredentials({
+                username: email,
+                password: password,
+                server: 'mybikelog.app',
+            })
+            this.enableForUser(userId)
+            this.setLastUser(userId)
+        } catch (error) {
+            console.error('Failed to set biometric credentials:', error)
+        }
+    },
+
+    async getCredentials() {
+        if (!APP_CONFIG.isMobile) return null
+        try {
+            return await NativeBiometric.getCredentials({
+                server: 'mybikelog.app',
+            })
+        } catch (error) {
+            console.error('Failed to get biometric credentials:', error)
+            return null
+        }
+    },
+
+    async deleteCredentials() {
+        if (!APP_CONFIG.isMobile) return
+        try {
+            await NativeBiometric.deleteCredentials({
+                server: 'mybikelog.app',
+            })
+        } catch (error) {
+            console.error('Failed to delete biometric credentials:', error)
+        }
+    },
+
     setLastUser(userId: string) {
         localStorage.setItem('last-user-id', userId)
     },

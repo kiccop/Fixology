@@ -57,15 +57,38 @@ export default function LoginPage() {
     const handleBiometricLogin = async () => {
         const success = await biometricAuth.authenticate()
         if (success) {
-            // In a real app, we would store a secure token or use Supabase's persistence.
-            // For now, if authentication is successful, we try to refresh the session
-            // or just redirect if the session is already valid.
-            const { data: { session } } = await supabase.auth.getSession()
-            if (session) {
-                toast.success(t('loginSuccess'))
-                router.push('/dashboard')
+            // Retrieve credentials from secure storage
+            const creds = await biometricAuth.getCredentials()
+            if (creds) {
+                setIsLoading(true)
+                try {
+                    const { error } = await supabase.auth.signInWithPassword({
+                        email: creds.username,
+                        password: creds.password,
+                    })
+
+                    if (error) {
+                        toast.error(t('sessionExpired'))
+                        return
+                    }
+
+                    toast.success(t('loginSuccess'))
+                    router.push('/dashboard')
+                    router.refresh()
+                } catch {
+                    toast.error(tCommon('error'))
+                } finally {
+                    setIsLoading(false)
+                }
             } else {
-                toast.error(t('sessionExpired'))
+                // If no credentials found, check if session is still valid
+                const { data: { session } } = await supabase.auth.getSession()
+                if (session) {
+                    toast.success(t('loginSuccess'))
+                    router.push('/dashboard')
+                } else {
+                    toast.error(t('sessionExpired'))
+                }
             }
         }
     }
@@ -93,7 +116,7 @@ export default function LoginPage() {
                 if (available && !wasEnabled) {
                     const wantEnabled = confirm(t('biometricPrompt'))
                     if (wantEnabled) {
-                        biometricAuth.enableForUser(user.id)
+                        await biometricAuth.setCredentials(user.id, data.email, data.password)
                         toast.success(t('biometricEnabled'))
                     }
                 }

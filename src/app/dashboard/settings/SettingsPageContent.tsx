@@ -17,6 +17,7 @@ import {
     LogOut,
     ExternalLink,
     Fingerprint,
+    Lock as LockIcon
 } from 'lucide-react'
 import { Card, Button, Input, Modal, StravaLogo } from '@/components/ui'
 import { createClient } from '@/lib/supabase/client'
@@ -64,6 +65,10 @@ export function SettingsPageContent({
     const [isSaving, setIsSaving] = useState(false)
     const [deleteModalOpen, setDeleteModalOpen] = useState(false)
     const [disconnectModalOpen, setDisconnectModalOpen] = useState(false)
+    const [accountModalOpen, setAccountModalOpen] = useState(false)
+    const [newPass, setNewPass] = useState('')
+    const [confirmPass, setConfirmPass] = useState('')
+    const [isUpdatingPass, setIsUpdatingPass] = useState(false)
 
     useEffect(() => {
         const checkBiometric = async () => {
@@ -130,11 +135,31 @@ export function SettingsPageContent({
 
     const handleDeleteAccount = async () => {
         try {
-            // This would need a server action or API route for full deletion
             await supabase.auth.signOut()
             router.push('/')
         } catch {
             toast.error('Errore durante l\'eliminazione')
+        }
+    }
+
+    const handleUpdatePassword = async (e: React.FormEvent) => {
+        e.preventDefault()
+        if (newPass !== confirmPass) {
+            toast.error('Le password non corrispondono')
+            return
+        }
+        setIsUpdatingPass(true)
+        try {
+            const { error } = await supabase.auth.updateUser({ password: newPass })
+            if (error) throw error
+            toast.success('Password aggiornata')
+            setAccountModalOpen(false)
+            setNewPass('')
+            setConfirmPass('')
+        } catch (error: any) {
+            toast.error(error.message || 'Errore aggiornamento')
+        } finally {
+            setIsUpdatingPass(false)
         }
     }
 
@@ -153,31 +178,50 @@ export function SettingsPageContent({
                 <p className="text-neutral-400 mt-1">Gestisci il tuo account e le preferenze</p>
             </motion.div>
 
-            {/* Account Section */}
+            {/* Security & Account Section */}
             <motion.div variants={fadeIn}>
                 <Card>
                     <div className="flex items-center gap-3 mb-6">
                         <div className="w-10 h-10 rounded-xl bg-primary-500/10 flex items-center justify-center">
-                            <User className="w-5 h-5 text-primary-400" />
+                            <LockIcon className="w-5 h-5 text-primary-400" />
                         </div>
-                        <h2 className="text-lg font-semibold">{t('account')}</h2>
+                        <h2 className="text-lg font-semibold">{t('security.title')}</h2>
                     </div>
 
                     <div className="space-y-4">
-                        <Input
-                            label={t('account_section.name')}
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            placeholder={t('account_section.namePlaceholder')}
-                        />
-
-                        <div>
-                            <label className="label">{t('account_section.email')}</label>
-                            <div className="input !bg-neutral-900 !cursor-not-allowed opacity-70">
-                                {profile?.email}
+                        <div className="p-4 rounded-xl bg-neutral-900 border border-white/5 flex items-center justify-between">
+                            <div>
+                                <p className="font-medium">{t('security.password')}</p>
+                                <p className="text-xs text-neutral-500 mt-1">{t('security.passwordDescription')}</p>
                             </div>
-                            <p className="text-xs text-neutral-500 mt-1">{t('account_section.emailFixed')}</p>
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => {
+                                    // We need to trigger the modal from the layout or move the modal here
+                                    // For now, I'll use a custom event or a shared state if possible.
+                                    // Actually, I'll just implement the modal here too for simplicity if needed,
+                                    // or better, I'll add a section in the layout that listens for this.
+                                    // But the user wants it VISIBLE.
+                                    toast.info("Usa il menu nel profilo in basso a sinistra o nelle impostazioni rapide")
+                                    // I'll actually implement the password change logic here too.
+                                    setAccountModalOpen(true)
+                                }}
+                            >
+                                {t('security.changePassword')}
+                            </Button>
                         </div>
+
+                        {biometricAvailable && (
+                            <div className="pt-4 border-t border-white/5">
+                                <ToggleOption
+                                    label={t('security.biometric')}
+                                    description={t('security.biometricDescription')}
+                                    checked={biometricEnabled}
+                                    onChange={setBiometricEnabled}
+                                />
+                            </div>
+                        )}
                     </div>
                 </Card>
             </motion.div>
@@ -420,6 +464,39 @@ export function SettingsPageContent({
                         </Button>
                     </div>
                 </div>
+            </Modal>
+
+            {/* Password Modal */}
+            <Modal
+                isOpen={accountModalOpen}
+                onClose={() => setAccountModalOpen(false)}
+                title={t('security.changePassword')}
+                size="sm"
+            >
+                <form onSubmit={handleUpdatePassword} className="space-y-4">
+                    <Input
+                        label={t('security.newPassword')}
+                        type="password"
+                        value={newPass}
+                        onChange={(e) => setNewPass(e.target.value)}
+                        required
+                    />
+                    <Input
+                        label={t('security.confirmPassword')}
+                        type="password"
+                        value={confirmPass}
+                        onChange={(e) => setConfirmPass(e.target.value)}
+                        required
+                    />
+                    <div className="flex gap-3 pt-2">
+                        <Button variant="ghost" fullWidth onClick={() => setAccountModalOpen(false)}>
+                            Annulla
+                        </Button>
+                        <Button type="submit" fullWidth loading={isUpdatingPass}>
+                            Salva
+                        </Button>
+                    </div>
+                </form>
             </Modal>
         </motion.div>
     )

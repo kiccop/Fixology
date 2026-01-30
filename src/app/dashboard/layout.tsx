@@ -230,7 +230,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                                                 className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-neutral-300 hover:bg-white/5 transition-colors"
                                             >
                                                 <Key className="w-4 h-4" />
-                                                <span className="text-sm">Cambia Password</span>
+                                                <span className="text-sm">{tCommon('password')}</span>
                                             </button>
                                         </div>
                                         <button
@@ -261,20 +261,25 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 
             {/* Main Content */}
             <div className="flex-1 flex flex-col min-h-screen">
-                {/* Top Bar */}
-                <header className="sticky top-0 z-30 h-16 bg-neutral-900/80 backdrop-blur-xl border-b border-white/5 px-4 flex items-center lg:hidden pt-safe">
+                {/* Top Bar - Improved for Mobile Accessibility */}
+                <header className="sticky top-0 z-30 h-20 bg-neutral-900/80 backdrop-blur-xl border-b border-white/5 px-6 flex items-center lg:hidden pt-[env(safe-area-inset-top)]">
                     <button
                         onClick={() => setSidebarOpen(true)}
-                        className="p-2 rounded-lg hover:bg-white/5 transition-colors touch-manipulation"
+                        className="p-3 -ml-2 rounded-xl hover:bg-white/5 transition-colors touch-manipulation active:scale-95"
                     >
-                        <Menu className="w-6 h-6" />
+                        <Menu className="w-8 h-8 text-neutral-100" />
                     </button>
-                    <div className="ml-4 flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center">
-                            <Bike className="w-4 h-4 text-white" />
+                    <div className="ml-4 flex items-center gap-3 flex-1">
+                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center shadow-lg shadow-primary-500/20">
+                            <Bike className="w-5 h-5 text-white" />
                         </div>
-                        <span className="font-bold text-gradient">{tCommon('appName')}</span>
+                        <span className="font-extrabold text-lg tracking-tighter uppercase italic text-gradient">{tCommon('appName')}</span>
                     </div>
+                    <Link href="/dashboard/settings" className="p-2 rounded-xl hover:bg-white/5 transition-colors">
+                        <div className="w-10 h-10 rounded-full bg-primary-500/10 flex items-center justify-center">
+                            <User className="w-6 h-6 text-primary-400" />
+                        </div>
+                    </Link>
                 </header>
 
                 {/* Page Content */}
@@ -301,7 +306,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                 onClose={() => {
                     if (!isUpdatingPassword) setPasswordModalOpen(false)
                 }}
-                title="Aggiorna password"
+                title={tAuth('password')}
                 size="sm"
             >
                 <form onSubmit={handleUpdatePassword} className="space-y-4">
