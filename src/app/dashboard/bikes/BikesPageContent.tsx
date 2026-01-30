@@ -208,14 +208,14 @@ export function BikesPageContent({ bikes, stravaConnected }: BikesPageContentPro
                                             </div>
                                             <div>
                                                 <div className="flex items-center gap-2">
-                                                    <h3 className="text-lg font-black tracking-tight uppercase italic">{bike.name}</h3>
+                                                    <h3 className="text-base font-black tracking-tight uppercase italic truncate">{bike.name}</h3>
                                                     {bike.is_primary && (
                                                         <div className="p-1 rounded-full bg-warning-500/10 border border-warning-500/20">
                                                             <Star className="w-3.5 h-3.5 text-warning-400 fill-warning-400" />
                                                         </div>
                                                     )}
                                                 </div>
-                                                <p className="text-xs text-neutral-500 font-medium uppercase tracking-widest">
+                                                <p className="text-[10px] text-neutral-500 font-medium uppercase tracking-widest truncate">
                                                     {bike.brand} • {bike.model}
                                                 </p>
                                             </div>
@@ -238,7 +238,7 @@ export function BikesPageContent({ bikes, stravaConnected }: BikesPageContentPro
                                         <div className="grid grid-cols-2 gap-3">
                                             <div className="p-3 rounded-xl bg-white/2 border border-white/5">
                                                 <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-1">{t('kilometers')}</p>
-                                                <p className="font-black italic text-lg">{bike.total_km?.toLocaleString() || 0} <span className="text-[10px] font-medium lowercase not-italic opacity-50">km</span></p>
+                                                <p className="font-black italic text-base">{bike.total_km?.toLocaleString() || 0} <span className="text-[9px] font-medium lowercase not-italic opacity-50">km</span></p>
                                             </div>
                                             <div className="p-3 rounded-xl bg-white/2 border border-white/5">
                                                 <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-1">{t('components')}</p>

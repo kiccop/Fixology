@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Fixology</string>
-    <string name="title_activity_main">Fixology</string>
-    <string name="package_name">com.fixology.app</string>
-    <string name="custom_url_scheme">com.fixology.app</string>
+    <string name="app_name">MyBikelog</string>
+    <string name="title_activity_main">MyBikelog</string>
+    <string name="package_name">app.mybikelog</string>
+    <string name="custom_url_scheme">app.mybikelog</string>
 </resources>

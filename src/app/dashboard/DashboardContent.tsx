@@ -87,11 +87,11 @@ export function DashboardContent({
             className="space-y-12 max-w-6xl mx-auto px-4"
         >
             {/* Header - Minimal & Centered */}
-            <motion.div variants={fadeIn} className="flex items-start justify-between gap-3">
+            <motion.div variants={fadeIn} className="flex items-start justify-between gap-3 px-2">
                 <div className="min-w-0 flex-1">
-                    <p className="text-[11px] text-neutral-500 uppercase tracking-widest mb-1">{t('overview')}</p>
-                    <h1 className="text-base sm:text-lg font-medium text-neutral-300 leading-tight">
-                        {t('welcome')}, <span className="text-gradient font-semibold">{userName}</span> 👋
+                    <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-0.5">{t('overview')}</p>
+                    <h1 className="text-sm sm:text-base font-medium text-neutral-300 leading-tight">
+                        {t('welcome')}, <span className="text-gradient font-bold">{userName}</span> 👋
                     </h1>
                 </div>
 
@@ -106,8 +106,8 @@ export function DashboardContent({
                 )}
             </motion.div>
 
-            {/* Stats Grid - Compact */}
-            <motion.div variants={fadeIn} className="grid grid-cols-3 gap-5">
+            {/* Stats Grid - Responsive Layout */}
+            <motion.div variants={fadeIn} className="grid grid-cols-2 lg:grid-cols-3 gap-3 px-1 sm:px-0">
                 <StatCard
                     icon={Bike}
                     label={t('totalBikes')}
@@ -288,12 +288,12 @@ function StatCard({
                     <Icon className="w-5 h-5 text-white" />
                 </div>
                 <div className="min-w-0 flex-1">
-                    <p className="text-[10px] text-neutral-500 uppercase tracking-[0.1em] font-bold truncate">{label}</p>
-                    <div className="flex items-baseline gap-1 overflow-hidden">
-                        <p className="text-lg sm:text-xl font-black leading-tight italic tracking-tight truncate">
+                    <p className="text-[8px] sm:text-[9px] text-neutral-500 uppercase tracking-widest font-bold truncate">{label}</p>
+                    <div className="flex items-baseline gap-0.5 mt-0.5 overflow-hidden">
+                        <p className="text-sm sm:text-base font-black leading-none italic tracking-tighter truncate">
                             {value}
                         </p>
-                        {suffix && <span className="text-[10px] text-neutral-500 font-medium lowercase italic flex-shrink-0">{suffix}</span>}
+                        {suffix && <span className="text-[8px] sm:text-[9px] text-neutral-500 font-medium lowercase italic">{suffix}</span>}
                     </div>
                 </div>
             </div>

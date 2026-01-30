@@ -10,8 +10,11 @@ export function CookieBanner() {
     const [visible, setVisible] = useState(false)
 
     useEffect(() => {
-        // Don't show on mobile app
-        if (APP_CONFIG.isMobile) return
+        // IMPROVED MOBILE DETECTION: Check if we are in a Capacitor environment
+        const isNative = typeof window !== 'undefined' &&
+            ((window as any).Capacitor?.isNative || (window as any).Capacitor?.platform === 'ios' || (window as any).Capacitor?.platform === 'android');
+
+        if (isNative) return;
 
         // Check if user already accepted
         const accepted = localStorage.getItem('cookies-accepted')
