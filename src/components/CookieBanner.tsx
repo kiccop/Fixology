@@ -5,8 +5,10 @@ import { APP_CONFIG } from '@/lib/config'
 import { X } from 'lucide-react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTranslations } from 'next-intl'
 
 export function CookieBanner() {
+    const t = useTranslations('cookies')
     const [visible, setVisible] = useState(false)
 
     useEffect(() => {
@@ -42,9 +44,9 @@ export function CookieBanner() {
                     <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
                         <div className="flex-1 text-center sm:text-left">
                             <p className="text-sm text-neutral-300">
-                                Utilizziamo solo cookie tecnici essenziali per il funzionamento e l&apos;autenticazione.
+                                {t('message')}
                                 <Link href="/cookie-policy" className="underline text-primary-400 ml-2 hover:text-primary-300 transition-colors">
-                                    Scopri di più
+                                    {t('moreInfo')}
                                 </Link>
                             </p>
                         </div>
@@ -53,7 +55,7 @@ export function CookieBanner() {
                                 onClick={accept}
                                 className="px-6 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-bold text-sm transition-all shadow-lg shadow-primary-500/20 active:scale-95"
                             >
-                                Ho capito
+                                {t('accept')}
                             </button>
                             <button
                                 onClick={accept}

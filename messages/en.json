@@ -14,6 +14,7 @@
         "next": "Next",
         "search": "Search",
         "filter": "Filter",
+        "select": "Select",
         "all": "All",
         "none": "None",
         "yes": "Yes",
@@ -43,7 +44,13 @@
         "passwordRequired": "Password is required",
         "passwordMinLength": "Password must be at least 8 characters",
         "passwordsNotMatch": "Passwords do not match",
-        "nameRequired": "Name is required"
+        "nameRequired": "Name is required",
+        "biometricPrompt": "Would you like to enable biometric login (FaceID/Fingerprint) for next sessions?",
+        "biometricEnabled": "Biometric login enabled!",
+        "useBiometric": "Use Biometrics",
+        "sessionExpired": "Session expired, please login with password",
+        "backToHome": "Back to home",
+        "poweredBy": "Powered by mechanical precision"
     },
     "nav": {
         "dashboard": "Dashboard",
@@ -102,7 +109,20 @@
         "addedManually": "Added manually",
         "confirmDelete": "Delete bike",
         "downloadServiceBooklet": "Download Service Booklet",
-        "serviceReport": "Service History Report"
+        "serviceReport": "Service History Report",
+        "returnToBikes": "Back to bikes",
+        "logIntervention": "Log Intervention",
+        "stats": {
+            "components": "Components",
+            "ok": "OK",
+            "alert": "Alert",
+            "replaced": "To Repl."
+        },
+        "historyEntries": "Replaced components",
+        "replacedOn": "Replaced on",
+        "viewReceipt": "View receipt",
+        "deleteLogConfirm": "Are you sure you want to delete this entry from history?",
+        "logDeletedSuccess": "Entry successfully deleted"
     },
     "components": {
         "title": "Components",
@@ -201,7 +221,28 @@
         "stravaIntegration": "Strava Integration",
         "units": "Units",
         "metric": "Metric (km)",
-        "imperial": "Imperial (mi)"
+        "imperial": "Imperial (mi)",
+        "security": {
+            "title": "Native Security",
+            "biometric": "Biometric Login",
+            "biometricDescription": "Use FaceID or Fingerprint to unlock the app"
+        },
+        "account_section": {
+            "name": "Name",
+            "namePlaceholder": "Your name",
+            "email": "Email",
+            "emailFixed": "Email cannot be changed",
+            "save": "Save changes"
+        },
+        "strava_section": {
+            "syncDescription": "Connect Strava to import bikes and sync mileage automatically",
+            "lastSync": "Last sync"
+        },
+        "support": {
+            "title": "Technical Support",
+            "description": "Need help with myBikeLog or experiencing issues with Strava sync?",
+            "emailText": "Contact us via email"
+        }
     },
     "notifications": {
         "title": "Notifications",
@@ -251,6 +292,11 @@
             "subtitle": "Join the myBikeLog network and eliminate guesswork. Master your mechanics for your next challenge.",
             "button": "Create your account"
         }
+    },
+    "cookies": {
+        "message": "We only use essential technical cookies for functionality and authentication.",
+        "moreInfo": "Learn more",
+        "accept": "Got it"
     },
     "errors": {
         "generic": "An error occurred. Please try again later.",

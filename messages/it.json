@@ -14,6 +14,7 @@
         "next": "Avanti",
         "search": "Cerca",
         "filter": "Filtra",
+        "select": "Seleziona",
         "all": "Tutti",
         "none": "Nessuno",
         "yes": "Sì",
@@ -43,7 +44,13 @@
         "passwordRequired": "La password è obbligatoria",
         "passwordMinLength": "La password deve avere almeno 8 caratteri",
         "passwordsNotMatch": "Le password non corrispondono",
-        "nameRequired": "Il nome è obbligatorio"
+        "nameRequired": "Il nome è obbligatorio",
+        "biometricPrompt": "Vuoi abilitare l'accesso biometrico (impronta/viso) per i prossimi accessi?",
+        "biometricEnabled": "Accesso biometrico abilitato!",
+        "useBiometric": "Usa Biometria",
+        "sessionExpired": "Sessione scaduta, effettua il login con password",
+        "backToHome": "Torna alla home",
+        "poweredBy": "Powered by mechanical precision"
     },
     "nav": {
         "dashboard": "Dashboard",
@@ -102,7 +109,20 @@
         "addedManually": "Aggiunta manualmente",
         "confirmDelete": "Elimina bici",
         "downloadServiceBooklet": "Scarica Libretto Manutenzione",
-        "serviceReport": "Report Storico Manutenzioni"
+        "serviceReport": "Report Storico Manutenzioni",
+        "returnToBikes": "Torna alle bici",
+        "logIntervention": "Log Intervento",
+        "stats": {
+            "components": "Componenti",
+            "ok": "OK",
+            "alert": "Alert",
+            "replaced": "Da Sost."
+        },
+        "historyEntries": "Componenti sostituiti",
+        "replacedOn": "Sostituito il",
+        "viewReceipt": "Visualizza ricevuta",
+        "deleteLogConfirm": "Sei sicuro di voler eliminare questa voce dallo storico?",
+        "logDeletedSuccess": "Voce eliminata correttamente"
     },
     "components": {
         "title": "Componenti",
@@ -201,7 +221,28 @@
         "stravaIntegration": "Integrazione Strava",
         "units": "Unità di misura",
         "metric": "Metrico (km)",
-        "imperial": "Imperiale (mi)"
+        "imperial": "Imperiale (mi)",
+        "security": {
+            "title": "Sicurezza Nativa",
+            "biometric": "Accesso Biometrico",
+            "biometricDescription": "Usa FaceID o Impronta Digitale per accedere all'app"
+        },
+        "account_section": {
+            "name": "Nome",
+            "namePlaceholder": "Il tuo nome",
+            "email": "Email",
+            "emailFixed": "L'email non può essere modificata",
+            "save": "Salva modifiche"
+        },
+        "strava_section": {
+            "syncDescription": "Connetti Strava per importare automaticamente le tue bici e sincronizzare i km",
+            "lastSync": "Ultima sync"
+        },
+        "support": {
+            "title": "Supporto Tecnico",
+            "description": "Hai bisogno di aiuto con myBikeLog o riscontri problemi con la sincronizzazione Strava?",
+            "emailText": "Contattaci via email"
+        }
     },
     "notifications": {
         "title": "Notifiche",
@@ -251,6 +292,11 @@
             "subtitle": "Unisciti alla rete di myBikeLog e smetti di affidarti al caso. Prepara la tua prossima sfida con una meccanica impeccabile.",
             "button": "Crea il tuo account"
         }
+    },
+    "cookies": {
+        "message": "Utilizziamo solo cookie tecnici essenziali per il funzionamento e l'autenticazione.",
+        "moreInfo": "Scopri di più",
+        "accept": "Ho capito"
     },
     "errors": {
         "generic": "Si è verificato un errore. Riprova più tardi.",

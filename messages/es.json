@@ -14,6 +14,7 @@
         "next": "Siguiente",
         "search": "Buscar",
         "filter": "Filtrar",
+        "select": "Seleccionar",
         "all": "Todos",
         "none": "Ninguno",
         "yes": "Sí",
@@ -43,7 +44,13 @@
         "passwordRequired": "La contraseña es obligatoria",
         "passwordMinLength": "La contraseña debe tener al menos 8 caracteres",
         "passwordsNotMatch": "Las contraseñas no coinciden",
-        "nameRequired": "El nombre es obligatorio"
+        "nameRequired": "El nombre es obligatorio",
+        "biometricPrompt": "¿Quieres activar el acceso biométrico (huella/cara) para los próximos accesos?",
+        "biometricEnabled": "¡Acceso biométrico activado!",
+        "useBiometric": "Usar Biométrica",
+        "sessionExpired": "Sesión expirada, inicia sesión con contraseña",
+        "backToHome": "Volver al inicio",
+        "poweredBy": "Powered by mechanical precision"
     },
     "nav": {
         "dashboard": "Panel",
@@ -102,7 +109,20 @@
         "addedManually": "Añadida manualmente",
         "confirmDelete": "Eliminar bici",
         "downloadServiceBooklet": "Descargar Libro de Mantenimiento",
-        "serviceReport": "Informe de Historial de Servicio"
+        "serviceReport": "Informe de Historial de Servicio",
+        "returnToBikes": "Volver a las bicis",
+        "logIntervention": "Registrar Intervención",
+        "stats": {
+            "components": "Componentes",
+            "ok": "OK",
+            "alert": "Alert",
+            "replaced": "A REEMP."
+        },
+        "historyEntries": "Componentes reemplazados",
+        "replacedOn": "Reemplazado el",
+        "viewReceipt": "Ver recibo",
+        "deleteLogConfirm": "¿Estás seguro de que quieres eliminar esta entrada del historial?",
+        "logDeletedSuccess": "Entrada eliminada correctamente"
     },
     "components": {
         "title": "Componentes",
@@ -165,7 +185,13 @@
             "maintained": "Mantenido",
             "replaced": "Reemplazado",
             "inspected": "Inspeccionado"
-        }
+        },
+        "receipt": "Recibo/Adjunto",
+        "uploadReceipt": "Subir recibo",
+        "professionalService": "Servicio profesional",
+        "hasReceipt": "Recibo adjunto",
+        "uploadInProgress": "Subiendo archivo...",
+        "onlyImagesOrPdf": "Solo imágenes o PDF"
     },
     "strava": {
         "connected": "Conectado a Strava",
@@ -195,7 +221,28 @@
         "stravaIntegration": "Integración Strava",
         "units": "Unidades",
         "metric": "Métrico (km)",
-        "imperial": "Imperial (mi)"
+        "imperial": "Imperial (mi)",
+        "security": {
+            "title": "Seguridad Nativa",
+            "biometric": "Acceso Biométrico",
+            "biometricDescription": "Usa FaceID o Huella Digital para acceder a la app"
+        },
+        "account_section": {
+            "name": "Nombre",
+            "namePlaceholder": "Tu nombre",
+            "email": "Email",
+            "emailFixed": "El email no puede ser modificado",
+            "save": "Guardar cambios"
+        },
+        "strava_section": {
+            "syncDescription": "Conecta Strava para importar automáticamente tus bicis y sincronizar los km",
+            "lastSync": "Última sync"
+        },
+        "support": {
+            "title": "Soporte Técnico",
+            "description": "¿Necesitas ayuda con myBikeLog o tienes problemas con la sincronización Strava?",
+            "emailText": "Contáctanos por email"
+        }
     },
     "notifications": {
         "title": "Notificaciones",
@@ -225,7 +272,7 @@
             },
             "alerts": {
                 "title": "Smart Monitoring",
-                "description": "Notificaciones push preventivas basadas en umbrali de estrés mecánico definidos por el usuario."
+                "description": "Notificaciones push preventivas basadas en umbrales de estrés mecánico definidos por el usuario."
             },
             "history": {
                 "title": "Service Ledger",
@@ -245,6 +292,11 @@
             "subtitle": "Únete a la red de myBikeLog y elimina las dudas. Domina tu mecánica para tu próximo desafío.",
             "button": "Crea tu cuenta"
         }
+    },
+    "cookies": {
+        "message": "Utilizamos solo cookies técnicas esenciales para el funcionamiento y la autenticación.",
+        "moreInfo": "Saber más",
+        "accept": "Entendido"
     },
     "errors": {
         "generic": "Ha ocurrido un error. Inténtalo de nuevo más tarde.",

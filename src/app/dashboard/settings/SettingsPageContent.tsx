@@ -165,18 +165,18 @@ export function SettingsPageContent({
 
                     <div className="space-y-4">
                         <Input
-                            label="Nome"
+                            label={t('account_section.name')}
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            placeholder="Il tuo nome"
+                            placeholder={t('account_section.namePlaceholder')}
                         />
 
                         <div>
-                            <label className="label">Email</label>
+                            <label className="label">{t('account_section.email')}</label>
                             <div className="input !bg-neutral-900 !cursor-not-allowed opacity-70">
                                 {profile?.email}
                             </div>
-                            <p className="text-xs text-neutral-500 mt-1">L&apos;email non può essere modificata</p>
+                            <p className="text-xs text-neutral-500 mt-1">{t('account_section.emailFixed')}</p>
                         </div>
                     </div>
                 </Card>
@@ -237,18 +237,28 @@ export function SettingsPageContent({
                             label={t('pushNotifications')}
                             description="Ricevi notifiche push nel browser"
                             checked={pushNotifications}
-                            onChange={setPushNotifications}
+                            onChange={async (checked) => {
+                                if (checked) {
+                                    const { notificationService } = await import('@/lib/notifications')
+                                    const granted = await notificationService.requestPermissions()
+                                    if (!granted) {
+                                        toast.error("Permessi notifiche non concessi")
+                                        return
+                                    }
+                                }
+                                setPushNotifications(checked)
+                            }}
                         />
 
                         {biometricAvailable && (
                             <div className="pt-4 border-t border-white/5">
                                 <div className="flex items-center gap-3 mb-4">
                                     <Fingerprint className="w-5 h-5 text-primary-400" />
-                                    <h3 className="font-semibold">Sicurezza Nativa</h3>
+                                    <h3 className="font-semibold">{t('security.title')}</h3>
                                 </div>
                                 <ToggleOption
-                                    label="Accesso Biometrico"
-                                    description="Usa FaceID o Impronta Digitale per accedere all'app"
+                                    label={t('security.biometric')}
+                                    description={t('security.biometricDescription')}
                                     checked={biometricEnabled}
                                     onChange={setBiometricEnabled}
                                 />
@@ -277,7 +287,7 @@ export function SettingsPageContent({
                                         <p className="font-medium text-success-400">{tStrava('connected')}</p>
                                         {lastStravaSync && (
                                             <p className="text-sm text-neutral-400">
-                                                Ultima sync: {formatDistanceToNow(new Date(lastStravaSync), { addSuffix: true, locale: it })}
+                                                {t('strava_section.lastSync')}: {formatDistanceToNow(new Date(lastStravaSync), { addSuffix: true, locale: it })}
                                             </p>
                                         )}
                                     </div>
@@ -294,7 +304,7 @@ export function SettingsPageContent({
                     ) : (
                         <div className="text-center py-4">
                             <p className="text-neutral-400 mb-4">
-                                Connetti Strava per importare automaticamente le tue bici e sincronizzare i km
+                                {t('strava_section.syncDescription')}
                             </p>
                             <Button
                                 variant="ghost"

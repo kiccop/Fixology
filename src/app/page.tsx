@@ -39,6 +39,7 @@ const staggerContainer = {
 export default function LandingPage() {
   const t = useTranslations('landing')
   const tCommon = useTranslations('common')
+  const tAuth = useTranslations('auth')
 
   return (
     <div className="min-h-screen bg-neutral-950 text-white selection:bg-primary-500/30 overflow-x-hidden flex flex-col items-center">
@@ -53,16 +54,16 @@ export default function LandingPage() {
             <span className="text-2xl font-black tracking-tight text-white uppercase italic">{tCommon('appName')}</span>
           </div>
 
-          {/* Auth Actions - Optimized for Mobile */}
-          <div className="flex items-center gap-2 sm:gap-4">
+          {/* Auth Actions - Hidden on mobile, shown on desktop */}
+          <div className="hidden sm:flex items-center gap-4">
             <Link href="/login">
-              <span className="text-xs sm:text-sm font-bold uppercase tracking-widest text-neutral-400 hover:text-white transition-colors cursor-pointer px-2">
-                Login
+              <span className="text-sm font-bold uppercase tracking-widest text-neutral-400 hover:text-white transition-colors cursor-pointer px-2">
+                {tAuth('login')}
               </span>
             </Link>
             <Link href="/register">
-              <Button size="sm" className="!bg-primary-500 !text-white hover:!bg-primary-600 shadow-lg font-black uppercase italic tracking-tighter text-[10px] sm:text-xs">
-                {t('cta.button')}
+              <Button size="sm" className="!bg-primary-500 !text-white hover:!bg-primary-600 shadow-lg font-black uppercase italic tracking-tighter text-xs">
+                {tAuth('register')}
               </Button>
             </Link>
           </div>
@@ -93,7 +94,7 @@ export default function LandingPage() {
             <motion.div variants={fadeInUp}>
               <div className="inline-flex items-center px-5 py-2.5 rounded-full glass-card border-white/10 text-primary-400 text-[12px] font-black tracking-[0.2em] uppercase bg-white/5">
                 <StravaLogo variant="mark" className="w-4 h-4 mr-3" />
-                Integrazione con Strava
+                {t('features.sync.title')}
               </div>
             </motion.div>
 
@@ -116,14 +117,19 @@ export default function LandingPage() {
             {/* Action Group */}
             <motion.div
               variants={fadeInUp}
-              className="flex flex-col sm:flex-row gap-5 pt-4 w-full sm:w-auto justify-center items-center"
+              className="flex flex-col sm:flex-row gap-5 pt-4 w-full sm:w-80 md:w-auto justify-center items-center"
             >
-              <Link href="/register">
-                <Button size="lg" className="h-16 px-12 text-xl shadow-2xl shadow-primary-600/30 uppercase italic font-black" icon={<ArrowRight className="w-6 h-6" />} iconPosition="right">
+              <Link href="/register" className="w-full sm:w-auto">
+                <Button size="lg" className="h-16 w-full sm:px-12 text-xl shadow-2xl shadow-primary-600/30 uppercase italic font-black" icon={<ArrowRight className="w-6 h-6" />} iconPosition="right">
                   {t('hero.cta')}
                 </Button>
               </Link>
-              <a href="#features">
+              <Link href="/login" className="w-full sm:w-auto sm:hidden">
+                <Button variant="secondary" size="lg" className="h-16 w-full px-12 text-xl border-white/10 hover:bg-white/5 uppercase italic font-bold">
+                  {tAuth('login')}
+                </Button>
+              </Link>
+              <a href="#features" className="w-full sm:w-auto hidden sm:block">
                 <Button variant="secondary" size="lg" className="h-16 px-12 text-xl border-white/10 hover:bg-white/5 uppercase italic font-bold">
                   {t('hero.secondaryCta')}
                 </Button>

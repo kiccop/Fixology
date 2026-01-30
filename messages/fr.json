@@ -14,6 +14,7 @@
         "next": "Suivant",
         "search": "Rechercher",
         "filter": "Filtrer",
+        "select": "Sélectionner",
         "all": "Tous",
         "none": "Aucun",
         "yes": "Oui",
@@ -43,7 +44,13 @@
         "passwordRequired": "Le mot de passe est requis",
         "passwordMinLength": "Le mot de passe doit contenir au moins 8 caractères",
         "passwordsNotMatch": "Les mots de passe ne correspondent pas",
-        "nameRequired": "Le nom est requis"
+        "nameRequired": "Le nom est requis",
+        "biometricPrompt": "Voulez-vous activer l'accès biométrique (empreinte/visage) pour les prochaines connexions ?",
+        "biometricEnabled": "Accès biométrique activé !",
+        "useBiometric": "Utiliser la Biométrie",
+        "sessionExpired": "Session expirée, veuillez vous connecter avec votre mot de passe",
+        "backToHome": "Retour à l'accueil",
+        "poweredBy": "Powered by mechanical precision"
     },
     "nav": {
         "dashboard": "Tableau de bord",
@@ -102,7 +109,20 @@
         "addedManually": "Ajouté manuellement",
         "confirmDelete": "Supprimer le vélo",
         "downloadServiceBooklet": "Télécharger le Carnet d'Entretien",
-        "serviceReport": "Rapport d'Entretien"
+        "serviceReport": "Rapport d'Entretien",
+        "returnToBikes": "Retour aux vélos",
+        "logIntervention": "Enregistrer Intervention",
+        "stats": {
+            "components": "Composants",
+            "ok": "OK",
+            "alert": "Alert",
+            "replaced": "À REMP."
+        },
+        "historyEntries": "Composants remplacés",
+        "replacedOn": "Remplacé le",
+        "viewReceipt": "Voir le reçu",
+        "deleteLogConfirm": "Êtes-vous sûr de vouloir supprimer cette entrée de l'historique ?",
+        "logDeletedSuccess": "Entrée supprimée avec succès"
     },
     "components": {
         "title": "Composants",
@@ -165,7 +185,13 @@
             "maintained": "Entretenu",
             "replaced": "Remplacé",
             "inspected": "Inspecté"
-        }
+        },
+        "receipt": "Reçu/Pièce jointe",
+        "uploadReceipt": "Télécharger le reçu",
+        "professionalService": "Service professionnel",
+        "hasReceipt": "Reçu joint",
+        "uploadInProgress": "Téléchargement en cours...",
+        "onlyImagesOrPdf": "Seulement images ou PDF"
     },
     "strava": {
         "connected": "Connecté à Strava",
@@ -195,7 +221,28 @@
         "stravaIntegration": "Intégration Strava",
         "units": "Unités",
         "metric": "Métrique (km)",
-        "imperial": "Impérial (mi)"
+        "imperial": "Impérial (mi)",
+        "security": {
+            "title": "Sécurité Native",
+            "biometric": "Accès Biométrique",
+            "biometricDescription": "Utilisez FaceID ou Empreinte Digitale pour accéder à l'app"
+        },
+        "account_section": {
+            "name": "Nom",
+            "namePlaceholder": "Votre nom",
+            "email": "Email",
+            "emailFixed": "L'email ne peut pas être modifié",
+            "save": "Enregistrer les modifications"
+        },
+        "strava_section": {
+            "syncDescription": "Connectez Strava pour importer vos vélos et synchroniser vos km",
+            "lastSync": "Dernière sync"
+        },
+        "support": {
+            "title": "Support Technique",
+            "description": "Besoin d'aide avec myBikeLog ou des problèmes Strava ?",
+            "emailText": "Contactez-nous par email"
+        }
     },
     "notifications": {
         "title": "Notifications",
@@ -245,6 +292,11 @@
             "subtitle": "Rejoignez le réseau myBikeLog et éliminez les incertitudes. Maîtrisez votre mécanique pour votre prochain défi.",
             "button": "Créer votre compte"
         }
+    },
+    "cookies": {
+        "message": "Nous utilisons uniquement des cookies techniques essentiels pour le fonctionnement et l'authentification.",
+        "moreInfo": "En savoir plus",
+        "accept": "J'ai compris"
     },
     "errors": {
         "generic": "Une erreur s'est produite. Veuillez réessayer plus tard.",

@@ -45,6 +45,7 @@ const frameTypeIcons: Record<string, string> = {
 export function BikesPageContent({ bikes, stravaConnected }: BikesPageContentProps) {
     const t = useTranslations('bikes')
     const tStrava = useTranslations('strava')
+    const tCommon = useTranslations('common')
     const router = useRouter()
     const supabase = createClient()
 
@@ -80,9 +81,9 @@ export function BikesPageContent({ bikes, stravaConnected }: BikesPageContentPro
             .eq('id', selectedBike.id)
 
         if (error) {
-            toast.error('Errore durante l\'eliminazione')
+            toast.error(tCommon('error'))
         } else {
-            toast.success('Bici eliminata')
+            toast.success(tCommon('success'))
             router.refresh()
         }
 
@@ -258,13 +259,13 @@ export function BikesPageContent({ bikes, stravaConnected }: BikesPageContentPro
                                                 {t(`frameTypes.${bike.frame_type}`)}
                                             </Badge>
                                             <span className="text-[10px] text-neutral-600 font-bold uppercase italic tracking-tighter">
-                                                {bike.strava_id ? 'Synced' : 'Manual'}
+                                                {bike.strava_id ? 'Strava' : 'Manual'}
                                             </span>
                                         </div>
                                     </div>
 
                                     <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-primary-400 group/link">
-                                        <span className="text-[10px] font-black uppercase tracking-widest">Dettaglio Meccanico</span>
+                                        <span className="text-[10px] font-black uppercase tracking-widest">{t('viewDetail')}</span>
                                         <ChevronRight className="w-4 h-4 transform group-hover/link:translate-x-1 transition-transform" />
                                     </div>
                                     <div className="absolute -right-8 -bottom-8 w-24 h-24 bg-gradient-to-br from-primary-500/10 to-transparent blur-3xl rounded-full" />
@@ -307,14 +308,14 @@ export function BikesPageContent({ bikes, stravaConnected }: BikesPageContentPro
                                 setSelectedBike(null)
                             }}
                         >
-                            Annulla
+                            {tCommon('cancel')}
                         </Button>
                         <Button
                             variant="danger"
                             fullWidth
                             onClick={handleDelete}
                         >
-                            Elimina
+                            {tCommon('delete')}
                         </Button>
                     </div>
                 </div>

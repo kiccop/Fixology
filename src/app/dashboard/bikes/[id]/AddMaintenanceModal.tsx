@@ -113,14 +113,14 @@ export function AddMaintenanceModal({
         >
             <form onSubmit={handleSubmit} className="space-y-4 pt-2">
                 <div>
-                    <label className="label">Componente</label>
+                    <label className="label">{tComponents('type')}</label>
                     <select
                         className="input"
                         value={selectedComponent}
                         onChange={(e) => setSelectedComponent(e.target.value)}
                         required
                     >
-                        <option value="">Seleziona...</option>
+                        <option value="">{tCommon('select')}...</option>
                         {components.map((c) => (
                             <option key={c.id} value={c.id}>
                                 {tComponents(`types.${c.type}`)}
@@ -217,12 +217,12 @@ export function AddMaintenanceModal({
                 </div>
 
                 <div>
-                    <label className="label">Note</label>
+                    <label className="label">{t('notes')}</label>
                     <textarea
                         className="input min-h-[80px]"
                         value={notes}
                         onChange={(e) => setNotes(e.target.value)}
-                        placeholder="Dettagli dell'intervento..."
+                        placeholder="..."
                     />
                 </div>
 

@@ -356,7 +356,7 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                     className="inline-flex items-center gap-2 text-neutral-400 hover:text-neutral-100 transition-colors mb-4"
                 >
                     <ArrowLeft className="w-4 h-4" />
-                    <span>Torna alle bici</span>
+                    <span>{tBikes('returnToBikes')}</span>
                 </Link>
 
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
@@ -393,7 +393,7 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                             size="sm"
                             icon={<Wrench className="w-4 h-4" />}
                         >
-                            <span className="hidden sm:inline">Log Intervento</span>
+                            <span className="hidden sm:inline">{tBikes('logIntervention')}</span>
                             <span className="sm:hidden">Log</span>
                         </Button>
                         <Button
@@ -413,13 +413,13 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
             <motion.div variants={fadeIn} className="grid grid-cols-2 lg:grid-cols-4 gap-3">
                 <Card className="!p-3">
                     <div className="text-center">
-                        <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-1">Componenti</p>
+                        <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-1">{tBikes('stats.components')}</p>
                         <p className="text-xl font-black italic">{activeComponents.length}</p>
                     </div>
                 </Card>
                 <Card className="!p-3">
                     <div className="text-center">
-                        <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-1">OK</p>
+                        <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-1">{tBikes('stats.ok')}</p>
                         <p className="text-xl font-black italic text-success-400">
                             {activeComponents.filter((c: any) => c.status === 'ok').length}
                         </p>
@@ -427,7 +427,7 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                 </Card>
                 <Card className="!p-3">
                     <div className="text-center">
-                        <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-1">Alert</p>
+                        <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-1">{tBikes('stats.alert')}</p>
                         <p className="text-xl font-black italic text-warning-400">
                             {activeComponents.filter((c: any) => c.status === 'warning').length}
                         </p>
@@ -435,7 +435,7 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                 </Card>
                 <Card className="!p-3">
                     <div className="text-center">
-                        <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-1">Da Sost.</p>
+                        <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-1">{tBikes('stats.replaced')}</p>
                         <p className="text-xl font-black italic text-danger-400">
                             {activeComponents.filter((c: any) => c.status === 'danger').length}
                         </p>
@@ -627,7 +627,7 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                     <Card padding="none">
                         <div className="p-6 border-b border-white/5">
                             <h2 className="text-lg font-semibold text-neutral-400">
-                                Componenti sostituiti ({replacedComponents.length})
+                                {tBikes('historyEntries')} ({replacedComponents.length})
                             </h2>
                         </div>
                         <div className="divide-y divide-white/5 opacity-80">
@@ -639,7 +639,7 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                                         </div>
                                         <div>
                                             <p className="font-medium text-sm">{t(`types.${component.type}`)}</p>
-                                            <p className="text-[10px] text-neutral-500">Sostituito il {format(new Date(component.install_date), 'dd/MM/yyyy')}</p>
+                                            <p className="text-[10px] text-neutral-500">{tBikes('replacedOn')} {format(new Date(component.install_date), 'dd/MM/yyyy')}</p>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2">

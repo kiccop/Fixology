@@ -16,8 +16,8 @@ import { biometricAuth } from '@/lib/biometric'
 import { useEffect } from 'react'
 
 const loginSchema = z.object({
-    email: z.string().email('Email non valida'),
-    password: z.string().min(1, 'La password è obbligatoria'),
+    email: z.string().email(),
+    password: z.string().min(1),
 })
 
 type LoginFormData = z.infer<typeof loginSchema>
@@ -65,7 +65,7 @@ export default function LoginPage() {
                 toast.success(t('loginSuccess'))
                 router.push('/dashboard')
             } else {
-                toast.error('Sessione scaduta, effettua il login con password')
+                toast.error(t('sessionExpired'))
             }
         }
     }
@@ -91,10 +91,10 @@ export default function LoginPage() {
 
                 const available = await biometricAuth.isAvailable()
                 if (available && !wasEnabled) {
-                    const wantEnabled = confirm("Vuoi abilitare l'accesso biometrico (impronta/viso) per i prossimi accessi?")
+                    const wantEnabled = confirm(t('biometricPrompt'))
                     if (wantEnabled) {
                         biometricAuth.enableForUser(user.id)
-                        toast.success("Accesso biometrico abilitato!")
+                        toast.success(t('biometricEnabled'))
                     }
                 }
             }
@@ -185,22 +185,21 @@ export default function LoginPage() {
                                     onClick={handleBiometricLogin}
                                     icon={<Fingerprint className="w-5 h-5" />}
                                 >
-                                    Usa Biometria
+                                    {t('useBiometric')}
                                 </Button>
                             </div>
                         )}
                     </form>
                 </Card>
 
-                {/* Back to home */}
                 <p className="text-center mt-6 text-sm text-neutral-500">
                     <Link href="/" className="hover:text-neutral-300 transition-colors">
-                        ← Torna alla home
+                        ← {t('backToHome')}
                     </Link>
                 </p>
 
                 <div className="mt-8 pt-8 border-t border-white/5 opacity-50">
-                    <p className="text-center text-[10px] text-neutral-600 uppercase tracking-tighter">Powered by mechanical precision</p>
+                    <p className="text-center text-[10px] text-neutral-600 uppercase tracking-tighter">{t('poweredBy')}</p>
                 </div>
             </motion.div>
         </div>

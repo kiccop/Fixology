@@ -13,7 +13,7 @@ import { createClient } from '@/lib/supabase/client'
 import { DEFAULT_COMPONENTS, ComponentType } from '@/types'
 
 const componentSchema = z.object({
-    type: z.string().min(1, 'Seleziona un tipo'),
+    type: z.string().min(1),
     name: z.string(),
     install_km: z.number().min(0),
     install_hours: z.number().min(0),
@@ -38,6 +38,7 @@ export function AddComponentModal({
     currentBikeKm
 }: AddComponentModalProps) {
     const t = useTranslations('components')
+    const tCommon = useTranslations('common')
     const router = useRouter()
     const supabase = createClient()
     const [isLoading, setIsLoading] = useState(false)
@@ -126,15 +127,15 @@ export function AddComponentModal({
             }
 
             if (error) {
-                toast.error('Errore durante il salvataggio')
+                toast.error(tCommon('error'))
                 return
             }
 
-            toast.success('Componente aggiunto!')
+            toast.success(tCommon('success'))
             handleClose()
             router.refresh()
         } catch {
-            toast.error('Errore imprevisto')
+            toast.error(tCommon('error'))
         } finally {
             setIsLoading(false)
         }
@@ -151,7 +152,7 @@ export function AddComponentModal({
         <Modal
             isOpen={isOpen}
             onClose={handleClose}
-            title={step === 'select' ? t('selectType') : 'Configura componente'}
+            title={step === 'select' ? t('selectType') : t('addComponent')}
             size="lg"
         >
             {step === 'select' ? (
@@ -204,8 +205,8 @@ export function AddComponentModal({
                     {/* Custom Name (only for custom components) */}
                     {isCustom && (
                         <Input
-                            label="Nome componente"
-                            placeholder="Es. Sella, Pedali, ..."
+                            label={t('customComponent')}
+                            placeholder="..."
                             error={errors.name?.message}
                             {...register('name')}
                         />
@@ -261,10 +262,10 @@ export function AddComponentModal({
                             fullWidth
                             onClick={() => setStep('select')}
                         >
-                            Indietro
+                            {tCommon('back')}
                         </Button>
                         <Button type="submit" fullWidth loading={isLoading}>
-                            {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Aggiungi'}
+                            {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : tCommon('add')}
                         </Button>
                     </div>
                 </form>

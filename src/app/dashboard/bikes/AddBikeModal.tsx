@@ -13,7 +13,7 @@ import { Modal, Button, Input } from '@/components/ui'
 import { createClient } from '@/lib/supabase/client'
 
 const bikeSchema = z.object({
-    name: z.string().min(1, 'Il nome è obbligatorio'),
+    name: z.string().min(1),
     brand: z.string(),
     model: z.string(),
     frame_type: z.enum(['road', 'mtb', 'gravel', 'city', 'ebike', 'other']),
@@ -38,6 +38,7 @@ const frameTypes = [
 
 export function AddBikeModal({ isOpen, onClose }: AddBikeModalProps) {
     const t = useTranslations('bikes')
+    const tCommon = useTranslations('common')
     const router = useRouter()
     const supabase = createClient()
     const [isLoading, setIsLoading] = useState(false)
@@ -68,7 +69,7 @@ export function AddBikeModal({ isOpen, onClose }: AddBikeModalProps) {
             const { data: { user } } = await supabase.auth.getUser()
 
             if (!user) {
-                toast.error('Sessione scaduta')
+                toast.error(tCommon('error'))
                 return
             }
 
@@ -82,16 +83,16 @@ export function AddBikeModal({ isOpen, onClose }: AddBikeModalProps) {
             })
 
             if (error) {
-                toast.error('Errore durante il salvataggio')
+                toast.error(tCommon('error'))
                 return
             }
 
-            toast.success('Bici aggiunta con successo!')
+            toast.success(tCommon('success'))
             reset()
             onClose()
             router.refresh()
         } catch {
-            toast.error('Errore imprevisto')
+            toast.error(tCommon('error'))
         } finally {
             setIsLoading(false)
         }
@@ -138,7 +139,7 @@ export function AddBikeModal({ isOpen, onClose }: AddBikeModalProps) {
                 `}
                             >
                                 <div className="text-2xl mb-1">{type.emoji}</div>
-                                <div className="text-xs font-medium">{type.label}</div>
+                                <div className="text-xs font-medium">{t(`frameTypes.${type.value}`)}</div>
                             </button>
                         ))}
                     </div>
@@ -154,10 +155,10 @@ export function AddBikeModal({ isOpen, onClose }: AddBikeModalProps) {
 
                 <div className="flex gap-3 pt-4">
                     <Button type="button" variant="ghost" fullWidth onClick={onClose}>
-                        Annulla
+                        {tCommon('cancel')}
                     </Button>
                     <Button type="submit" fullWidth loading={isLoading}>
-                        {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Aggiungi'}
+                        {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : tCommon('add')}
                     </Button>
                 </div>
             </form>
