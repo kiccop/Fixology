@@ -44,7 +44,7 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-neutral-950 text-white selection:bg-primary-500/30 overflow-x-hidden flex flex-col items-center">
       {/* Navigation - Ultra Glassmorphism */}
-      <nav className="fixed top-0 left-0 right-0 z-[100] bg-neutral-950/20 backdrop-blur-2xl border-b border-white/5">
+      <nav className="fixed top-0 left-0 right-0 z-[100] bg-neutral-950/20 backdrop-blur-2xl border-b border-white/5 pt-[env(safe-area-inset-top)]">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-3 group cursor-pointer">
@@ -54,8 +54,8 @@ export default function LandingPage() {
             <span className="text-2xl font-black tracking-tight text-white uppercase italic">{tCommon('appName')}</span>
           </div>
 
-          {/* Auth Actions - Hidden on mobile, shown on desktop */}
-          <div className="hidden sm:flex items-center gap-4">
+          {/* Auth Actions - Strictly Hidden on mobile, shown on desktop */}
+          <div className="hidden md:flex items-center gap-4">
             <Link href="/login">
               <span className="text-sm font-bold uppercase tracking-widest text-neutral-400 hover:text-white transition-colors cursor-pointer px-2">
                 {tAuth('login')}
@@ -124,7 +124,7 @@ export default function LandingPage() {
                   {t('hero.cta')}
                 </Button>
               </Link>
-              <Link href="/login" className="w-full sm:w-auto sm:hidden">
+              <Link href="/login" className="w-full sm:w-auto md:hidden">
                 <Button variant="secondary" size="lg" className="h-16 w-full px-12 text-xl border-white/10 hover:bg-white/5 uppercase italic font-bold">
                   {tAuth('login')}
                 </Button>
