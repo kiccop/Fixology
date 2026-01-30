@@ -409,34 +409,34 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                 </div>
             </motion.div>
 
-            {/* Stats Cards */}
-            <motion.div variants={fadeIn} className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                <Card>
+            {/* Stats Cards - Compact & Responsive */}
+            <motion.div variants={fadeIn} className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                <Card className="!p-3">
                     <div className="text-center">
-                        <p className="text-sm text-neutral-400">Componenti</p>
-                        <p className="text-2xl font-bold">{activeComponents.length}</p>
+                        <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-1">Componenti</p>
+                        <p className="text-xl font-black italic">{activeComponents.length}</p>
                     </div>
                 </Card>
-                <Card>
+                <Card className="!p-3">
                     <div className="text-center">
-                        <p className="text-sm text-neutral-400">OK</p>
-                        <p className="text-2xl font-bold text-success-400">
+                        <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-1">OK</p>
+                        <p className="text-xl font-black italic text-success-400">
                             {activeComponents.filter((c: any) => c.status === 'ok').length}
                         </p>
                     </div>
                 </Card>
-                <Card>
+                <Card className="!p-3">
                     <div className="text-center">
-                        <p className="text-sm text-neutral-400">Attenzione</p>
-                        <p className="text-2xl font-bold text-warning-400">
+                        <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-1">Alert</p>
+                        <p className="text-xl font-black italic text-warning-400">
                             {activeComponents.filter((c: any) => c.status === 'warning').length}
                         </p>
                     </div>
                 </Card>
-                <Card>
+                <Card className="!p-3">
                     <div className="text-center">
-                        <p className="text-sm text-neutral-400">Da sostituire</p>
-                        <p className="text-2xl font-bold text-danger-400">
+                        <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-1">Da Sost.</p>
+                        <p className="text-xl font-black italic text-danger-400">
                             {activeComponents.filter((c: any) => c.status === 'danger').length}
                         </p>
                     </div>
@@ -573,61 +573,48 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                                     {tMaintenance('title')}
                                 </h2>
                             </div>
-                            <div className="overflow-x-auto">
-                                <table className="w-full text-left text-sm">
-                                    <thead className="text-[10px] uppercase tracking-widest text-neutral-500 bg-white/2">
-                                        <tr>
-                                            <th className="px-6 py-4 font-black">{tMaintenance('date')}</th>
-                                            <th className="px-6 py-4 font-black">Componente</th>
-                                            <th className="px-6 py-4 font-black">{tMaintenance('action')}</th>
-                                            <th className="px-6 py-4 font-black">{tMaintenance('kmAtAction')}</th>
-                                            <th className="px-6 py-4 font-black text-right">{tMaintenance('cost')}</th>
-                                            <th className="px-6 py-4 text-center">Docs</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="divide-y divide-white/5">
-                                        {allLogs.sort((a, b) => new Date(b.date || b.created_at).getTime() - new Date(a.date || a.created_at).getTime()).map((log) => (
-                                            <tr key={log.id} className="hover:bg-white/2 transition-colors">
-                                                <td className="px-6 py-4 font-medium italic">
-                                                    {format(new Date(log.date || log.created_at), 'dd MMM yyyy', { locale: it })}
-                                                </td>
-                                                <td className="px-6 py-4 font-bold uppercase text-[12px] tracking-tight">
-                                                    {t(`types.${log.componentType}`)}
-                                                </td>
-                                                <td className="px-6 py-4">
-                                                    <Badge status={log.action_type === 'replaced' ? 'danger' : 'ok'} size="sm">
+                            <div className="divide-y divide-white/5">
+                                {allLogs.sort((a, b) => new Date(b.date || b.created_at).getTime() - new Date(a.date || a.created_at).getTime()).map((log) => (
+                                    <div key={log.id} className="p-4 hover:bg-white/2 transition-colors">
+                                        <div className="flex items-start justify-between gap-3">
+                                            <div className="min-w-0 flex-1">
+                                                <div className="flex items-center gap-2 mb-1">
+                                                    <span className="text-[10px] font-black italic text-primary-500 uppercase">
+                                                        {format(new Date(log.date || log.created_at), 'dd MMM yyyy', { locale: it })}
+                                                    </span>
+                                                    <Badge status={log.action_type === 'replaced' ? 'danger' : 'ok'} size="sm" className="text-[9px] h-4">
                                                         {tMaintenance(`actions.${log.action_type}`)}
                                                     </Badge>
-                                                </td>
-                                                <td className="px-6 py-4 text-neutral-400">{log.km_at_action?.toLocaleString()} km</td>
-                                                <td className="px-6 py-4 text-right font-bold text-success-400">
-                                                    {log.cost ? `${parseFloat(log.cost).toFixed(2)} €` : '-'}
-                                                </td>
-                                                <td className="px-6 py-4 text-center">
-                                                    <div className="flex items-center justify-center gap-2">
-                                                        {log.receipt_url && (
-                                                            <a
-                                                                href={log.receipt_url}
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                                className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-primary-500/10 text-primary-400 hover:bg-primary-500/20 transition-colors"
-                                                            >
-                                                                <FileText className="w-4 h-4" />
-                                                            </a>
-                                                        )}
-                                                        <button
-                                                            onClick={() => handleDeleteLog(log.id)}
-                                                            className="inline-flex items-center justify-center w-8 h-8 rounded-lg hover:bg-danger-500/10 text-neutral-600 hover:text-danger-400 transition-colors"
-                                                            title="Elimina"
-                                                        >
-                                                            <Trash className="w-4 h-4" />
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
+                                                </div>
+                                                <h4 className="text-xs font-bold uppercase tracking-tight truncate">
+                                                    {t(`types.${log.componentType}`)}
+                                                </h4>
+                                                <div className="flex items-center gap-2 mt-1">
+                                                    <span className="text-[10px] text-neutral-500">{log.km_at_action?.toLocaleString()} km</span>
+                                                    {log.cost && <span className="text-[10px] font-bold text-success-400">€ {parseFloat(log.cost).toFixed(2)}</span>}
+                                                </div>
+                                            </div>
+                                            <div className="flex items-center gap-2 flex-shrink-0">
+                                                {log.receipt_url && (
+                                                    <a
+                                                        href={log.receipt_url}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="w-8 h-8 rounded-lg bg-primary-500/10 text-primary-400 flex items-center justify-center"
+                                                    >
+                                                        <FileText className="w-4 h-4" />
+                                                    </a>
+                                                )}
+                                                <button
+                                                    onClick={() => handleDeleteLog(log.id)}
+                                                    className="w-8 h-8 rounded-lg hover:bg-danger-500/10 text-neutral-600 hover:text-danger-400 flex items-center justify-center transition-colors"
+                                                >
+                                                    <Trash className="w-4 h-4" />
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         </Card>
                     </motion.div>

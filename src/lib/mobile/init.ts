@@ -1,6 +1,7 @@
 import { Capacitor } from '@capacitor/core'
 import { StatusBar, Style } from '@capacitor/status-bar'
 import { Keyboard } from '@capacitor/keyboard'
+import { LocalNotifications } from '@capacitor/local-notifications'
 
 export const initializeMobileApp = async () => {
     // Only run on native platforms
@@ -11,10 +12,28 @@ export const initializeMobileApp = async () => {
     try {
         // Configure Status Bar
         await StatusBar.setStyle({ style: Style.Dark })
-        await StatusBar.setBackgroundColor({ color: '#0a0a0f' }) // var(--neutral-950)
+        await StatusBar.setBackgroundColor({ color: '#0a0a0f' })
 
         // Configure Keyboard
         await Keyboard.setAccessoryBarVisible({ isVisible: true })
+
+        // Request Permissions for Notifications
+        const permStatus = await LocalNotifications.checkPermissions()
+        if (permStatus.display === 'prompt') {
+            await LocalNotifications.requestPermissions()
+        }
+
+        // Initialize Android Channels if needed
+        if (Capacitor.getPlatform() === 'android') {
+            await LocalNotifications.createChannel({
+                id: 'maintenance',
+                name: 'Manutenzione Bici',
+                description: 'Avvisi per la manutenzione dei componenti',
+                importance: 5,
+                visibility: 1,
+                vibration: true,
+            })
+        }
 
         console.log('Mobile app initialized successfully')
     } catch (error) {

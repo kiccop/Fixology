@@ -53,16 +53,16 @@ export default function LandingPage() {
             <span className="text-2xl font-black tracking-tight text-white uppercase italic">{tCommon('appName')}</span>
           </div>
 
-          {/* Mobile & Desktop Auth */}
-          <div className="flex items-center gap-4">
-            <Link href="/register">
-              <Button className="!bg-white !text-black hover:!bg-neutral-200 shadow-xl font-bold uppercase italic tracking-tighter text-sm sm:text-base px-4 sm:px-6">
-                {t('cta.button')}
-              </Button>
-            </Link>
+          {/* Auth Actions - Optimized for Mobile */}
+          <div className="flex items-center gap-2 sm:gap-4">
             <Link href="/login">
-              <Button variant="ghost" className="hover:text-primary-400 transition-colors font-semibold text-sm sm:text-base">
+              <span className="text-xs sm:text-sm font-bold uppercase tracking-widest text-neutral-400 hover:text-white transition-colors cursor-pointer px-2">
                 Login
+              </span>
+            </Link>
+            <Link href="/register">
+              <Button size="sm" className="!bg-primary-500 !text-white hover:!bg-primary-600 shadow-lg font-black uppercase italic tracking-tighter text-[10px] sm:text-xs">
+                {t('cta.button')}
               </Button>
             </Link>
           </div>

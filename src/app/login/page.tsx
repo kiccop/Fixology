@@ -86,7 +86,17 @@ export default function LoginPage() {
             // Save last user ID for biometric association
             const { data: { user } } = await supabase.auth.getUser()
             if (user) {
+                const wasEnabled = biometricAuth.isEnabledForUser(user.id)
                 biometricAuth.setLastUser(user.id)
+
+                const available = await biometricAuth.isAvailable()
+                if (available && !wasEnabled) {
+                    const wantEnabled = confirm("Vuoi abilitare l'accesso biometrico (impronta/viso) per i prossimi accessi?")
+                    if (wantEnabled) {
+                        biometricAuth.enableForUser(user.id)
+                        toast.success("Accesso biometrico abilitato!")
+                    }
+                }
             }
 
             toast.success(t('loginSuccess'))
