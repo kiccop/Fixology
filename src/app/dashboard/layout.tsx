@@ -17,7 +17,8 @@ import {
     ChevronDown,
     Key,
     Loader2,
-    Lock
+    Lock,
+    History
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
@@ -80,7 +81,6 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 
         fetchUserData()
 
-        // Optional: Set up real-time subscription
         const channel = supabase
             .channel('unread-notifications')
             .on('postgres_changes', {
@@ -132,7 +132,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     }
 
     return (
-        <div className="min-h-screen flex">
+        <div className="min-h-screen flex bg-black">
             {/* Mobile Sidebar Overlay */}
             <AnimatePresence>
                 {sidebarOpen && (
@@ -141,7 +141,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={() => setSidebarOpen(false)}
-                        className="fixed inset-0 bg-black/60 z-40 lg:hidden"
+                        className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40 lg:hidden"
                     />
                 )}
             </AnimatePresence>
@@ -149,111 +149,133 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
             {/* Sidebar */}
             <aside className={`
         fixed lg:static inset-y-0 left-0 z-50
-        w-64 bg-neutral-900/95 backdrop-blur-xl border-r border-white/5
+        w-72 bg-neutral-950 border-r border-white/5
         transform transition-transform duration-300 ease-in-out
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
       `}>
-                <div className="flex flex-col h-full">
+                <div className="flex flex-col h-full bg-gradient-to-b from-neutral-900/50 to-transparent">
                     {/* Logo */}
-                    <div className="p-8 border-b border-white/5 bg-black/20">
-                        <Link href="/dashboard" className="flex items-center gap-3 group">
-                            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center shadow-lg shadow-primary-500/10 group-hover:scale-105 transition-transform">
+                    <div className="p-6 h-24 flex items-center">
+                        <Link href="/dashboard" className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-xl bg-primary-500 flex items-center justify-center shadow-lg shadow-primary-500/20">
                                 <Bike className="w-6 h-6 text-white" />
                             </div>
-                            <span className="text-xl font-black tracking-tighter text-white uppercase italic group-hover:text-primary-400 transition-colors">{tCommon('appName')}</span>
+                            <span className="text-xl font-black tracking-tighter text-white uppercase italic">MYBIKELOG</span>
                         </Link>
                     </div>
 
-                    {/* Navigation */}
-                    <nav className="flex-1 p-4 space-y-1">
-                        {navItems.map((item) => {
-                            const isActive = pathname === item.href ||
-                                (item.href !== '/dashboard' && pathname.startsWith(item.href))
+                    {/* Main Scrollable Content */}
+                    <div className="flex-1 overflow-y-auto px-4 py-2 space-y-8">
+                        {/* Navigation */}
+                        <div className="space-y-1">
+                            <p className="px-4 text-[10px] font-bold text-neutral-500 uppercase tracking-[0.2em] mb-3">Menu Principale</p>
+                            <nav className="space-y-1">
+                                {navItems.map((item) => {
+                                    const isActive = pathname === item.href ||
+                                        (item.href !== '/dashboard' && pathname.startsWith(item.href))
 
-                            return (
-                                <Link
-                                    key={item.href}
-                                    href={item.href}
-                                    onClick={() => setSidebarOpen(false)}
-                                    className={`
-                    flex items-center gap-3 px-4 py-3 rounded-xl
-                    transition-all duration-200
-                    ${isActive
-                                            ? 'bg-primary-500/10 text-primary-400 border border-primary-500/20'
-                                            : 'text-neutral-400 hover:text-neutral-100 hover:bg-white/5'
-                                        }
-                  `}
-                                >
-                                    <item.icon className="w-5 h-5" />
-                                    <span className="font-medium">{t(item.labelKey)}</span>
-                                    {item.labelKey === 'notifications' && unreadCount > 0 && (
-                                        <span className="ml-auto w-5 h-5 rounded-full bg-danger-500 text-white text-[10px] font-bold flex items-center justify-center">
-                                            {unreadCount}
-                                        </span>
-                                    )}
-                                </Link>
-                            )
-                        })}
-                    </nav>
-
-                    {/* User section */}
-                    <div className="p-4 border-t border-white/5">
-                        <div className="relative">
-                            <button
-                                onClick={() => setUserMenuOpen(!userMenuOpen)}
-                                className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 transition-colors"
-                            >
-                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-500/20 to-secondary-500/20 flex items-center justify-center">
-                                    <User className="w-5 h-5 text-primary-400" />
-                                </div>
-                                <div className="flex-1 text-left">
-                                    <div className="font-medium text-sm truncate max-w-[120px]">{userName || t('user')}</div>
-                                    <div className="text-xs text-neutral-500">{t('account')}</div>
-                                </div>
-                                <ChevronDown className={`w-4 h-4 text-neutral-400 transition-transform ${userMenuOpen ? 'rotate-180' : ''}`} />
-                            </button>
-
-                            <AnimatePresence>
-                                {userMenuOpen && (
-                                    <motion.div
-                                        initial={{ opacity: 0, y: -10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -10 }}
-                                        className="absolute bottom-full left-0 right-0 mb-2 p-2 rounded-xl bg-neutral-800 border border-white/10"
-                                    >
-                                        <div className="border-b border-white/5 pb-2 mb-2">
-                                            <button
-                                                onClick={() => {
-                                                    setPasswordModalOpen(true)
-                                                    setUserMenuOpen(false)
-                                                }}
-                                                className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-neutral-300 hover:bg-white/5 transition-colors"
-                                            >
-                                                <Key className="w-4 h-4" />
-                                                <span className="text-sm">{tCommon('password')}</span>
-                                            </button>
-                                        </div>
-                                        <button
-                                            onClick={handleLogout}
-                                            className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-danger-400 hover:bg-danger-500/10 transition-colors"
+                                    return (
+                                        <Link
+                                            key={item.href}
+                                            href={item.href}
+                                            onClick={() => setSidebarOpen(false)}
+                                            className={`
+                                                flex items-center gap-3 px-4 py-3 rounded-2xl
+                                                transition-all duration-200 group relative
+                                                ${isActive
+                                                    ? 'bg-white/10 text-white shadow-sm'
+                                                    : 'text-neutral-500 hover:text-white hover:bg-white/5'
+                                                }
+                                            `}
                                         >
-                                            <LogOut className="w-4 h-4" />
-                                            <span className="text-sm">{tAuth('logout')}</span>
-                                        </button>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
+                                            {isActive && (
+                                                <motion.div
+                                                    layoutId="activeNav"
+                                                    className="absolute left-0 w-1 h-6 bg-primary-500 rounded-full"
+                                                />
+                                            )}
+                                            <item.icon className={`w-5 h-5 transition-colors ${isActive ? 'text-primary-400' : 'group-hover:text-primary-400'}`} />
+                                            <span className="font-semibold text-sm tracking-tight">{t(item.labelKey)}</span>
+                                            {item.labelKey === 'notifications' && unreadCount > 0 && (
+                                                <span className="ml-auto px-2 py-0.5 rounded-full bg-primary-500 text-white text-[10px] font-black">
+                                                    {unreadCount}
+                                                </span>
+                                            )}
+                                        </Link>
+                                    )
+                                })}
+                            </nav>
+                        </div>
+
+                        {/* Account Section - MOVED HERE */}
+                        <div className="space-y-1">
+                            <p className="px-4 text-[10px] font-bold text-neutral-500 uppercase tracking-[0.2em] mb-3">Il Tuo Account</p>
+                            <div className="relative px-2">
+                                <button
+                                    onClick={() => setUserMenuOpen(!userMenuOpen)}
+                                    className={`
+                                        w-full flex items-center gap-3 p-3 rounded-2xl transition-all duration-200
+                                        ${userMenuOpen ? 'bg-white/5 shadow-inner' : 'hover:bg-white/5'}
+                                    `}
+                                >
+                                    <div className="w-10 h-10 rounded-xl bg-neutral-800 border border-white/5 flex items-center justify-center shrink-0">
+                                        <User className="w-5 h-5 text-primary-400" />
+                                    </div>
+                                    <div className="flex-1 text-left min-w-0">
+                                        <div className="font-bold text-sm text-white truncate">{userName || t('user')}</div>
+                                        <div className="text-[10px] text-neutral-500 font-medium uppercase tracking-wider">{t('account')}</div>
+                                    </div>
+                                    <ChevronDown className={`w-4 h-4 text-neutral-600 transition-transform duration-300 ${userMenuOpen ? 'rotate-180 text-white' : ''}`} />
+                                </button>
+
+                                <AnimatePresence>
+                                    {userMenuOpen && (
+                                        <motion.div
+                                            initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                                            animate={{ opacity: 1, height: 'auto', marginTop: 8 }}
+                                            exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                                            className="overflow-hidden bg-white/[0.03] rounded-2xl border border-white/5"
+                                        >
+                                            <div className="p-2 space-y-1">
+                                                <button
+                                                    onClick={() => {
+                                                        setPasswordModalOpen(true)
+                                                        setUserMenuOpen(false)
+                                                    }}
+                                                    className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-neutral-400 hover:text-white hover:bg-white/5 transition-all text-sm font-medium"
+                                                >
+                                                    <div className="w-7 h-7 rounded-lg bg-neutral-800 flex items-center justify-center">
+                                                        <Key className="w-3.5 h-3.5" />
+                                                    </div>
+                                                    {tCommon('password')}
+                                                </button>
+                                                <button
+                                                    onClick={handleLogout}
+                                                    className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-danger-400 hover:bg-danger-500/10 transition-all text-sm font-medium"
+                                                >
+                                                    <div className="w-7 h-7 rounded-lg bg-danger-500/10 flex items-center justify-center">
+                                                        <LogOut className="w-3.5 h-3.5 text-danger-400" />
+                                                    </div>
+                                                    {tAuth('logout')}
+                                                </button>
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
                         </div>
                     </div>
 
-                    {/* Strava Attribution - Footer of Sidebar */}
-                    <div className="p-8 border-t border-white/5 bg-black/40">
-                        <div className="flex flex-col gap-4">
-                            <StravaLogo className="scale-90" />
-                            <p className="text-[10px] text-neutral-600 font-medium leading-tight">
-                                © {new Date().getFullYear()} {tCommon('appName')}<br />
-                                All Rights Reserved.
-                            </p>
+                    {/* Footer attribution pinned to bottom */}
+                    <div className="mt-auto p-4 lg:p-6 border-t border-white/5 bg-black/20">
+                        <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 space-y-4">
+                            <StravaLogo className="opacity-80 scale-90 -translate-x-1" />
+                            <div className="space-y-1">
+                                <p className="text-[10px] text-neutral-600 font-bold tracking-tight leading-none uppercase">
+                                    © {new Date().getFullYear()} {tCommon('appName')}
+                                </p>
+                                <p className="text-[9px] text-neutral-700 font-medium">Versione 2.1.0-fixology</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -261,44 +283,32 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 
             {/* Main Content */}
             <div className="flex-1 flex flex-col min-h-screen">
-                {/* Top Bar - Improved for Mobile Accessibility */}
-                <header className="sticky top-0 z-30 h-28 bg-neutral-900/80 backdrop-blur-xl border-b border-white/5 px-6 flex items-center lg:hidden pt-[max(env(safe-area-inset-top),40px)]">
+                {/* Top Bar - Mobile only */}
+                <header className="sticky top-0 z-30 h-24 bg-black/80 backdrop-blur-xl border-b border-white/5 px-6 flex items-center lg:hidden pt-[max(env(safe-area-inset-top),32px)]">
                     <button
                         onClick={() => setSidebarOpen(true)}
-                        className="p-3 -ml-2 rounded-xl hover:bg-white/5 transition-colors touch-manipulation active:scale-95"
+                        className="p-2 -ml-2 rounded-xl hover:bg-white/5 transition-colors touch-manipulation"
                     >
-                        <Menu className="w-8 h-8 text-neutral-100" />
+                        <Menu className="w-7 h-7 text-white" />
                     </button>
                     <div className="ml-4 flex items-center gap-3 flex-1">
-                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center shadow-lg shadow-primary-500/20">
+                        <div className="w-8 h-8 rounded-lg bg-primary-500 flex items-center justify-center">
                             <Bike className="w-5 h-5 text-white" />
                         </div>
-                        <span className="font-extrabold text-lg tracking-tighter uppercase italic text-gradient">{tCommon('appName')}</span>
+                        <span className="font-black text-base tracking-tighter uppercase italic text-white leading-none">MYBIKELOG</span>
                     </div>
-                    <Link href="/dashboard/settings" className="p-2 rounded-xl hover:bg-white/5 transition-colors">
-                        <div className="w-10 h-10 rounded-full bg-primary-500/10 flex items-center justify-center">
-                            <User className="w-6 h-6 text-primary-400" />
-                        </div>
+                    <Link href="/dashboard/settings" className="w-9 h-9 rounded-full bg-white/5 border border-white/5 flex items-center justify-center">
+                        <User className="w-5 h-5 text-primary-400" />
                     </Link>
                 </header>
 
                 {/* Page Content */}
-                <main className="flex-1 p-4 lg:p-8 pb-safe">
+                <main className="flex-1 p-4 lg:p-10 pb-safe overflow-x-hidden">
                     <div className="max-w-7xl mx-auto">
                         {children}
                     </div>
                 </main>
             </div>
-
-            {/* Mobile sidebar close button */}
-            {sidebarOpen && (
-                <button
-                    onClick={() => setSidebarOpen(false)}
-                    className="fixed top-4 right-4 z-50 p-2 rounded-full bg-neutral-800 text-white lg:hidden"
-                >
-                    <X className="w-6 h-6" />
-                </button>
-            )}
 
             {/* Change Password Modal */}
             <Modal
@@ -309,7 +319,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                 title={tAuth('password')}
                 size="sm"
             >
-                <form onSubmit={handleUpdatePassword} className="space-y-4">
+                <form onSubmit={handleUpdatePassword} className="space-y-4 pt-4">
                     <Input
                         label="Nuova Password"
                         type="password"
@@ -328,7 +338,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         leftIcon={<Lock className="w-4 h-4" />}
                     />
-                    <div className="flex gap-3 pt-2">
+                    <div className="flex gap-3 pt-4">
                         <Button
                             variant="ghost"
                             fullWidth
