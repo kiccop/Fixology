@@ -165,11 +165,11 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                     </div>
 
                     {/* Main Scrollable Content */}
-                    <div className="flex-1 overflow-y-auto px-4 py-4 space-y-12">
+                    <div className="flex-1 overflow-y-auto px-6 py-6 space-y-14">
                         {/* Navigation */}
-                        <div className="space-y-2">
-                            <p className="px-5 text-[11px] font-bold text-neutral-500 uppercase tracking-[0.2em] mb-4">Menu Principale</p>
-                            <nav className="space-y-1.5">
+                        <div className="space-y-4">
+                            <p className="px-1 text-[11px] font-bold text-neutral-500 uppercase tracking-[0.2em] mb-4">Menu Principale</p>
+                            <nav className="space-y-3">
                                 {navItems.map((item) => {
                                     const isActive = pathname === item.href ||
                                         (item.href !== '/dashboard' && pathname.startsWith(item.href))
@@ -207,10 +207,10 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                             </nav>
                         </div>
 
-                        {/* Account Section - MOVED HERE */}
-                        <div className="space-y-2">
-                            <p className="px-5 text-[11px] font-bold text-neutral-500 uppercase tracking-[0.2em] mb-4">Il Tuo Account</p>
-                            <div className="relative px-2">
+                        {/* Account Section */}
+                        <div className="space-y-4">
+                            <p className="px-1 text-[11px] font-bold text-neutral-500 uppercase tracking-[0.2em] mb-4">Il Tuo Account</p>
+                            <div className="relative">
                                 <button
                                     onClick={() => setUserMenuOpen(!userMenuOpen)}
                                     className={`
