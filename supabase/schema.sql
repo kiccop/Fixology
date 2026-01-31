@@ -1,5 +1,5 @@
 -- ============================================
--- FIXOLOGY Database Schema
+-- MyBikeLog Database Schema
 -- Run this in your Supabase SQL Editor
 -- ============================================
 

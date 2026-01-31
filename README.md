@@ -47,8 +47,8 @@ myBikeLog è un'applicazione web moderna per la gestione della manutenzione dell
 
 1. **Clona il repository**
    ```bash
-   git clone https://github.com/yourusername/fixology.git
-   cd fixology
+   git clone https://github.com/yourusername/mybikelog.git
+   cd mybikelog
    ```
 
 2. **Installa le dipendenze**
@@ -92,7 +92,7 @@ myBikeLog è un'applicazione web moderna per la gestione della manutenzione dell
 ## 📁 Project Structure
 
 ```
-fixology/
+mybikelog/
 ├── src/
 │   ├── app/                    # Next.js App Router pages
 │   │   ├── api/               # API routes
@@ -122,7 +122,7 @@ fixology/
 
 ## 📱 Strava Integration
 
-Fixology si integra con Strava per:
+MyBikeLog si integra con Strava per:
 
 1. **Importare le bici** - Tutte le bici del tuo profilo Strava vengono importate automaticamente
 2. **Sincronizzare i km** - I chilometri vengono aggiornati ad ogni sincronizzazione

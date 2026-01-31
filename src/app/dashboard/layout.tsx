@@ -274,7 +274,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                                 <p className="text-[10px] text-neutral-600 font-bold tracking-tight leading-none uppercase">
                                     © {new Date().getFullYear()} {tCommon('appName')}
                                 </p>
-                                <p className="text-[9px] text-neutral-700 font-medium">Versione 2.1.0-fixology</p>
+                                <p className="text-[9px] text-neutral-700 font-medium">Versione 2.1.0</p>
                             </div>
                         </div>
                     </div>
