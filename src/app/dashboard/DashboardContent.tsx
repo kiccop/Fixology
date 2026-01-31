@@ -290,7 +290,7 @@ function StatCard({
                 <div className="min-w-0 flex-1">
                     <p className="text-[8px] sm:text-[9px] text-neutral-500 uppercase tracking-widest font-bold truncate">{label}</p>
                     <div className="flex items-baseline gap-0.5 mt-0.5 overflow-hidden">
-                        <p className="text-sm sm:text-base font-black leading-none italic tracking-tighter truncate">
+                        <p className="text-sm sm:text-base font-black leading-none italic tracking-tighter flex-shrink-0">
                             {value}
                         </p>
                         {suffix && <span className="text-[8px] sm:text-[9px] text-neutral-500 font-medium lowercase italic">{suffix}</span>}

@@ -62,7 +62,7 @@ export function StravaLogo({ variant = 'powered-by', className = '', loading = f
                         <path d={officialPath} />
                     </svg>
                 )}
-                <span className="text-xs uppercase font-black tracking-tight">{tStrava('syncNow')}</span>
+                <span className="text-[10px] uppercase font-black tracking-tighter">{tStrava('syncNow')}</span>
             </button>
         )
     }
