@@ -90,8 +90,8 @@ export function DashboardContent({
             <motion.div variants={fadeIn} className="flex items-start justify-between gap-3 px-2">
                 <div className="min-w-0 flex-1">
                     <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-0.5">{t('overview')}</p>
-                    <h1 className="text-sm sm:text-base font-medium text-neutral-300 leading-tight">
-                        {t('welcome')}, <span className="text-gradient font-bold">{userName}</span> 👋
+                    <h1 className="text-xl sm:text-2xl font-bold text-neutral-300 leading-tight">
+                        {t('welcome')}, <span className="text-gradient">{userName}</span> 👋
                     </h1>
                 </div>
 
