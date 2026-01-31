@@ -196,24 +196,23 @@ export function AddComponentModal({
                 </div>
             ) : (
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                    {/* Component Type Display - Cleaner Layout */}
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-primary-500/5 border border-primary-500/10">
-                        <div className="space-y-1">
-                            <p className="text-[10px] uppercase tracking-widest text-primary-400 font-bold">Tipo Selezionato</p>
-                            <p className="text-lg font-bold">
-                                {isCustom
-                                    ? t('customComponent')
-                                    : DEFAULT_COMPONENTS.find(c => c.type === selectedType)?.nameIt || selectedType
-                                }
-                            </p>
-                        </div>
-                        <div className="sm:text-right sm:border-l border-white/5 sm:pl-6 space-y-1">
-                            <p className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold">Status Bici</p>
-                            <div className="flex items-center sm:justify-end gap-2 text-primary-400 font-mono text-sm">
-                                <span className="px-2 py-0.5 rounded bg-primary-500/10 border border-primary-500/20">{currentBikeKm.toLocaleString()} km</span>
-                                {currentBikeHours > 0 && (
-                                    <span className="px-2 py-0.5 rounded bg-primary-500/10 border border-primary-500/20">{currentBikeHours}h</span>
-                                )}
+                    {/* Component Type Display - Cleaner & Integrated */}
+                    <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/5">
+                        <div className="flex items-end justify-between gap-4">
+                            <div className="space-y-1">
+                                <p className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold">Tipo Selezionato</p>
+                                <p className="text-xl font-bold text-white">
+                                    {isCustom
+                                        ? t('customComponent')
+                                        : DEFAULT_COMPONENTS.find(c => c.type === selectedType)?.nameIt || selectedType
+                                    }
+                                </p>
+                            </div>
+                            <div className="text-right">
+                                <p className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold mb-1">Status Bici</p>
+                                <div className="inline-flex items-center px-2.5 py-1 rounded-lg bg-primary-500/10 text-primary-400 font-mono text-xs border border-primary-500/20">
+                                    {currentBikeKm.toLocaleString()} km
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -221,7 +220,7 @@ export function AddComponentModal({
                     {/* Custom Name (only for custom components) */}
                     {isCustom && (
                         <div className="space-y-2">
-                            <label className="text-sm font-bold text-neutral-200 ml-1">Nome Componente</label>
+                            <label className="text-xs font-bold text-neutral-400 uppercase tracking-wider ml-1">Nome Componente</label>
                             <Input
                                 placeholder="Es. Molle pedali, Cuscinetti specifici..."
                                 error={errors.name?.message}

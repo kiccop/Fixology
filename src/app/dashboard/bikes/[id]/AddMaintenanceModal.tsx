@@ -131,29 +131,29 @@ export function AddMaintenanceModal({
             size="md"
         >
             <form onSubmit={handleSubmit} className="space-y-4 pt-2">
-                <div className="p-4 rounded-xl bg-neutral-800/50 border border-white/5 space-y-3">
-                    <div>
-                        <label className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold mb-1 block">Componente</label>
-                        <select
-                            className="input bg-neutral-900/50"
-                            value={selectedComponent}
-                            onChange={(e) => setSelectedComponent(e.target.value)}
-                            required
-                        >
-                            <option value="">{tCommon('select')}...</option>
-                            {components.map((c) => (
-                                <option key={c.id} value={c.id}>
-                                    {c.is_custom ? c.name : tComponents(`types.${c.type}`)}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-
+                <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/5 space-y-4">
                     <div className="grid grid-cols-2 gap-4">
-                        <div>
-                            <label className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold mb-1 block">{t('action')}</label>
+                        <div className="space-y-1.5">
+                            <label className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold">Componente</label>
                             <select
-                                className="input bg-neutral-900/50"
+                                className="input bg-neutral-900/50 border-white/5"
+                                value={selectedComponent}
+                                onChange={(e) => setSelectedComponent(e.target.value)}
+                                required
+                            >
+                                <option value="">{tCommon('select')}...</option>
+                                {components.map((c) => (
+                                    <option key={c.id} value={c.id}>
+                                        {c.is_custom ? c.name : tComponents(`types.${c.type}`)}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <div className="space-y-1.5 text-right flex flex-col items-end">
+                            <label className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold mb-1 block">Azione</label>
+                            <select
+                                className="input bg-neutral-900/50 border-white/5 w-full text-left"
                                 value={actionType}
                                 onChange={(e) => setActionType(e.target.value)}
                             >

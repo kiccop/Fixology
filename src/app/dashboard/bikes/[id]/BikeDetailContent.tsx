@@ -379,7 +379,7 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                                 )}
                             </div>
                             <p className="text-sm sm:text-base text-neutral-400 truncate">
-                                {bike.brand} {bike.model} • {bike.total_km?.toLocaleString() || 0} km • {bike.total_hours || 0}h
+                                {bike.brand} {bike.model} • {bike.total_km?.toLocaleString() || 0} km
                             </p>
                         </div>
                     </div>
