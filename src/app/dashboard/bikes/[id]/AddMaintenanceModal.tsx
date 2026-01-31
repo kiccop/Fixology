@@ -13,6 +13,7 @@ interface AddMaintenanceModalProps {
     bikeId: string
     components: any[]
     currentBikeKm: number
+    currentBikeHours?: number
 }
 
 export function AddMaintenanceModal({
@@ -20,7 +21,8 @@ export function AddMaintenanceModal({
     onClose,
     bikeId,
     components,
-    currentBikeKm
+    currentBikeKm,
+    currentBikeHours = 0
 }: AddMaintenanceModalProps) {
     const t = useTranslations('maintenance')
     const tComponents = useTranslations('components')
@@ -33,6 +35,7 @@ export function AddMaintenanceModal({
     const [selectedComponent, setSelectedComponent] = useState('')
     const [actionType, setActionType] = useState('maintained')
     const [kmAtAction, setKmAtAction] = useState(currentBikeKm.toString())
+    const [hoursAtAction, setHoursAtAction] = useState(currentBikeHours.toString())
     const [cost, setCost] = useState('')
     const [notes, setNotes] = useState('')
     const [receiptUrl, setReceiptUrl] = useState('')
@@ -82,16 +85,32 @@ export function AddMaintenanceModal({
 
         setLoading(true)
         try {
+            const km = parseFloat(kmAtAction)
+            const hours = parseFloat(hoursAtAction)
+
             const { error } = await supabase.from('maintenance_logs').insert({
                 component_id: selectedComponent,
                 action_type: actionType,
-                km_at_action: parseFloat(kmAtAction),
+                km_at_action: km,
+                hours_at_action: hours,
                 cost: cost ? parseFloat(cost) : null,
                 notes,
                 receipt_url: receiptUrl
             })
 
             if (error) throw error
+
+            // Update component status and current usage if it's a replacement
+            if (actionType === 'replaced') {
+                await supabase.from('components').update({
+                    install_km: km,
+                    install_hours: hours,
+                    current_km: Math.max(0, currentBikeKm - km),
+                    current_hours: Math.max(0, currentBikeHours - hours),
+                    install_date: new Date().toISOString().split('T')[0],
+                    status: 'ok'
+                }).eq('id', selectedComponent)
+            }
 
             toast.success(tCommon('success'))
             onClose()
@@ -142,12 +161,24 @@ export function AddMaintenanceModal({
                             <option value="inspected">{t('actions.inspected')}</option>
                         </select>
                     </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
                     <div>
                         <label className="label">{t('kmAtAction')}</label>
                         <Input
                             type="number"
                             value={kmAtAction}
                             onChange={(e) => setKmAtAction(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label className="label">Ore al momento</label>
+                        <Input
+                            type="number"
+                            value={hoursAtAction}
+                            onChange={(e) => setHoursAtAction(e.target.value)}
                             required
                         />
                     </div>

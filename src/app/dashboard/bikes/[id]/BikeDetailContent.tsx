@@ -120,7 +120,7 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
 
             const componentRows = activeComponents.map((c: any) => [
                 t(`types.${c.type}`),
-                `${c.current_km} / ${c.threshold_km || '∞'} km`,
+                `${Math.max(0, (bike.total_km || 0) - c.install_km)} / ${c.threshold_km || '∞'} km`,
                 t(`status.${c.status}`).toUpperCase(),
                 format(new Date(c.install_date || new Date()), 'dd/MM/yyyy')
             ])
@@ -252,7 +252,7 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                 doc.text(
                     'Generato da myBikeLog - La tua bici, sempre al massimo.',
                     105,
-                    285,
+                    255,
                     { align: 'center' }
                 )
             }
@@ -274,8 +274,8 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
             await supabase.from('maintenance_logs').insert({
                 component_id: component.id,
                 action_type: 'replaced',
-                km_at_action: component.current_km + component.install_km,
-                hours_at_action: component.current_hours + component.install_hours,
+                km_at_action: bike.total_km,
+                hours_at_action: bike.total_hours || 0,
             })
 
             // Reset component
@@ -331,11 +331,18 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
     }
 
     const calculateWear = (component: any) => {
+        const bikeKm = bike.total_km || 0
+        const bikeHours = bike.total_hours || 0
+
+        // Calculate current usage based on subtraction from bike odometer
+        const currentUsageKm = Math.max(0, bikeKm - component.install_km)
+        const currentUsageHours = Math.max(0, bikeHours - component.install_hours)
+
         if (component.threshold_km && component.threshold_km > 0) {
-            return (component.current_km / component.threshold_km) * 100
+            return (currentUsageKm / component.threshold_km) * 100
         }
         if (component.threshold_hours && component.threshold_hours > 0) {
-            return (component.current_hours / component.threshold_hours) * 100
+            return (currentUsageHours / component.threshold_hours) * 100
         }
         return 0
     }
@@ -372,7 +379,7 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                                 )}
                             </div>
                             <p className="text-sm sm:text-base text-neutral-400 truncate">
-                                {bike.brand} {bike.model} • {bike.total_km?.toLocaleString() || 0} km
+                                {bike.brand} {bike.model} • {bike.total_km?.toLocaleString() || 0} km • {bike.total_hours || 0}h
                             </p>
                         </div>
                     </div>
@@ -511,7 +518,8 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                                                         )}
                                                     </div>
                                                     <p className="text-sm text-neutral-400">
-                                                        {component.current_km} km / {component.threshold_km || '∞'} km
+                                                        {Math.max(0, (bike.total_km || 0) - component.install_km).toLocaleString()} km / {component.threshold_km || '∞'} km
+                                                        {component.threshold_hours && ` • ${Math.max(0, (bike.total_hours || 0) - component.install_hours)} / ${component.threshold_hours}h`}
                                                     </p>
                                                 </div>
                                             </div>
@@ -669,6 +677,7 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                 onClose={() => setAddComponentOpen(false)}
                 bikeId={bike.id}
                 currentBikeKm={bike.total_km || 0}
+                currentBikeHours={bike.total_hours || 0}
             />
 
             <AddMaintenanceModal
@@ -677,6 +686,7 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                 bikeId={bike.id}
                 components={activeComponents}
                 currentBikeKm={bike.total_km || 0}
+                currentBikeHours={bike.total_hours || 0}
             />
 
             {/* Component Action Modal */}

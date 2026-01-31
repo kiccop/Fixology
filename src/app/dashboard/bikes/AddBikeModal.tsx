@@ -18,6 +18,7 @@ const bikeSchema = z.object({
     model: z.string(),
     frame_type: z.enum(['road', 'mtb', 'gravel', 'city', 'ebike', 'other']),
     total_km: z.number().min(0),
+    total_hours: z.number().min(0).optional(),
 })
 
 type BikeFormData = z.infer<typeof bikeSchema>
@@ -58,6 +59,7 @@ export function AddBikeModal({ isOpen, onClose }: AddBikeModalProps) {
             model: '',
             frame_type: 'road',
             total_km: 0,
+            total_hours: 0,
         },
     })
 
@@ -80,6 +82,7 @@ export function AddBikeModal({ isOpen, onClose }: AddBikeModalProps) {
                 model: data.model || null,
                 frame_type: data.frame_type,
                 total_km: data.total_km,
+                total_hours: data.total_hours || 0,
             })
 
             if (error) {
@@ -145,13 +148,20 @@ export function AddBikeModal({ isOpen, onClose }: AddBikeModalProps) {
                     </div>
                 </div>
 
-                <Input
-                    label={t('totalKm')}
-                    type="number"
-                    placeholder="0"
-                    helperText="Km attuali della bici (opzionale se sincronizzi con Strava)"
-                    {...register('total_km', { valueAsNumber: true })}
-                />
+                <div className="grid grid-cols-2 gap-4">
+                    <Input
+                        label={t('totalKm')}
+                        type="number"
+                        placeholder="0"
+                        {...register('total_km', { valueAsNumber: true })}
+                    />
+                    <Input
+                        label={t('totalHours') || 'Ore totali'}
+                        type="number"
+                        placeholder="0"
+                        {...register('total_hours', { valueAsNumber: true })}
+                    />
+                </div>
 
                 <div className="flex gap-3 pt-4">
                     <Button type="button" variant="ghost" fullWidth onClick={onClose}>

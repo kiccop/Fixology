@@ -10,7 +10,7 @@ import { toast } from 'sonner'
 import { Loader2, Plus } from 'lucide-react'
 import { Modal, Button, Input } from '@/components/ui'
 import { createClient } from '@/lib/supabase/client'
-import { DEFAULT_COMPONENTS, ComponentType } from '@/types'
+import { DEFAULT_COMPONENTS } from '@/types'
 
 const componentSchema = z.object({
     type: z.string().min(1),
@@ -29,13 +29,15 @@ interface AddComponentModalProps {
     onClose: () => void
     bikeId: string
     currentBikeKm: number
+    currentBikeHours?: number
 }
 
 export function AddComponentModal({
     isOpen,
     onClose,
     bikeId,
-    currentBikeKm
+    currentBikeKm,
+    currentBikeHours = 0
 }: AddComponentModalProps) {
     const t = useTranslations('components')
     const tCommon = useTranslations('common')
@@ -58,7 +60,7 @@ export function AddComponentModal({
             type: '',
             name: '',
             install_km: currentBikeKm,
-            install_hours: 0,
+            install_hours: currentBikeHours,
             threshold_km: null,
             threshold_hours: null,
             notes: '',
@@ -89,6 +91,9 @@ export function AddComponentModal({
                 ? data.name
                 : DEFAULT_COMPONENTS.find(c => c.type === data.type)?.nameIt || data.type
 
+            const currentKm = Math.max(0, currentBikeKm - data.install_km)
+            const currentHours = Math.max(0, currentBikeHours - data.install_hours)
+
             const { error } = await supabase.from('components').insert({
                 bike_id: bikeId,
                 type: data.type,
@@ -97,8 +102,8 @@ export function AddComponentModal({
                 install_hours: data.install_hours,
                 threshold_km: data.threshold_km || null,
                 threshold_hours: data.threshold_hours || null,
-                current_km: 0,
-                current_hours: 0,
+                current_km: currentKm,
+                current_hours: currentHours,
                 notes: data.notes || null,
                 is_custom: isCustom,
                 status: 'ok',
@@ -192,14 +197,20 @@ export function AddComponentModal({
             ) : (
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                     {/* Component Type Display */}
-                    <div className="p-4 rounded-xl bg-primary-500/10 border border-primary-500/20">
-                        <p className="text-sm text-neutral-400">Tipo selezionato</p>
-                        <p className="font-medium">
-                            {isCustom
-                                ? t('customComponent')
-                                : DEFAULT_COMPONENTS.find(c => c.type === selectedType)?.nameIt || selectedType
-                            }
-                        </p>
+                    <div className="grid grid-cols-2 gap-3 p-4 rounded-2xl bg-primary-500/10 border border-primary-500/20">
+                        <div>
+                            <p className="text-[10px] uppercase tracking-wider text-primary-400/70 mb-1">Tipo</p>
+                            <p className="font-bold text-sm truncate">
+                                {isCustom
+                                    ? t('customComponent')
+                                    : DEFAULT_COMPONENTS.find(c => c.type === selectedType)?.nameIt || selectedType
+                                }
+                            </p>
+                        </div>
+                        <div className="text-right border-l border-primary-500/20 pl-3">
+                            <p className="text-[10px] uppercase tracking-wider text-primary-400/70 mb-1">Status Bici</p>
+                            <p className="font-bold text-sm">{currentBikeKm.toLocaleString()} km • {currentBikeHours}h</p>
+                        </div>
                     </div>
 
                     {/* Custom Name (only for custom components) */}

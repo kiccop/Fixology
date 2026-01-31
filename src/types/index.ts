@@ -88,7 +88,7 @@ export type ComponentType =
     | 'handlebar'       // Manubrio
     | 'saddle'          // Sella
     | 'pedals'          // Pedali
-    | 'cleats'          // Tacchette
+    | 'sealing_liquid'  // Lattice copertoni
     | 'bottom_bracket'  // Movimento centrale
     | 'headset'         // Serie sterzo
     | 'hubs'            // Mozzi
@@ -253,16 +253,16 @@ export const DEFAULT_COMPONENTS: DefaultComponentConfig[] = [
         description: 'Replace when creaking or rough'
     },
     {
-        type: 'cleats',
-        name: 'Cleats',
-        nameIt: 'Tacchette',
-        nameEn: 'Cleats',
-        nameFr: 'Cales',
-        nameEs: 'Calas',
-        defaultThresholdKm: 8000,
-        defaultThresholdHours: null,
-        icon: 'footprints',
-        description: 'Replace when release becomes unpredictable'
+        type: 'sealing_liquid',
+        name: 'Sealing Liquid',
+        nameIt: 'Lattice copertoni',
+        nameEn: 'Sealing Liquid',
+        nameFr: 'Préventif',
+        nameEs: 'Líquido sellante',
+        defaultThresholdKm: 0,
+        defaultThresholdHours: 1400,
+        icon: 'droplets',
+        description: 'Check every 6 months or 1400h. Top up if dry.'
     },
     {
         type: 'suspension_fork',
