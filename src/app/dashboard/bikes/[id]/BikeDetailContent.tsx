@@ -503,7 +503,9 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                                                 </div>
                                                 <div>
                                                     <div className="flex items-center gap-2">
-                                                        <h3 className="font-medium">{t(`types.${component.type}`)}</h3>
+                                                        <h3 className="font-medium">
+                                                            {component.is_custom ? component.name : t(`types.${component.type}`)}
+                                                        </h3>
                                                         {component.maintenance_logs?.some((l: any) => l.receipt_url) && (
                                                             <a
                                                                 href={component.maintenance_logs.find((l: any) => l.receipt_url).receipt_url}
@@ -595,7 +597,9 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                                                     </Badge>
                                                 </div>
                                                 <h4 className="text-xs font-bold uppercase tracking-tight truncate">
-                                                    {t(`types.${log.componentType}`)}
+                                                    {components.find((c: any) => c.id === log.component_id)?.is_custom
+                                                        ? components.find((c: any) => c.id === log.component_id)?.name
+                                                        : t(`types.${log.componentType}`)}
                                                 </h4>
                                                 <div className="flex items-center gap-2 mt-1">
                                                     <span className="text-[10px] text-neutral-500">{log.km_at_action?.toLocaleString()} km</span>

@@ -195,32 +195,39 @@ export function AddComponentModal({
                     </button>
                 </div>
             ) : (
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-                    {/* Component Type Display */}
-                    <div className="grid grid-cols-2 gap-3 p-4 rounded-2xl bg-primary-500/10 border border-primary-500/20">
-                        <div>
-                            <p className="text-[10px] uppercase tracking-wider text-primary-400/70 mb-1">Tipo</p>
-                            <p className="font-bold text-sm truncate">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                    {/* Component Type Display - Cleaner Layout */}
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-primary-500/5 border border-primary-500/10">
+                        <div className="space-y-1">
+                            <p className="text-[10px] uppercase tracking-widest text-primary-400 font-bold">Tipo Selezionato</p>
+                            <p className="text-lg font-bold">
                                 {isCustom
                                     ? t('customComponent')
                                     : DEFAULT_COMPONENTS.find(c => c.type === selectedType)?.nameIt || selectedType
                                 }
                             </p>
                         </div>
-                        <div className="text-right border-l border-primary-500/20 pl-3">
-                            <p className="text-[10px] uppercase tracking-wider text-primary-400/70 mb-1">Status Bici</p>
-                            <p className="font-bold text-sm">{currentBikeKm.toLocaleString()} km • {currentBikeHours}h</p>
+                        <div className="sm:text-right sm:border-l border-white/5 sm:pl-6 space-y-1">
+                            <p className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold">Status Bici</p>
+                            <div className="flex items-center sm:justify-end gap-2 text-primary-400 font-mono text-sm">
+                                <span className="px-2 py-0.5 rounded bg-primary-500/10 border border-primary-500/20">{currentBikeKm.toLocaleString()} km</span>
+                                {currentBikeHours > 0 && (
+                                    <span className="px-2 py-0.5 rounded bg-primary-500/10 border border-primary-500/20">{currentBikeHours}h</span>
+                                )}
+                            </div>
                         </div>
                     </div>
 
                     {/* Custom Name (only for custom components) */}
                     {isCustom && (
-                        <Input
-                            label={t('customComponent')}
-                            placeholder="..."
-                            error={errors.name?.message}
-                            {...register('name')}
-                        />
+                        <div className="space-y-2">
+                            <label className="text-sm font-bold text-neutral-200 ml-1">Nome Componente</label>
+                            <Input
+                                placeholder="Es. Molle pedali, Cuscinetti specifici..."
+                                error={errors.name?.message}
+                                {...register('name')}
+                            />
+                        </div>
                     )}
 
                     <div className="grid grid-cols-2 gap-4">

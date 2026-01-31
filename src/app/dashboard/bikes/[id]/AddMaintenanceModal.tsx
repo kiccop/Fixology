@@ -131,41 +131,43 @@ export function AddMaintenanceModal({
             size="md"
         >
             <form onSubmit={handleSubmit} className="space-y-4 pt-2">
-                <div>
-                    <label className="label">{tComponents('type')}</label>
-                    <select
-                        className="input"
-                        value={selectedComponent}
-                        onChange={(e) => setSelectedComponent(e.target.value)}
-                        required
-                    >
-                        <option value="">{tCommon('select')}...</option>
-                        {components.map((c) => (
-                            <option key={c.id} value={c.id}>
-                                {tComponents(`types.${c.type}`)}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
+                <div className="p-4 rounded-xl bg-neutral-800/50 border border-white/5 space-y-3">
                     <div>
-                        <label className="label">{t('action')}</label>
+                        <label className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold mb-1 block">Componente</label>
                         <select
-                            className="input"
-                            value={actionType}
-                            onChange={(e) => setActionType(e.target.value)}
+                            className="input bg-neutral-900/50"
+                            value={selectedComponent}
+                            onChange={(e) => setSelectedComponent(e.target.value)}
+                            required
                         >
-                            <option value="maintained">{t('actions.maintained')}</option>
-                            <option value="replaced">{t('actions.replaced')}</option>
-                            <option value="inspected">{t('actions.inspected')}</option>
+                            <option value="">{tCommon('select')}...</option>
+                            {components.map((c) => (
+                                <option key={c.id} value={c.id}>
+                                    {c.is_custom ? c.name : tComponents(`types.${c.type}`)}
+                                </option>
+                            ))}
                         </select>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold mb-1 block">{t('action')}</label>
+                            <select
+                                className="input bg-neutral-900/50"
+                                value={actionType}
+                                onChange={(e) => setActionType(e.target.value)}
+                            >
+                                <option value="maintained">{t('actions.maintained')}</option>
+                                <option value="replaced">{t('actions.replaced')}</option>
+                                <option value="inspected">{t('actions.inspected')}</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                     <div>
-                        <label className="label">{t('kmAtAction')}</label>
+                        <label className="text-sm font-bold text-neutral-300 ml-1 mb-1 block">{t('kmAtAction')}</label>
                         <Input
                             type="number"
                             value={kmAtAction}
@@ -174,7 +176,7 @@ export function AddMaintenanceModal({
                         />
                     </div>
                     <div>
-                        <label className="label">Ore al momento</label>
+                        <label className="text-sm font-bold text-neutral-300 ml-1 mb-1 block">Ore al momento</label>
                         <Input
                             type="number"
                             value={hoursAtAction}
