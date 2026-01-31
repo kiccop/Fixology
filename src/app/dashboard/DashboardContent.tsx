@@ -183,8 +183,8 @@ export function DashboardContent({
                                                         </span>
                                                     )}
                                                 </div>
-                                                <p className="text-xs text-neutral-500">
-                                                    {bike.total_km?.toLocaleString() || 0} km
+                                                <p className="text-sm text-neutral-400">
+                                                    {bike.brand} {bike.model} • {bike.total_km?.toLocaleString()} km
                                                 </p>
                                             </div>
                                         </div>
