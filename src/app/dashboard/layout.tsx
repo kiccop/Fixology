@@ -165,11 +165,11 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                     </div>
 
                     {/* Main Scrollable Content */}
-                    <div className="flex-1 overflow-y-auto px-4 py-2 space-y-8">
+                    <div className="flex-1 overflow-y-auto px-4 py-4 space-y-12">
                         {/* Navigation */}
-                        <div className="space-y-1">
-                            <p className="px-4 text-[10px] font-bold text-neutral-500 uppercase tracking-[0.2em] mb-3">Menu Principale</p>
-                            <nav className="space-y-1">
+                        <div className="space-y-2">
+                            <p className="px-5 text-[11px] font-bold text-neutral-500 uppercase tracking-[0.2em] mb-4">Menu Principale</p>
+                            <nav className="space-y-1.5">
                                 {navItems.map((item) => {
                                     const isActive = pathname === item.href ||
                                         (item.href !== '/dashboard' && pathname.startsWith(item.href))
@@ -194,8 +194,8 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                                                     className="absolute left-0 w-1 h-6 bg-primary-500 rounded-full"
                                                 />
                                             )}
-                                            <item.icon className={`w-5 h-5 transition-colors ${isActive ? 'text-primary-400' : 'group-hover:text-primary-400'}`} />
-                                            <span className="font-semibold text-sm tracking-tight">{t(item.labelKey)}</span>
+                                            <item.icon className={`w-6 h-6 transition-colors ${isActive ? 'text-primary-400' : 'group-hover:text-primary-400'}`} />
+                                            <span className="font-bold text-base tracking-tight">{t(item.labelKey)}</span>
                                             {item.labelKey === 'notifications' && unreadCount > 0 && (
                                                 <span className="ml-auto px-2 py-0.5 rounded-full bg-primary-500 text-white text-[10px] font-black">
                                                     {unreadCount}
@@ -208,24 +208,24 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                         </div>
 
                         {/* Account Section - MOVED HERE */}
-                        <div className="space-y-1">
-                            <p className="px-4 text-[10px] font-bold text-neutral-500 uppercase tracking-[0.2em] mb-3">Il Tuo Account</p>
+                        <div className="space-y-2">
+                            <p className="px-5 text-[11px] font-bold text-neutral-500 uppercase tracking-[0.2em] mb-4">Il Tuo Account</p>
                             <div className="relative px-2">
                                 <button
                                     onClick={() => setUserMenuOpen(!userMenuOpen)}
                                     className={`
-                                        w-full flex items-center gap-3 p-3 rounded-2xl transition-all duration-200
+                                        w-full flex items-center gap-4 p-4 rounded-2xl transition-all duration-200
                                         ${userMenuOpen ? 'bg-white/5 shadow-inner' : 'hover:bg-white/5'}
                                     `}
                                 >
-                                    <div className="w-10 h-10 rounded-xl bg-neutral-800 border border-white/5 flex items-center justify-center shrink-0">
-                                        <User className="w-5 h-5 text-primary-400" />
+                                    <div className="w-12 h-12 rounded-xl bg-neutral-800 border border-white/5 flex items-center justify-center shrink-0">
+                                        <User className="w-6 h-6 text-primary-400" />
                                     </div>
                                     <div className="flex-1 text-left min-w-0">
-                                        <div className="font-bold text-sm text-white truncate">{userName || t('user')}</div>
-                                        <div className="text-[10px] text-neutral-500 font-medium uppercase tracking-wider">{t('account')}</div>
+                                        <div className="font-black text-base text-white truncate">{userName || t('user')}</div>
+                                        <div className="text-[11px] text-neutral-500 font-bold uppercase tracking-widest">{t('account')}</div>
                                     </div>
-                                    <ChevronDown className={`w-4 h-4 text-neutral-600 transition-transform duration-300 ${userMenuOpen ? 'rotate-180 text-white' : ''}`} />
+                                    <ChevronDown className={`w-5 h-5 text-neutral-600 transition-transform duration-300 ${userMenuOpen ? 'rotate-180 text-white' : ''}`} />
                                 </button>
 
                                 <AnimatePresence>
