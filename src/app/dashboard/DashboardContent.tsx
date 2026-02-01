@@ -3,8 +3,9 @@
 import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { toast } from 'sonner'
+import { notificationService } from '@/lib/notifications'
 import {
     Bike,
     Activity,
@@ -60,6 +61,35 @@ export function DashboardContent({
     const tComponents = useTranslations('components')
     const tBikes = useTranslations('bikes')
     const [syncing, setSyncing] = useState(false)
+
+    // Check for notifications on mount and when alerts change
+    useEffect(() => {
+        const checkAndNotify = async () => {
+            if (alertComponents.length === 0) return
+
+            for (const component of alertComponents) {
+                const notificationKey = `notified_${component.id}_${component.status}`
+                const hasNotified = localStorage.getItem(notificationKey)
+
+                if (!hasNotified) {
+                    // Create a simple numeric ID from the UUID for the notification system
+                    // We use the last 8 chars converted to int, or a simple hash if that fails
+                    const numericId = parseInt(component.id.replace(/-/g, '').slice(-8), 16) || Math.floor(Math.random() * 1000000)
+
+                    await notificationService.scheduleMaintenanceAlert(
+                        component.name,
+                        component.bike?.name || 'Bici',
+                        numericId
+                    )
+
+                    // Mark as notified
+                    localStorage.setItem(notificationKey, 'true')
+                }
+            }
+        }
+
+        checkAndNotify()
+    }, [alertComponents])
 
     const handleSync = async () => {
         setSyncing(true)

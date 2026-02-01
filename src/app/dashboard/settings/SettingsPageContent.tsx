@@ -272,12 +272,7 @@ export function SettingsPageContent({
                     </div>
 
                     <div className="space-y-4">
-                        <ToggleOption
-                            label={t('emailNotifications')}
-                            description={t('emailNotificationsDescription')}
-                            checked={emailNotifications}
-                            onChange={setEmailNotifications}
-                        />
+
                         <ToggleOption
                             label={t('pushNotifications')}
                             description={t('pushNotificationsDescription')}
