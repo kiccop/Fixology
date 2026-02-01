@@ -168,13 +168,15 @@ export default function LandingPage() {
       {/* Features Grid - Centered & Symmetrical */}
       <section id="features" className="py-32 relative overflow-hidden bg-neutral-900/20 w-full flex flex-col items-center">
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <div className="flex flex-col items-center mb-24 mx-auto max-w-3xl">
-            <span className="text-primary-500 text-[11px] font-black uppercase tracking-[0.3em] mb-4 block italic text-center">Engineering Precision</span>
-            <h2 className="text-5xl sm:text-6xl font-black tracking-tighter uppercase italic leading-none mb-6 text-center">
+          <div className="flex flex-col items-center mb-24 mx-auto w-full">
+            <span className="text-primary-500 text-[11px] font-black uppercase tracking-[0.4em] mb-4 block italic text-center w-full">
+              {t('features.overline')}
+            </span>
+            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tighter uppercase italic leading-none mb-6 text-center w-full">
               {t('features.title')}
             </h2>
-            <p className="text-neutral-500 font-medium italic text-lg text-center mx-auto">
-              Sviluppato per ciclisti che esigono il massimo dalla propria meccanica.
+            <p className="text-neutral-500 font-medium italic text-lg text-center mx-auto max-w-2xl px-4">
+              {t('hero.subtitle')}
             </p>
           </div>
 
@@ -249,9 +251,13 @@ export default function LandingPage() {
       {/* How It Works - Elegant Flow */}
       <section className="py-32 relative bg-black text-center w-full flex flex-col items-center">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col items-center mb-20 mx-auto max-w-3xl">
-            <span className="text-primary-500 text-[11px] font-black uppercase tracking-[0.3em] italic mb-4 block text-center">Step by Step</span>
-            <h2 className="text-5xl sm:text-6xl font-black tracking-tighter uppercase italic leading-none text-center">Ready in Seconds.</h2>
+          <div className="flex flex-col items-center mb-20 mx-auto w-full">
+            <span className="text-primary-500 text-[11px] font-black uppercase tracking-[0.4em] italic mb-4 block text-center w-full">
+              {t('howItWorks.overline')}
+            </span>
+            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tighter uppercase italic leading-none text-center w-full">
+              {t('howItWorks.title')}
+            </h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-12 w-full place-items-center">
@@ -312,8 +318,8 @@ export default function LandingPage() {
           className="max-w-4xl px-6 space-y-12 relative z-10"
         >
           <h2 className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter uppercase italic leading-[0.8]">
-            Don&apos;t Just Ride. <br />
-            <span className="text-gradient">Optimize.</span>
+            {t('cta.mainTitle')} <br />
+            <span className="text-gradient">{t('cta.mainSubtitle')}</span>
           </h2>
           <div className="flex justify-center gap-4">
             <Link href="/register">

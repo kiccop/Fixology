@@ -263,7 +263,8 @@
             "secondaryCta": "Esplora le funzioni"
         },
         "features": {
-            "title": "Precisione Meccanica",
+            "overline": "Dati & Performance",
+            "title": "Monitoraggio perfetto",
             "sync": {
                 "title": "Cloud Sinc",
                 "description": "Integrazione API nativa con Strava per l'importazione istantanea di flotta e chilometraggio."
@@ -289,9 +290,15 @@
                 "description": "Carica foto delle ricevute del meccanico per una tracciabilità a prova di errore."
             }
         },
+        "howItWorks": {
+            "overline": "Passo dopo passo",
+            "title": "Pronto in pochi secondi."
+        },
         "cta": {
             "title": "Porta la tua bici nel futuro.",
             "subtitle": "Unisciti alla rete di myBikeLog e smetti di affidarti al caso. Prepara la tua prossima sfida con una meccanica impeccabile.",
+            "mainTitle": "PIÙ DI UNA SEMPLICE PEDALATA.",
+            "mainSubtitle": "OTTIMIZZA OGNI KM.",
             "button": "Crea il tuo account"
         }
     },

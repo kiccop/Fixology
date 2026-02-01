@@ -263,7 +263,8 @@
             "secondaryCta": "Explore features"
         },
         "features": {
-            "title": "Mechanical Precision",
+            "overline": "Data & Performance",
+            "title": "Perfect Monitoring",
             "sync": {
                 "title": "Cloud Sync",
                 "description": "Native API integration with Strava for instant fleet and mileage synchronization."
@@ -289,9 +290,15 @@
                 "description": "Upload photos of mechanic receipts for tamper-proof maintenance tracking."
             }
         },
+        "howItWorks": {
+            "overline": "Step by step",
+            "title": "Ready in seconds."
+        },
         "cta": {
             "title": "The future of cycling management.",
             "subtitle": "Join the myBikeLog network and eliminate guesswork. Master your mechanics for your next challenge.",
+            "mainTitle": "MORE THAN JUST A RIDE.",
+            "mainSubtitle": "OPTIMIZE EVERY KM.",
             "button": "Create your account"
         }
     },
