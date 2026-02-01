@@ -84,10 +84,10 @@ export function DashboardContent({
             initial="initial"
             animate="animate"
             variants={staggerContainer}
-            className="space-y-12 max-w-6xl mx-auto px-4"
+            className="flex flex-col gap-12 max-w-6xl mx-auto px-4"
         >
             {/* Header - Minimal & Centered */}
-            <motion.div variants={fadeIn} className="flex items-start justify-between gap-3 px-2">
+            <motion.div variants={fadeIn} className="flex items-end justify-between gap-3 px-2 pb-1">
                 <div className="min-w-0 flex-1">
                     <p className="text-[10px] text-neutral-500 uppercase tracking-widest mb-0.5">{t('overview')}</p>
                     <div className="text-base sm:text-lg font-bold text-neutral-400 leading-tight">
@@ -133,7 +133,7 @@ export function DashboardContent({
             {/* Strava Connection Banner removed from here - moved exclusively to Settings */}
 
             {/* Main Content Grid */}
-            <div className="grid lg:grid-cols-2 gap-6">
+            <div className="grid lg:grid-cols-2 gap-6 mt-12">
                 {/* Bikes List */}
                 <motion.div variants={fadeIn}>
                     <Card padding="none">

@@ -53,16 +53,16 @@ export function StravaLogo({ variant = 'powered-by', className = '', loading = f
             <button
                 onClick={onClick}
                 disabled={loading}
-                className={`inline-flex items-center bg-[#FC4C02] hover:bg-[#E34402] text-white font-bold py-2 px-4 rounded shadow-md transition-all gap-2 disabled:opacity-70 active:scale-95 ${className}`}
+                className={`w-full md:w-auto min-w-[140px] inline-flex justify-center items-center bg-gradient-to-r from-[#FC4C02] to-[#ff844f] hover:from-[#E34402] hover:to-[#ff6b2b] text-white py-3 px-8 rounded-xl shadow-lg shadow-[#FC4C02]/20 transition-all duration-300 gap-2.5 disabled:opacity-70 disabled:cursor-not-allowed hover:-translate-y-0.5 active:translate-y-0 active:scale-95 border border-[#FC4C02]/20 ${className}`}
             >
                 {loading ? (
                     <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                 ) : (
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="white" className="drop-shadow-sm">
                         <path d={officialPath} />
                     </svg>
                 )}
-                <span className="text-[10px] uppercase font-black tracking-tighter">{tStrava('syncNow')}</span>
+                <span className="text-[11px] lg:text-xs font-black uppercase tracking-wider shadow-sm leading-none mt-[1px]">{tStrava('syncNow')}</span>
             </button>
         )
     }

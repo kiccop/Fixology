@@ -18,7 +18,8 @@ import {
     Key,
     Loader2,
     Lock,
-    History
+    History,
+    BookOpen
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
@@ -29,6 +30,7 @@ import { useEffect } from 'react'
 const navItems = [
     { href: '/dashboard', icon: LayoutDashboard, labelKey: 'dashboard' },
     { href: '/dashboard/bikes', icon: Bike, labelKey: 'bikes' },
+    { href: '/dashboard/guide', icon: BookOpen, labelKey: 'guide' },
     { href: '/dashboard/notifications', icon: Bell, labelKey: 'notifications' },
     { href: '/dashboard/settings', icon: Settings, labelKey: 'settings' },
 ]
@@ -37,6 +39,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     const t = useTranslations('nav')
     const tCommon = useTranslations('common')
     const tAuth = useTranslations('auth')
+    const tSettings = useTranslations('settings')
     const pathname = usePathname()
     const router = useRouter()
     const supabase = createClient()
@@ -132,7 +135,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     }
 
     return (
-        <div className="min-h-screen flex bg-black">
+        <div className="min-h-screen flex bg-black lg:gap-8">
             {/* Mobile Sidebar Overlay */}
             <AnimatePresence>
                 {sidebarOpen && (
@@ -247,7 +250,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                                                     <div className="w-7 h-7 rounded-lg bg-neutral-800 flex items-center justify-center">
                                                         <Key className="w-3.5 h-3.5" />
                                                     </div>
-                                                    {tCommon('password')}
+                                                    {tSettings('security.changePassword')}
                                                 </button>
                                                 <button
                                                     onClick={handleLogout}

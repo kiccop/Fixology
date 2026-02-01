@@ -53,6 +53,7 @@ export function SettingsPageContent({
 }: SettingsPageContentProps) {
     const t = useTranslations('settings')
     const tStrava = useTranslations('strava')
+    const tCommon = useTranslations('common')
     const router = useRouter()
     const supabase = createClient()
 
@@ -99,7 +100,7 @@ export function SettingsPageContent({
             // Update locale cookie
             Cookies.set('locale', selectedLocale, { expires: 365 })
 
-            toast.success('Impostazioni salvate')
+            toast.success(t('toasts.settingsSaved'))
 
             // Save biometric preference locally
             if (biometricAvailable && profile?.id) {
@@ -112,7 +113,7 @@ export function SettingsPageContent({
 
             router.refresh()
         } catch {
-            toast.error('Errore durante il salvataggio')
+            toast.error(t('toasts.settingsError'))
         } finally {
             setIsSaving(false)
         }
@@ -125,11 +126,11 @@ export function SettingsPageContent({
                 .delete()
                 .eq('user_id', profile.id)
 
-            toast.success('Strava disconnesso')
+            toast.success(t('toasts.stravaDisconnected'))
             setDisconnectModalOpen(false)
             router.refresh()
         } catch {
-            toast.error('Errore durante la disconnessione')
+            toast.error(t('toasts.disconnectError'))
         }
     }
 
@@ -138,26 +139,26 @@ export function SettingsPageContent({
             await supabase.auth.signOut()
             router.push('/')
         } catch {
-            toast.error('Errore durante l\'eliminazione')
+            toast.error(t('toasts.deleteError'))
         }
     }
 
     const handleUpdatePassword = async (e: React.FormEvent) => {
         e.preventDefault()
         if (newPass !== confirmPass) {
-            toast.error('Le password non corrispondono')
+            toast.error(t('toasts.passwordMismatch'))
             return
         }
         setIsUpdatingPass(true)
         try {
             const { error } = await supabase.auth.updateUser({ password: newPass })
             if (error) throw error
-            toast.success('Password aggiornata')
+            toast.success(t('toasts.passwordUpdated'))
             setAccountModalOpen(false)
             setNewPass('')
             setConfirmPass('')
         } catch (error: any) {
-            toast.error(error.message || 'Errore aggiornamento')
+            toast.error(error.message || t('toasts.updateError'))
         } finally {
             setIsUpdatingPass(false)
         }
@@ -175,7 +176,7 @@ export function SettingsPageContent({
             {/* Header */}
             <motion.div variants={fadeIn}>
                 <h1 className="text-2xl lg:text-3xl font-bold">{t('title')}</h1>
-                <p className="text-neutral-400 mt-1">Gestisci il tuo account e le preferenze</p>
+                <p className="text-neutral-400 mt-1">{t('subtitle')}</p>
             </motion.div>
 
             {/* Security & Account Section */}
@@ -203,7 +204,7 @@ export function SettingsPageContent({
                                     // Actually, I'll just implement the modal here too for simplicity if needed,
                                     // or better, I'll add a section in the layout that listens for this.
                                     // But the user wants it VISIBLE.
-                                    toast.info("Usa il menu nel profilo in basso a sinistra o nelle impostazioni rapide")
+                                    toast.info(t('toasts.useMenuHint'))
                                     // I'll actually implement the password change logic here too.
                                     setAccountModalOpen(true)
                                 }}
@@ -273,20 +274,20 @@ export function SettingsPageContent({
                     <div className="space-y-4">
                         <ToggleOption
                             label={t('emailNotifications')}
-                            description="Ricevi email quando un componente necessita manutenzione"
+                            description={t('emailNotificationsDescription')}
                             checked={emailNotifications}
                             onChange={setEmailNotifications}
                         />
                         <ToggleOption
                             label={t('pushNotifications')}
-                            description="Ricevi notifiche push nel browser"
+                            description={t('pushNotificationsDescription')}
                             checked={pushNotifications}
                             onChange={async (checked) => {
                                 if (checked) {
                                     const { notificationService } = await import('@/lib/notifications')
                                     const granted = await notificationService.requestPermissions()
                                     if (!granted) {
-                                        toast.error("Permessi notifiche non concessi")
+                                        toast.error(t('toasts.notificationDenied'))
                                         return
                                     }
                                 }
@@ -380,13 +381,13 @@ export function SettingsPageContent({
                         <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center">
                             <Globe className="w-5 h-5 text-blue-400" />
                         </div>
-                        <h2 className="text-lg font-semibold">Supporto Tecnico</h2>
+                        <h2 className="text-lg font-semibold">{t('support.title')}</h2>
                     </div>
                     <p className="text-neutral-400 text-sm mb-4">
-                        Hai bisogno di aiuto con myBikeLog o riscontri problemi con la sincronizzazione Strava?
+                        {t('support.description')}
                     </p>
                     <div className="p-4 rounded-xl bg-neutral-900 border border-white/5">
-                        <p className="text-sm text-neutral-300">Contattaci via email:</p>
+                        <p className="text-sm text-neutral-300">{t('support.emailText')}:</p>
                         <a href="mailto:support@mybikelog.app" className="text-primary-400 font-medium hover:underline">
                             support@mybikelog.app
                         </a>
@@ -397,7 +398,7 @@ export function SettingsPageContent({
             {/* Save Button */}
             <motion.div variants={fadeIn}>
                 <Button onClick={handleSave} loading={isSaving} fullWidth size="lg">
-                    Salva modifiche
+                    {t('saveButton')}
                 </Button>
             </motion.div>
 
@@ -417,7 +418,7 @@ export function SettingsPageContent({
                         variant="danger"
                         onClick={() => setDeleteModalOpen(true)}
                     >
-                        Elimina account
+                        {t('deleteButton')}
                     </Button>
                 </Card>
             </motion.div>
@@ -426,19 +427,19 @@ export function SettingsPageContent({
             <Modal
                 isOpen={disconnectModalOpen}
                 onClose={() => setDisconnectModalOpen(false)}
-                title="Disconnetti Strava"
+                title={t('disconnectStravaTitle')}
                 size="sm"
             >
                 <div className="space-y-4">
                     <p className="text-neutral-400">
-                        Sei sicuro di voler disconnettere Strava? Le tue bici rimarranno, ma non si sincronizzeranno più automaticamente.
+                        {t('disconnectStravaMessage')}
                     </p>
                     <div className="flex gap-3">
                         <Button variant="ghost" fullWidth onClick={() => setDisconnectModalOpen(false)}>
-                            Annulla
+                            {tCommon('cancel')}
                         </Button>
                         <Button variant="danger" fullWidth onClick={handleDisconnectStrava}>
-                            Disconnetti
+                            {t('disconnectButton')}
                         </Button>
                     </div>
                 </div>
@@ -448,19 +449,19 @@ export function SettingsPageContent({
             <Modal
                 isOpen={deleteModalOpen}
                 onClose={() => setDeleteModalOpen(false)}
-                title="Elimina account"
+                title={t('deleteAccountTitle')}
                 size="sm"
             >
                 <div className="space-y-4">
                     <p className="text-neutral-400">
-                        Questa azione è irreversibile. Tutti i tuoi dati, bici e componenti verranno eliminati permanentemente.
+                        {t('deleteAccountMessage')}
                     </p>
                     <div className="flex gap-3">
                         <Button variant="ghost" fullWidth onClick={() => setDeleteModalOpen(false)}>
-                            Annulla
+                            {tCommon('cancel')}
                         </Button>
                         <Button variant="danger" fullWidth onClick={handleDeleteAccount}>
-                            Elimina definitivamente
+                            {t('deleteAccountConfirm')}
                         </Button>
                     </div>
                 </div>
@@ -490,10 +491,10 @@ export function SettingsPageContent({
                     />
                     <div className="flex gap-3 pt-2">
                         <Button variant="ghost" fullWidth onClick={() => setAccountModalOpen(false)}>
-                            Annulla
+                            {tCommon('cancel')}
                         </Button>
                         <Button type="submit" fullWidth loading={isUpdatingPass}>
-                            Salva
+                            {tCommon('save')}
                         </Button>
                     </div>
                 </form>

@@ -143,12 +143,12 @@ export default function LandingPage() {
             >
               <div className="text-center">
                 <div className="text-3xl font-black text-white italic tracking-tighter">100%</div>
-                <div className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold">Cloud Sync</div>
+                <div className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold">{t('hero.stats.cloudSync')}</div>
               </div>
               <div className="w-[1px] h-10 bg-white/10" />
               <div className="text-center">
                 <div className="text-3xl font-black text-white italic tracking-tighter">∞</div>
-                <div className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold">Limit Bici</div>
+                <div className="text-[10px] uppercase tracking-widest text-neutral-500 font-bold">{t('hero.stats.bikeLimit')}</div>
               </div>
             </motion.div>
           </motion.div>
@@ -264,20 +264,20 @@ export default function LandingPage() {
             {[
               {
                 id: "01",
-                title: "Cloud Connection",
-                desc: "Collega Strava e importa anni di pedalate in frazioni di secondo.",
+                titleKey: "steps.step1.title",
+                descKey: "steps.step1.description",
                 icon: Globe
               },
               {
                 id: "02",
-                title: "Component Stack",
-                desc: "Definisci le soglie di usura per ogni cuscinetto, catena o pneumatico.",
+                titleKey: "steps.step2.title",
+                descKey: "steps.step2.description",
                 icon: Settings
               },
               {
                 id: "03",
-                title: "Smart Monitoring",
-                desc: "Ricevi push-notifications prima che un guasto rovini la tua uscita domenicale.",
+                titleKey: "steps.step3.title",
+                descKey: "steps.step3.description",
                 icon: Bell
               }
             ].map((step, i) => (
@@ -292,16 +292,16 @@ export default function LandingPage() {
                 <div className="text-7xl font-black italic tracking-tighter text-neutral-800 opacity-30">{step.id}</div>
                 <div className="w-16 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full" />
                 <h3 className="text-2xl font-black uppercase italic tracking-tight flex items-center justify-center gap-3 text-center">
-                  {step.title}
+                  {t(`howItWorks.${step.titleKey}`)}
                 </h3>
-                <p className="text-neutral-500 font-medium leading-relaxed italic max-w-xs text-center mx-auto">{step.desc}</p>
+                <p className="text-neutral-500 font-medium leading-relaxed italic max-w-xs text-center mx-auto">{t(`howItWorks.${step.descKey}`)}</p>
               </motion.div>
             ))}
           </div>
 
           <Link href="/register" className="inline-block mt-20">
             <div className="flex items-center gap-4 text-white font-black uppercase text-lg italic tracking-widest group cursor-pointer hover:text-primary-400 transition-colors">
-              Get Started Now <ArrowRight className="w-6 h-6 group-hover:translate-x-3 transition-transform" />
+              {t('howItWorks.getStartedNow')} <ArrowRight className="w-6 h-6 group-hover:translate-x-3 transition-transform" />
             </div>
           </Link>
         </div>
@@ -333,7 +333,7 @@ export default function LandingPage() {
               </Button>
             </Link>
           </div>
-          <p className="text-neutral-600 font-bold uppercase tracking-[0.6em] text-[10px] pt-4">Free Access for Individual Riders</p>
+          <p className="text-neutral-600 font-bold uppercase tracking-[0.6em] text-[10px] pt-4">{t('cta.freeAccess')}</p>
         </motion.div>
       </section>
 

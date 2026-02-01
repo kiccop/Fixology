@@ -59,7 +59,8 @@
         "notifications": "Notifications",
         "profile": "Profil",
         "user": "Utilisateur",
-        "account": "Compte"
+        "account": "Compte",
+        "guide": "Guide"
     },
     "dashboard": {
         "welcome": "Bon retour",
@@ -115,8 +116,8 @@
         "stats": {
             "components": "Composants",
             "ok": "OK",
-            "alert": "Alert",
-            "replaced": "À REMP."
+            "alert": "Alerte",
+            "replaced": "À Rempl."
         },
         "historyEntries": "Composants remplacés",
         "replacedOn": "Remplacé le",
@@ -167,6 +168,7 @@
             "hubs": "Moyeux",
             "wheels": "Roues",
             "dropper_post": "Tige de selle télescopique",
+            "sealing_liquid": "Liquide préventif",
             "custom": "Personnalisé"
         },
         "markAsReplaced": "Marquer comme remplacé",
@@ -247,6 +249,29 @@
             "title": "Support Technique",
             "description": "Besoin d'aide avec myBikeLog ou des problèmes Strava ?",
             "emailText": "Contactez-nous par email"
+        },
+        "emailNotificationsDescription": "Recevez un email lorsqu'un composant nécessite un entretien",
+        "pushNotificationsDescription": "Recevez des notifications push dans le navigateur",
+        "subtitle": "Gérez votre compte et vos préférences",
+        "saveButton": "Enregistrer les modifications",
+        "deleteButton": "Supprimer le compte",
+        "disconnectStravaTitle": "Déconnecter Strava",
+        "disconnectStravaMessage": "Êtes-vous sûr de vouloir déconnecter Strava ? Vos vélos resteront, mais ils ne se synchroniseront plus automatiquement.",
+        "disconnectButton": "Déconnecter",
+        "deleteAccountTitle": "Supprimer le compte",
+        "deleteAccountMessage": "Cette action est irréversible. Toutes vos données, vélos et composants seront définitivement supprimés.",
+        "deleteAccountConfirm": "Supprimer définitivement",
+        "toasts": {
+            "settingsSaved": "Paramètres enregistrés",
+            "settingsError": "Erreur lors de l'enregistrement",
+            "stravaDisconnected": "Strava déconnecté",
+            "disconnectError": "Erreur lors de la déconnexion",
+            "deleteError": "Erreur lors de la suppression",
+            "passwordMismatch": "Les mots de passe ne correspondent pas",
+            "passwordUpdated": "Mot de passe mis à jour",
+            "updateError": "Erreur de mise à jour",
+            "notificationDenied": "Permissions de notification refusées",
+            "useMenuHint": "Utilisez le menu du profil en bas à gauche ou les paramètres rapides"
         }
     },
     "notifications": {
@@ -263,25 +288,30 @@
             "titleHighlight": "Performance.",
             "subtitle": "La plateforme d'analyse cycliste avancée. Synchronisez Strava, analysez l'usure des composants et prévenez les pannes mécaniques.",
             "cta": "Commencer maintenant",
-            "secondaryCta": "Explorer les fonctions"
+            "secondaryCta": "Explorer les fonctionnalités",
+            "stats": {
+                "cloudSync": "Sync Cloud",
+                "bikeLimit": "Limite de Vélos"
+            }
         },
         "features": {
-            "title": "Précision Mécanique",
+            "overline": "Données & Performance",
+            "title": "Suivi Parfait",
             "sync": {
-                "title": "Cloud Sync",
+                "title": "Sync Cloud",
                 "description": "Intégration native de l'API Strava pour l'importation instantanée de la flotte et du kilométrage."
             },
             "components": {
-                "title": "Asset Management",
+                "title": "Gestion des Composants",
                 "description": "Surveillance granulaire de la chaîne, de la transmission et des freins avec des algorithmes d'usure personnalisés."
             },
             "alerts": {
-                "title": "Smart Monitoring",
+                "title": "Surveillance Intelligente",
                 "description": "Notifications push préventives basées sur des seuils de stress mécanique définis par l'utilisateur."
             },
             "history": {
-                "title": "Service Ledger",
-                "description": "Journal complet de l'entretien et des coûts pour seguire votre investissement."
+                "title": "Historique d'Entretien",
+                "description": "Journal complet de l'entretien et des coûts pour suivre votre investissement."
             },
             "booklet": {
                 "title": "Carnet PDF",
@@ -292,10 +322,32 @@
                 "description": "Téléchargez vos factures pour un historique d'entretien certifié et sécurisé."
             }
         },
+        "howItWorks": {
+            "overline": "Étape par étape",
+            "title": "Prêt en quelques secondes.",
+            "steps": {
+                "step1": {
+                    "title": "Connexion Cloud",
+                    "description": "Connectez Strava et importez des années de sorties en une fraction de seconde."
+                },
+                "step2": {
+                    "title": "Stack Composants",
+                    "description": "Définissez les seuils d'usure pour chaque roulement, chaîne ou pneu."
+                },
+                "step3": {
+                    "title": "Surveillance Intelligente",
+                    "description": "Recevez des notifications push avant qu'une panne ne gâche votre sortie dominicale."
+                }
+            },
+            "getStartedNow": "Commencer Maintenant"
+        },
         "cta": {
             "title": "L'avenir de la gestion cycliste.",
             "subtitle": "Rejoignez le réseau myBikeLog et éliminez les incertitudes. Maîtrisez votre mécanique pour votre prochain défi.",
-            "button": "Créer votre compte"
+            "mainTitle": "PLUS QU'UNE SIMPLE BALADE.",
+            "mainSubtitle": "OPTIMISEZ CHAQUE KM.",
+            "button": "Créer votre compte",
+            "freeAccess": "Accès gratuit pour les cyclistes individuels"
         }
     },
     "cookies": {
@@ -308,5 +360,39 @@
         "notFound": "Page non trouvée",
         "unauthorized": "Accès non autorisé",
         "networkError": "Erreur de connexion"
+    },
+    "guide": {
+        "title": "Guide Utilisateur",
+        "subtitle": "Découvrez comment tirer le meilleur parti de myBikeLog",
+        "searchPlaceholder": "Rechercher dans le guide...",
+        "noResults": "Aucun résultat trouvé",
+        "categories": {
+            "basics": "Pour Commencer",
+            "integrations": "Intégrations",
+            "bikes": "Gestion des Vélos",
+            "maintenance": "Maintenance"
+        },
+        "topics": {
+            "introduction": {
+                "title": "Bienvenue sur myBikeLog",
+                "description": "Découvrez la vision derrière votre nouveau mécanicien virtuel.",
+                "content": "<p><strong>Bienvenue sur myBikeLog.</strong></p><p>MyBikeLog n'est pas un simple journal de bord : c'est un écosystème d'<em>ingénierie numérique</em> conçu pour les cyclistes qui exigent la perfection.</p><p>Notre mission est de transformer la maintenance d'une corvée occasionnelle en une science exacte. Nous croyons que chaque watt économisé grâce à une chaîne propre ou un roulement fluide est une victoire.</p><p>Avec myBikeLog, vous ne vous contentez pas de suivre les kilomètres : vous surveillez l'état de santé vital de votre véhicule, prévenant les pannes et optimisant les performances. Que vous soyez amateur ou professionnel, cette plateforme est votre chef mécanicien personnel, toujours actif, toujours précis.</p>"
+            },
+            "connecting_strava": {
+                "title": "Connexion Strava",
+                "description": "Importez automatiquement vos vélos et synchronisez les kilomètres.",
+                "content": "<p>L'intégration avec Strava est le cœur battant de myBikeLog. Elle permet de maintenir à jour les kilométrages des composants sans aucune saisie manuelle.</p><h4>Comment faire :</h4><ol><li>Allez dans les <strong>Paramètres</strong> depuis le menu latéral.</li><li>Faites défiler jusqu'à la section <em>Intégration Strava</em>.</li><li>Cliquez sur <strong>Connecter Strava</strong>.</li><li>Vous serez redirigé vers le site Web de Strava pour autoriser myBikeLog.</li><li>Une fois autorisé, vous serez redirigé ici et la synchronisation automatique commencera.</li></ol><p><em>Remarque : Nous importons uniquement les données de vélos (Gear) et les activités pour mettre à jour le kilométrage. Nous ne publions rien en votre nom.</em></p>"
+            },
+            "adding_bike": {
+                "title": "Ajouter un Vélo",
+                "description": "Créez manuellement le profil de votre vélo.",
+                "content": "<p>Si vous n'utilisez pas Strava ou souhaitez gérer un vélo supplémentaire, vous pouvez l'ajouter manuellement.</p><ol><li>Allez dans la section <strong>Mes Vélos</strong>.</li><li>Cliquez sur le bouton <strong>+ Ajouter un Vélo</strong>.</li><li>Saisissez la Marque, le Modèle et le kilométrage initial (s'il n'est pas neuf).</li><li>Choisissez une icône et une couleur pour le reconnaître en un coup d'œil.</li></ol>"
+            },
+            "managing_components": {
+                "title": "Gestion des Composants",
+                "description": "Le cœur de la maintenance préventive.",
+                "content": "<p>Pour chaque vélo, vous pouvez définir une liste de composants (Chaîne, Freins, Pneus, etc.).</p><p>Pour chaque composant, définissez un <strong>Seuil d'Usure</strong> (par ex. 3000 km pour une chaîne). myBikeLog vous avertira lorsque vous approcherez de cette limite.</p>"
+            }
+        }
     }
 }

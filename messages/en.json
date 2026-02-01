@@ -59,7 +59,8 @@
         "notifications": "Notifications",
         "profile": "Profile",
         "user": "User",
-        "account": "Account"
+        "account": "Account",
+        "guide": "Guide"
     },
     "dashboard": {
         "welcome": "Welcome back",
@@ -244,6 +245,29 @@
             "title": "Technical Support",
             "description": "Need help with myBikeLog or experiencing issues with Strava sync?",
             "emailText": "Contact us via email"
+        },
+        "emailNotificationsDescription": "Receive email when a component needs maintenance",
+        "pushNotificationsDescription": "Receive push notifications in the browser",
+        "subtitle": "Manage your account and preferences",
+        "saveButton": "Save changes",
+        "deleteButton": "Delete account",
+        "disconnectStravaTitle": "Disconnect Strava",
+        "disconnectStravaMessage": "Are you sure you want to disconnect Strava? Your bikes will remain, but they will no longer sync automatically.",
+        "disconnectButton": "Disconnect",
+        "deleteAccountTitle": "Delete account",
+        "deleteAccountMessage": "This action is irreversible. All your data, bikes and components will be permanently deleted.",
+        "deleteAccountConfirm": "Delete permanently",
+        "toasts": {
+            "settingsSaved": "Settings saved",
+            "settingsError": "Error saving settings",
+            "stravaDisconnected": "Strava disconnected",
+            "disconnectError": "Error disconnecting",
+            "deleteError": "Error deleting account",
+            "passwordMismatch": "Passwords do not match",
+            "passwordUpdated": "Password updated",
+            "updateError": "Update error",
+            "notificationDenied": "Notification permissions denied",
+            "useMenuHint": "Use the menu in the profile at the bottom left or quick settings"
         }
     },
     "notifications": {
@@ -260,7 +284,11 @@
             "titleHighlight": "Performance.",
             "subtitle": "The advanced cycle analytics platform. Sync Strava, analyze component wear, and prevent mechanical failure.",
             "cta": "Get started",
-            "secondaryCta": "Explore features"
+            "secondaryCta": "Explore features",
+            "stats": {
+                "cloudSync": "Cloud Sync",
+                "bikeLimit": "Bike Limit"
+            }
         },
         "features": {
             "overline": "Data & Performance",
@@ -292,14 +320,30 @@
         },
         "howItWorks": {
             "overline": "Step by step",
-            "title": "Ready in seconds."
+            "title": "Ready in seconds.",
+            "steps": {
+                "step1": {
+                    "title": "Cloud Connection",
+                    "description": "Connect Strava and import years of rides in a fraction of a second."
+                },
+                "step2": {
+                    "title": "Component Stack",
+                    "description": "Set wear thresholds for every bearing, chain, or tire."
+                },
+                "step3": {
+                    "title": "Smart Monitoring",
+                    "description": "Receive push notifications before a failure ruins your Sunday ride."
+                }
+            },
+            "getStartedNow": "Get Started Now"
         },
         "cta": {
             "title": "The future of cycling management.",
             "subtitle": "Join the myBikeLog network and eliminate guesswork. Master your mechanics for your next challenge.",
             "mainTitle": "MORE THAN JUST A RIDE.",
             "mainSubtitle": "OPTIMIZE EVERY KM.",
-            "button": "Create your account"
+            "button": "Create your account",
+            "freeAccess": "Free Access for Individual Riders"
         }
     },
     "cookies": {
@@ -312,5 +356,39 @@
         "notFound": "Page not found",
         "unauthorized": "Unauthorized access",
         "networkError": "Connection error"
+    },
+    "guide": {
+        "title": "User Guide",
+        "subtitle": "Learn how to get the most out of myBikeLog",
+        "searchPlaceholder": "Search guide...",
+        "noResults": "No results found",
+        "categories": {
+            "basics": "Getting Started",
+            "integrations": "Integrations",
+            "bikes": "Bike Management",
+            "maintenance": "Maintenance"
+        },
+        "topics": {
+            "introduction": {
+                "title": "Welcome to myBikeLog",
+                "description": "Discover the vision behind your new virtual mechanic.",
+                "content": "<p><strong>Welcome to myBikeLog.</strong></p><p>MyBikeLog is not just a logbook: it is a <em>digital engineering</em> ecosystem designed for cyclists who demand perfection.</p><p>Our mission is to transform maintenance from an occasional chore into an exact science. We believe that every watt saved thanks to a clean chain or a smooth bearing is a victory.</p><p>With myBikeLog, you don't just track kilometers: you monitor the vital health status of your vehicle, preventing breakdowns and optimizing performance. Whether you are an amateur or a professional, this platform is your personal chief mechanic, always active, always precise.</p>"
+            },
+            "connecting_strava": {
+                "title": "Connecting Strava",
+                "description": "Automatically import your bikes and synchronize kilometers.",
+                "content": "<p>Strava integration is the beating heart of myBikeLog. It keeps component mileages updated without any manual entry.</p><h4>How to do it:</h4><ol><li>Go to <strong>Settings</strong> from the side menu.</li><li>Scroll to the <em>Strava Integration</em> section.</li><li>Click on <strong>Connect Strava</strong>.</li><li>You will be redirected to the Strava website to authorize myBikeLog.</li><li>Once authorized, you will be taken back here and automatic synchronization will begin.</li></ol><p><em>Note: We only import bike data (Gear) and activities to update mileage. We do not post anything on your behalf.</em></p>"
+            },
+            "adding_bike": {
+                "title": "Adding a Bike",
+                "description": "Manually create your bike profile.",
+                "content": "<p>If you don't use Strava or want to manage an extra bike, you can add it manually.</p><ol><li>Go to the <strong>My Bikes</strong> section.</li><li>Click the <strong>+ Add Bike</strong> button.</li><li>Enter Brand, Model, and initial mileage (if not new).</li><li>Choose an icon and a color to recognize it at a glance.</li></ol>"
+            },
+            "managing_components": {
+                "title": "Component Management",
+                "description": "The heart of preventive maintenance.",
+                "content": "<p>For each bike, you can define a list of components (Chain, Brakes, Tires, etc.).</p><p>For each component, set a <strong>Wear Threshold</strong> (e.g., 3000 km for a chain). myBikeLog will notify you when you approach that limit.</p>"
+            }
+        }
     }
 }
