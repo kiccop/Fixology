@@ -303,7 +303,7 @@
             },
             "alerts": {
                 "title": "Monitoraggio Intelligente",
-                "description": "Notifiche push preventive basate su soglie di stress meccanico definite dall'utente."
+                "description": "L'app al suo interno ti notificherà quando è necessario procedere con la manutenzione dei componenti."
             },
             "history": {
                 "title": "Registro Manutenzioni",
@@ -332,7 +332,7 @@
                 },
                 "step3": {
                     "title": "Monitoraggio Intelligente",
-                    "description": "Ricevi push-notifications prima che un guasto rovini la tua uscita domenicale."
+                    "description": "Ricevi avvisi interni prima che un guasto rovini la tua uscita domenicale."
                 }
             },
             "getStartedNow": "Inizia Ora"

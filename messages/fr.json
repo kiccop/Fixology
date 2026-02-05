@@ -307,7 +307,7 @@
             },
             "alerts": {
                 "title": "Surveillance Intelligente",
-                "description": "Notifications push préventives basées sur des seuils de stress mécanique définis par l'utilisateur."
+                "description": "L'application vous informera lorsqu'il est nécessaire de procéder à l'entretien des composants."
             },
             "history": {
                 "title": "Historique d'Entretien",
@@ -336,7 +336,7 @@
                 },
                 "step3": {
                     "title": "Surveillance Intelligente",
-                    "description": "Recevez des notifications push avant qu'une panne ne gâche votre sortie dominicale."
+                    "description": "Recevez des alertes internes avant qu'une panne ne gâche votre sortie dominicale."
                 }
             },
             "getStartedNow": "Commencer Maintenant"

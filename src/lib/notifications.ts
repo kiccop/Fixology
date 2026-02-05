@@ -3,7 +3,13 @@ import { Capacitor } from '@capacitor/core'
 
 export const notificationService = {
     async requestPermissions() {
-        if (!Capacitor.isNativePlatform()) return false
+        if (!Capacitor.isNativePlatform()) {
+            if (typeof window !== 'undefined' && 'Notification' in window) {
+                const permission = await Notification.requestPermission()
+                return permission === 'granted'
+            }
+            return false
+        }
         try {
             const status = await LocalNotifications.requestPermissions()
             return status.display === 'granted'
@@ -14,7 +20,12 @@ export const notificationService = {
     },
 
     async checkPermissions() {
-        if (!Capacitor.isNativePlatform()) return true
+        if (!Capacitor.isNativePlatform()) {
+            if (typeof window !== 'undefined' && 'Notification' in window) {
+                return Notification.permission === 'granted'
+            }
+            return true // Fallback for browsers without notification API
+        }
         try {
             const status = await LocalNotifications.checkPermissions()
             return status.display === 'granted'
@@ -24,7 +35,15 @@ export const notificationService = {
     },
 
     async scheduleMaintenanceAlert(componentName: string, bikeName: string, id: number) {
-        if (!Capacitor.isNativePlatform()) return
+        if (!Capacitor.isNativePlatform()) {
+            if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted') {
+                new Notification('Manutenzione Necessaria', {
+                    body: `Il componente ${componentName} su ${bikeName} ha raggiunto la soglia di usura.`,
+                    icon: '/favicon.ico' // Or a specific app icon
+                })
+            }
+            return
+        }
 
         try {
             await LocalNotifications.schedule({

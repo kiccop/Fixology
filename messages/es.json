@@ -307,7 +307,7 @@
             },
             "alerts": {
                 "title": "Monitoreo Inteligente",
-                "description": "Notificaciones push preventivas basadas en umbrales de estrés mecánico definidos por el usuario."
+                "description": "La aplicación te notificará cuando sea necesario realizar el mantenimiento de los componentes."
             },
             "history": {
                 "title": "Historial de Servicio",
@@ -336,7 +336,7 @@
                 },
                 "step3": {
                     "title": "Monitoreo Inteligente",
-                    "description": "Recibe notificaciones push antes de que una avería arruine tu salida dominical."
+                    "description": "Recibe alertas internas antes de que una avería arruine tu salida dominical."
                 }
             },
             "getStartedNow": "Empieza Ahora"

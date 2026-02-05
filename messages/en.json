@@ -303,7 +303,7 @@
             },
             "alerts": {
                 "title": "Smart Monitoring",
-                "description": "Preventive push-notifications based on user-defined mechanical stress thresholds."
+                "description": "The app will notify you when it is necessary to proceed with component maintenance."
             },
             "history": {
                 "title": "Service Ledger",
@@ -332,7 +332,7 @@
                 },
                 "step3": {
                     "title": "Smart Monitoring",
-                    "description": "Receive push notifications before a failure ruins your Sunday ride."
+                    "description": "Receive internal alerts before a failure ruins your Sunday ride."
                 }
             },
             "getStartedNow": "Get Started Now"
