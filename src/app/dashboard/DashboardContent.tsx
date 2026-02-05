@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { toast } from 'sonner'
+import { createClient } from '@/lib/supabase/client'
 import { notificationService } from '@/lib/notifications'
 import {
     Bike,
@@ -67,13 +68,16 @@ export function DashboardContent({
         const checkAndNotify = async () => {
             if (alertComponents.length === 0) return
 
+            const supabase = createClient()
+            const { data: { user } } = await supabase.auth.getUser()
+            if (!user) return
+
             for (const component of alertComponents) {
                 const notificationKey = `notified_${component.id}_${component.status}`
                 const hasNotified = localStorage.getItem(notificationKey)
 
                 if (!hasNotified) {
-                    // Create a simple numeric ID from the UUID for the notification system
-                    // We use the last 8 chars converted to int, or a simple hash if that fails
+                    // 1. Push notification (browser/mobile)
                     const numericId = parseInt(component.id.replace(/-/g, '').slice(-8), 16) || Math.floor(Math.random() * 1000000)
 
                     await notificationService.scheduleMaintenanceAlert(
@@ -82,7 +86,28 @@ export function DashboardContent({
                         numericId
                     )
 
-                    // Mark as notified
+                    // 2. Persistent Database Notification (for the menu badge)
+                    // First check if a similar unread notification already exists to avoid spam
+                    const { data: existing } = await supabase
+                        .from('notifications')
+                        .select('id')
+                        .eq('user_id', user.id)
+                        .eq('type', 'maintenance')
+                        .eq('read', false)
+                        .contains('data', { component_id: component.id, status: component.status })
+                        .limit(1)
+
+                    if (!existing || existing.length === 0) {
+                        await supabase.from('notifications').insert({
+                            user_id: user.id,
+                            type: 'maintenance',
+                            title: 'Manutenzione Necessaria',
+                            message: `Il componente ${component.name} su ${component.bike?.name || 'Bici'} ha raggiunto la soglia di usura.`,
+                            data: { component_id: component.id, status: component.status }
+                        })
+                    }
+
+                    // Mark as notified locally
                     localStorage.setItem(notificationKey, 'true')
                 }
             }
