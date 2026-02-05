@@ -14,12 +14,15 @@ export class StravaService {
         this.clientId = process.env.NEXT_PUBLIC_STRAVA_CLIENT_ID || ''
         this.clientSecret = process.env.STRAVA_CLIENT_SECRET || ''
 
-        // Use environment variable if present, otherwise build it from APP_CONFIG
-        const envRedirect = process.env.NEXT_PUBLIC_STRAVA_REDIRECT_URI
-        if (envRedirect) {
-            this.redirectUri = envRedirect
+        // Force mybikelog.app for production redirects regardless of Vercel env vars
+        // This ensures the redirect_uri always matches the Strava API settings.
+        const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://mybikelog.app'
+
+        if (appUrl.includes('localhost')) {
+            this.redirectUri = `${appUrl}/api/auth/strava/callback`
         } else {
-            this.redirectUri = `${APP_CONFIG.webUrl}/api/auth/strava/callback`
+            // Always use the primary domain for Strava in production
+            this.redirectUri = 'https://mybikelog.app/api/auth/strava/callback'
         }
     }
 
