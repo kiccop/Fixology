@@ -1,4 +1,5 @@
 import { StravaTokenResponse, StravaAthlete, StravaBike, Bike } from '@/types'
+import { APP_CONFIG } from '@/lib/config'
 
 const STRAVA_AUTH_URL = 'https://www.strava.com/oauth/authorize'
 const STRAVA_TOKEN_URL = 'https://www.strava.com/oauth/token'
@@ -12,7 +13,14 @@ export class StravaService {
     constructor() {
         this.clientId = process.env.NEXT_PUBLIC_STRAVA_CLIENT_ID || ''
         this.clientSecret = process.env.STRAVA_CLIENT_SECRET || ''
-        this.redirectUri = process.env.NEXT_PUBLIC_STRAVA_REDIRECT_URI || ''
+
+        // Use environment variable if present, otherwise build it from APP_CONFIG
+        const envRedirect = process.env.NEXT_PUBLIC_STRAVA_REDIRECT_URI
+        if (envRedirect) {
+            this.redirectUri = envRedirect
+        } else {
+            this.redirectUri = `${APP_CONFIG.webUrl}/api/auth/strava/callback`
+        }
     }
 
     /**
