@@ -27,6 +27,7 @@ import { formatDistanceToNow } from 'date-fns'
 import { it } from 'date-fns/locale'
 import { biometricAuth } from '@/lib/biometric'
 import { useEffect } from 'react'
+import { useStravaAuth } from '@/lib/hooks/useStravaAuth'
 
 interface SettingsPageContentProps {
     profile: any
@@ -70,6 +71,9 @@ export function SettingsPageContent({
     const [newPass, setNewPass] = useState('')
     const [confirmPass, setConfirmPass] = useState('')
     const [isUpdatingPass, setIsUpdatingPass] = useState(false)
+
+    // Handle Strava OAuth deep link callbacks on mobile
+    useStravaAuth()
 
     useEffect(() => {
         const checkBiometric = async () => {
