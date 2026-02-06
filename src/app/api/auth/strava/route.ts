@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 import { stravaService } from '@/lib/strava/service'
 import { createClient } from '@/lib/supabase/server'
 
-export async function GET(request: NextRequest) {
+export async function GET() {
     try {
         const supabase = await createClient()
         const { data: { user } } = await supabase.auth.getUser()
@@ -10,11 +10,7 @@ export async function GET(request: NextRequest) {
         // Generate state with user ID for security
         const state = user?.id || 'anonymous'
 
-        // Check if request is from mobile app by looking for capacitor in user agent
-        const userAgent = request.headers.get('user-agent') || ''
-        const isMobile = userAgent.toLowerCase().includes('capacitor')
-
-        const authUrl = stravaService.getAuthorizationUrl(state, isMobile)
+        const authUrl = stravaService.getAuthorizationUrl(state)
 
         return NextResponse.redirect(authUrl)
     } catch (error) {

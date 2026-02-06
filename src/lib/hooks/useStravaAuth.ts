@@ -18,10 +18,10 @@ export function useStravaAuth() {
             const url = event.url
 
             // Check if this is a Strava OAuth callback
-            // Expected format: mybikelog://auth/callback?code=XXX&state=YYY
-            if (url.includes('mybikelog://auth/callback')) {
+            // Expected format: https://mybikelog.app/api/auth/strava/callback?code=XXX&state=YYY
+            if (url.includes('/api/auth/strava/callback')) {
                 try {
-                    const urlObj = new URL(url.replace('mybikelog://', 'https://'))
+                    const urlObj = new URL(url)
                     const code = urlObj.searchParams.get('code')
                     const error = urlObj.searchParams.get('error')
                     const state = urlObj.searchParams.get('state')

@@ -28,15 +28,11 @@ export class StravaService {
 
     /**
      * Generate the Strava authorization URL
-     * @param state - State parameter for CSRF protection
-     * @param useMobileScheme - If true, uses custom scheme for mobile deep linking
      */
-    getAuthorizationUrl(state?: string, useMobileScheme: boolean = false): string {
+    getAuthorizationUrl(state?: string): string {
         const params = new URLSearchParams({
             client_id: this.clientId,
-            redirect_uri: useMobileScheme
-                ? 'mybikelog://auth/callback'
-                : this.redirectUri,
+            redirect_uri: this.redirectUri,
             response_type: 'code',
             scope: 'read,profile:read_all,activity:read',
             ...(state && { state }),
