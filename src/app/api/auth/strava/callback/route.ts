@@ -8,7 +8,10 @@ export async function GET(request: NextRequest) {
     const error = searchParams.get('error')
     const state = searchParams.get('state')
 
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+    // Always use mybikelog.app for production redirects
+    // This ensures consistent behavior regardless of Vercel env vars
+    const isLocalhost = request.nextUrl.hostname === 'localhost' || request.nextUrl.hostname === '127.0.0.1'
+    const baseUrl = isLocalhost ? 'http://localhost:3000' : 'https://mybikelog.app'
 
     // Handle Strava authorization errors
     if (error) {
