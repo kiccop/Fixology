@@ -77,7 +77,26 @@
         "yourBikes": "Your bikes",
         "addFirstBike": "Add your first bike",
         "allClear": "All components are healthy! 🎉",
-        "connectDescription": "Import your bikes and automatically sync your kilometers"
+        "connectDescription": "Import your bikes and automatically sync your kilometers",
+        "componentStatus": "Component status",
+        "kmDistribution": "Km distribution",
+        "wearLevels": "Wear levels",
+        "onboarding": {
+            "welcome": "Welcome to myBikeLog!",
+            "welcomeDescription": "Monitor component wear and prevent failures. Let's start with 3 simple steps.",
+            "step1": "Connect Strava",
+            "step1Description": "Automatically import your bikes and sync mileage",
+            "step2": "Add a bike",
+            "step2Description": "If you don't use Strava, add your first bike manually",
+            "step3": "Add components",
+            "step3Description": "Set wear thresholds for each component",
+            "skip": "Skip",
+            "next": "Next",
+            "finish": "Start",
+            "connectStrava": "Connect",
+            "addBike": "Add bike",
+            "addComponent": "Add component"
+        }
     },
     "bikes": {
         "title": "My Bikes",
@@ -172,7 +191,22 @@
             "custom": "Custom"
         },
         "markAsReplaced": "Mark as replaced",
-        "resetComponent": "Reset counter"
+        "resetComponent": "Reset counter",
+        "toasts": {
+            "reset": "Component reset",
+            "resetError": "Error during reset",
+            "delete": "Component deleted",
+            "deleteError": "Error during deletion",
+            "logDelete": "Entry successfully deleted",
+            "logDeleteError": "Error deleting log entry",
+            "fileTooLarge": "File too large (max 5MB)",
+            "fileUploaded": "File uploaded successfully",
+            "selectComponent": "Select a component",
+            "pdfLoading": "Generating PDF, loading images...",
+            "pdfShared": "PDF shared successfully!",
+            "pdfDownloaded": "Booklet downloaded successfully!",
+            "pdfError": "Error generating PDF. Please try again."
+        }
     },
     "maintenance": {
         "title": "Maintenance history",
@@ -218,6 +252,7 @@
         "pushNotifications": "Push notifications",
         "theme": "Theme",
         "darkMode": "Dark mode",
+        "darkModeDescription": "Dark interface for night and indoor use",
         "deleteAccount": "Delete account",
         "deleteAccountWarning": "This action is irreversible. All your data will be permanently deleted.",
         "stravaIntegration": "Strava Integration",

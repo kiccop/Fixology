@@ -57,13 +57,14 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
     const [selectedComponent, setSelectedComponent] = useState<any>(null)
     const [actionModalOpen, setActionModalOpen] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
+    const [activeTab, setActiveTab] = useState<'components' | 'history' | 'replaced'>('components')
 
     const components = bike.components || []
     const activeComponents = components.filter((c: any) => c.status !== 'replaced')
     const replacedComponents = components.filter((c: any) => c.status === 'replaced')
 
     const generatePDF = async () => {
-        const loadingToast = toast.loading('Generazione PDF in corso, caricamento immagini...')
+        const loadingToast = toast.loading(t('toasts.pdfLoading'))
         try {
             const doc = new jsPDF()
             const dateLocale = locale === 'it' ? it : locale === 'es' ? es : locale === 'fr' ? fr : enUS
@@ -279,7 +280,7 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                         text: `${bike.name} - myBikeLog`
                     })
                     toast.dismiss(loadingToast)
-                    toast.success('PDF condiviso con successo!')
+                    toast.success(t('toasts.pdfShared'))
                 } catch (shareError: any) {
                     // User cancelled share or share failed - fallback to blob download
                     if (shareError.name !== 'AbortError') {
@@ -292,12 +293,12 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                 // Desktop or fallback: use standard save
                 doc.save(filename)
                 toast.dismiss(loadingToast)
-                toast.success('Libretto scaricato con successo!')
+                toast.success(t('toasts.pdfDownloaded'))
             }
         } catch (error) {
             toast.dismiss(loadingToast)
             console.error('PDF Generation error:', error)
-            toast.error('Errore durante la generazione del PDF. Riprova.')
+            toast.error(t('toasts.pdfError'))
         }
     }
 
@@ -325,10 +326,10 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                 })
                 .eq('id', component.id)
 
-            toast.success('Componente resettato')
+            toast.success(t('toasts.reset'))
             router.refresh()
         } catch {
-            toast.error('Errore durante il reset')
+            toast.error(t('toasts.resetError'))
         } finally {
             setIsLoading(false)
             setActionModalOpen(false)
@@ -340,10 +341,10 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
         setIsLoading(true)
         try {
             await supabase.from('components').delete().eq('id', component.id)
-            toast.success('Componente eliminato')
+            toast.success(t('toasts.delete'))
             router.refresh()
         } catch {
-            toast.error('Errore durante l\'eliminazione')
+            toast.error(t('toasts.deleteError'))
         } finally {
             setIsLoading(false)
             setActionModalOpen(false)
@@ -357,10 +358,10 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
         try {
             const { error } = await supabase.from('maintenance_logs').delete().eq('id', logId)
             if (error) throw error
-            toast.success('Voce eliminata correttamente')
+            toast.success(t('toasts.logDelete'))
             router.refresh()
         } catch (error) {
-            toast.error('Errore durante l\'eliminazione del log')
+            toast.error(t('toasts.logDeleteError'))
         }
     }
 
@@ -484,7 +485,42 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                 </Card>
             </motion.div>
 
+            {/* Tab Navigation */}
+            <motion.div variants={fadeIn} className="flex gap-1 p-1 bg-neutral-900/50 rounded-xl border border-white/5">
+                <button
+                    onClick={() => setActiveTab('components')}
+                    className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-medium transition-all ${
+                        activeTab === 'components'
+                            ? 'bg-primary-500 text-white shadow-lg shadow-primary-500/20'
+                            : 'text-neutral-400 hover:text-neutral-200 hover:bg-white/5'
+                    }`}
+                >
+                    {t('title')} ({activeComponents.length})
+                </button>
+                <button
+                    onClick={() => setActiveTab('history')}
+                    className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-medium transition-all ${
+                        activeTab === 'history'
+                            ? 'bg-primary-500 text-white shadow-lg shadow-primary-500/20'
+                            : 'text-neutral-400 hover:text-neutral-200 hover:bg-white/5'
+                    }`}
+                >
+                    {tMaintenance('title')}
+                </button>
+                <button
+                    onClick={() => setActiveTab('replaced')}
+                    className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-medium transition-all ${
+                        activeTab === 'replaced'
+                            ? 'bg-primary-500 text-white shadow-lg shadow-primary-500/20'
+                            : 'text-neutral-400 hover:text-neutral-200 hover:bg-white/5'
+                    }`}
+                >
+                    {tBikes('historyEntries')} ({replacedComponents.length})
+                </button>
+            </motion.div>
+
             {/* Components List */}
+            {activeTab === 'components' && (
             <motion.div variants={fadeIn}>
                 <Card padding="none">
                     <div className="p-6 border-b border-white/5">
@@ -594,9 +630,10 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                     )}
                 </Card>
             </motion.div>
+            )}
 
             {/* Timeline of all interventions */}
-            {(() => {
+            {activeTab === 'history' && (() => {
                 const allLogs: any[] = []
                 components.forEach((c: any) => {
                     if (c.maintenance_logs) {
@@ -668,7 +705,7 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
             })()}
 
             {/* Replaced Components History */}
-            {replacedComponents.length > 0 && (
+            {activeTab === 'replaced' && replacedComponents.length > 0 && (
                 <motion.div variants={fadeIn}>
                     <Card padding="none">
                         <div className="p-6 border-b border-white/5">
@@ -684,7 +721,9 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                                             <RotateCcw className="w-4 h-4 text-neutral-500" />
                                         </div>
                                         <div>
-                                            <p className="font-medium text-sm">{t(`types.${component.type}`)}</p>
+                                            <p className="font-medium text-sm">
+                                                {component.is_custom ? component.name : t(`types.${component.type}`)}
+                                            </p>
                                             <p className="text-[10px] text-neutral-500">{tBikes('replacedOn')} {format(new Date(component.install_date), 'dd/MM/yyyy')}</p>
                                         </div>
                                     </div>

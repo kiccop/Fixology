@@ -20,6 +20,9 @@ import {
     Settings,
 } from 'lucide-react'
 import { Card, CardHeader, Button, ProgressBar, Badge, StravaLogo } from '@/components/ui'
+import { WearDonutChart } from '@/components/charts/WearDonutChart'
+import { KmBarChart } from '@/components/charts/KmBarChart'
+import { ComponentWearChart } from '@/components/charts/ComponentWearChart'
 import { formatDistanceToNow } from 'date-fns'
 import { it } from 'date-fns/locale'
 
@@ -62,6 +65,20 @@ export function DashboardContent({
     const tComponents = useTranslations('components')
     const tBikes = useTranslations('bikes')
     const [syncing, setSyncing] = useState(false)
+
+    // Calculate component status distribution from alert components and all bikes' components
+    const allComponents = bikes.flatMap((bike: any) => bike.components || [])
+    const statusCounts = {
+        ok: 0,
+        warning: 0,
+        danger: 0,
+        replaced: 0,
+    }
+    allComponents.forEach((c: any) => {
+        if (c.status in statusCounts) {
+            statusCounts[c.status as keyof typeof statusCounts]++
+        }
+    })
 
     // Check for notifications on mount and when alerts change
     useEffect(() => {
@@ -183,6 +200,32 @@ export function DashboardContent({
                     gradient={componentsToCheck > 0 ? "from-orange-500 to-red-500" : "from-gray-500 to-gray-600"}
                     alert={componentsToCheck > 0}
                 />
+            </motion.div>
+
+            {/* Data Visualization Grid */}
+            <motion.div variants={fadeIn} className="grid md:grid-cols-3 gap-4 px-1 sm:px-0">
+                {/* Wear Distribution Donut */}
+                <Card className="!p-5">
+                    <h3 className="text-sm font-semibold text-neutral-200 mb-4">{t('componentStatus')}</h3>
+                    <WearDonutChart
+                        ok={statusCounts.ok}
+                        warning={statusCounts.warning}
+                        danger={statusCounts.danger}
+                        replaced={statusCounts.replaced}
+                    />
+                </Card>
+
+                {/* Km per Bike Bar Chart */}
+                <Card className="!p-5">
+                    <h3 className="text-sm font-semibold text-neutral-200 mb-4">{t('kmDistribution')}</h3>
+                    <KmBarChart bikes={bikes} />
+                </Card>
+
+                {/* Component Wear Chart */}
+                <Card className="!p-5">
+                    <h3 className="text-sm font-semibold text-neutral-200 mb-4">{t('wearLevels')}</h3>
+                    <ComponentWearChart components={allComponents} />
+                </Card>
             </motion.div>
 
             {/* Strava Connection Banner removed from here - moved exclusively to Settings */}

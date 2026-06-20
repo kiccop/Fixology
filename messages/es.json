@@ -77,7 +77,26 @@
         "yourBikes": "Mis bicis",
         "addFirstBike": "Añade tu primera bici",
         "allClear": "¡Todos los componentes están bien! 🎉",
-        "connectDescription": "Importa tus bicis y sincroniza automáticamente tus kilómetros"
+        "connectDescription": "Importa tus bicis y sincroniza automáticamente tus kilómetros",
+        "componentStatus": "Estado de componentes",
+        "kmDistribution": "Distribución km",
+        "wearLevels": "Niveles de desgaste",
+        "onboarding": {
+            "welcome": "¡Bienvenido a myBikeLog!",
+            "welcomeDescription": "Monitorea el desgaste de componentes y previene averías. Empecemos con 3 pasos simples.",
+            "step1": "Conectar Strava",
+            "step1Description": "Importa automáticamente tus bicis y sincroniza los km",
+            "step2": "Añadir una bici",
+            "step2Description": "Si no usas Strava, añade tu primera bici manualmente",
+            "step3": "Añadir componentes",
+            "step3Description": "Define los umbrales de desgaste para cada componente",
+            "skip": "Saltar",
+            "next": "Siguiente",
+            "finish": "Empezar",
+            "connectStrava": "Conectar",
+            "addBike": "Añadir bici",
+            "addComponent": "Añadir componente"
+        }
     },
     "bikes": {
         "title": "Mis bicis",
@@ -172,7 +191,22 @@
             "custom": "Personalizado"
         },
         "markAsReplaced": "Marcar como reemplazado",
-        "resetComponent": "Reiniciar contador"
+        "resetComponent": "Reiniciar contador",
+        "toasts": {
+            "reset": "Componente reiniciado",
+            "resetError": "Error durante el reinicio",
+            "delete": "Componente eliminado",
+            "deleteError": "Error durante la eliminación",
+            "logDelete": "Entrada eliminada correctamente",
+            "logDeleteError": "Error al eliminar la entrada",
+            "fileTooLarge": "Archivo demasiado grande (máx 5MB)",
+            "fileUploaded": "Archivo subido correctamente",
+            "selectComponent": "Selecciona un componente",
+            "pdfLoading": "Generando PDF, cargando imágenes...",
+            "pdfShared": "¡PDF compartido con éxito!",
+            "pdfDownloaded": "¡Libro descargado con éxito!",
+            "pdfError": "Error al generar el PDF. Inténtalo de nuevo."
+        }
     },
     "maintenance": {
         "title": "Historial de mantenimiento",
@@ -218,6 +252,7 @@
         "pushNotifications": "Notificaciones push",
         "theme": "Tema",
         "darkMode": "Modo oscuro",
+        "darkModeDescription": "Interfaz oscura para uso nocturno e interior",
         "deleteAccount": "Eliminar cuenta",
         "deleteAccountWarning": "Esta acción es irreversible. Todos tus datos serán eliminados permanentemente.",
         "stravaIntegration": "Integración Strava",

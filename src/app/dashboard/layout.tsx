@@ -25,6 +25,7 @@ import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { StravaLogo, Modal, Button, Input } from '@/components/ui'
+import { OnboardingModal } from '@/components/OnboardingModal'
 import { useEffect } from 'react'
 
 const navItems = [
@@ -109,11 +110,11 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     const handleUpdatePassword = async (e: React.FormEvent) => {
         e.preventDefault()
         if (newPassword !== confirmPassword) {
-            toast.error('Le password non corrispondono')
+            toast.error(tSettings('toasts.passwordMismatch'))
             return
         }
         if (newPassword.length < 8) {
-            toast.error('La password deve avere almeno 8 caratteri')
+            toast.error(tSettings('toasts.passwordTooShort'))
             return
         }
 
@@ -123,12 +124,12 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                 password: newPassword
             })
             if (error) throw error
-            toast.success('Password aggiornata con successo')
+            toast.success(tSettings('toasts.passwordUpdated'))
             setPasswordModalOpen(false)
             setNewPassword('')
             setConfirmPassword('')
         } catch (error: any) {
-            toast.error(error.message || 'Errore durante l\'aggiornamento')
+            toast.error(error.message || tSettings('toasts.updateError'))
         } finally {
             setIsUpdatingPassword(false)
         }
@@ -312,6 +313,9 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                     </div>
                 </main>
             </div>
+
+            {/* Onboarding for new users */}
+            <OnboardingModal />
 
             {/* Change Password Modal */}
             <Modal

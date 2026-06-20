@@ -77,7 +77,26 @@
         "yourBikes": "Mes vélos",
         "addFirstBike": "Ajoutez votre premier vélo",
         "allClear": "Tous les composants sont en bon état ! 🎉",
-        "connectDescription": "Importez vos vélos et synchronisez automatiquement vos kilomètres"
+        "connectDescription": "Importez vos vélos et synchronisez automatiquement vos kilomètres",
+        "componentStatus": "État des composants",
+        "kmDistribution": "Répartition km",
+        "wearLevels": "Niveaux d'usure",
+        "onboarding": {
+            "welcome": "Bienvenue sur myBikeLog !",
+            "welcomeDescription": "Surveillez l'usure des composants et prévenez les pannes. Commençons par 3 étapes simples.",
+            "step1": "Connecter Strava",
+            "step1Description": "Importez automatiquement vos vélos et synchronisez les km",
+            "step2": "Ajouter un vélo",
+            "step2Description": "Si vous n'utilisez pas Strava, ajoutez votre premier vélo manuellement",
+            "step3": "Ajouter des composants",
+            "step3Description": "Définissez les seuils d'usure pour chaque composant",
+            "skip": "Passer",
+            "next": "Suivant",
+            "finish": "Commencer",
+            "connectStrava": "Connecter",
+            "addBike": "Ajouter un vélo",
+            "addComponent": "Ajouter un composant"
+        }
     },
     "bikes": {
         "title": "Mes vélos",
@@ -172,7 +191,22 @@
             "custom": "Personnalisé"
         },
         "markAsReplaced": "Marquer comme remplacé",
-        "resetComponent": "Réinitialiser le compteur"
+        "resetComponent": "Réinitialiser le compteur",
+        "toasts": {
+            "reset": "Composant réinitialisé",
+            "resetError": "Erreur lors de la réinitialisation",
+            "delete": "Composant supprimé",
+            "deleteError": "Erreur lors de la suppression",
+            "logDelete": "Entrée supprimée avec succès",
+            "logDeleteError": "Erreur lors de la suppression de l'entrée",
+            "fileTooLarge": "Fichier trop volumineux (max 5MB)",
+            "fileUploaded": "Fichier chargé correctement",
+            "selectComponent": "Sélectionnez un composant",
+            "pdfLoading": "Génération du PDF, chargement des images...",
+            "pdfShared": "PDF partagé avec succès !",
+            "pdfDownloaded": "Carnet téléchargé avec succès !",
+            "pdfError": "Erreur lors de la génération du PDF. Réessayez."
+        }
     },
     "maintenance": {
         "title": "Historique d'entretien",
@@ -218,6 +252,7 @@
         "pushNotifications": "Notifications push",
         "theme": "Thème",
         "darkMode": "Mode sombre",
+        "darkModeDescription": "Interface sombre pour usage nocturne et intérieur",
         "deleteAccount": "Supprimer le compte",
         "deleteAccountWarning": "Cette action est irréversible. Toutes vos données seront définitivement supprimées.",
         "stravaIntegration": "Intégration Strava",

@@ -46,7 +46,7 @@ export function AddMaintenanceModal({
         if (!file) return
 
         if (file.size > 5 * 1024 * 1024) {
-            toast.error('File troppo grande (max 5MB)')
+            toast.error(tComponents('toasts.fileTooLarge'))
             return
         }
 
@@ -67,7 +67,7 @@ export function AddMaintenanceModal({
 
             setReceiptUrl(publicUrl)
             setFileName(file.name)
-            toast.success('File caricato correttamente')
+            toast.success(tComponents('toasts.fileUploaded'))
         } catch (error: any) {
             console.error('Error uploading:', error)
             toast.error(`Errore caricamento: ${error.message || 'Controlla la console'}`)
@@ -79,7 +79,7 @@ export function AddMaintenanceModal({
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         if (!selectedComponent) {
-            toast.error('Seleziona un componente')
+            toast.error(tComponents('toasts.selectComponent'))
             return
         }
 

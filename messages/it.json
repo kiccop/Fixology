@@ -77,7 +77,26 @@
         "yourBikes": "Le tue bici",
         "addFirstBike": "Aggiungi la tua prima bici",
         "allClear": "Tutti i componenti sono in ordine! 🎉",
-        "connectDescription": "Importa le tue bici e sincronizza automaticamente i km"
+        "connectDescription": "Importa le tue bici e sincronizza automaticamente i km",
+        "componentStatus": "Stato componenti",
+        "kmDistribution": "Distribuzione km",
+        "wearLevels": "Livelli usura",
+        "onboarding": {
+            "welcome": "Benvenuto in myBikeLog!",
+            "welcomeDescription": "Monitora l'usura dei componenti e previeni guasti. Iniziamo con 3 semplici passi.",
+            "step1": "Collega Strava",
+            "step1Description": "Importa automaticamente le tue bici e sincronizza i km",
+            "step2": "Aggiungi una bici",
+            "step2Description": "Se non usi Strava, aggiungi manualmente la tua prima bici",
+            "step3": "Aggiungi componenti",
+            "step3Description": "Definisci le soglie di usura per ogni componente",
+            "skip": "Salta",
+            "next": "Avanti",
+            "finish": "Inizia",
+            "connectStrava": "Connetti",
+            "addBike": "Aggiungi bici",
+            "addComponent": "Aggiungi componente"
+        }
     },
     "bikes": {
         "title": "Le mie bici",
@@ -172,7 +191,22 @@
             "custom": "Personalizzato"
         },
         "markAsReplaced": "Segna come sostituito",
-        "resetComponent": "Azzera contatore"
+        "resetComponent": "Azzera contatore",
+        "toasts": {
+            "reset": "Componente resettato",
+            "resetError": "Errore durante il reset",
+            "delete": "Componente eliminato",
+            "deleteError": "Errore durante l'eliminazione",
+            "logDelete": "Voce eliminata correttamente",
+            "logDeleteError": "Errore durante l'eliminazione del log",
+            "fileTooLarge": "File troppo grande (max 5MB)",
+            "fileUploaded": "File caricato correttamente",
+            "selectComponent": "Seleziona un componente",
+            "pdfLoading": "Generazione PDF in corso, caricamento immagini...",
+            "pdfShared": "PDF condiviso con successo!",
+            "pdfDownloaded": "Libretto scaricato con successo!",
+            "pdfError": "Errore durante la generazione del PDF. Riprova."
+        }
     },
     "maintenance": {
         "title": "Storico manutenzioni",
@@ -218,6 +252,7 @@
         "pushNotifications": "Notifiche push",
         "theme": "Tema",
         "darkMode": "Modalità scura",
+        "darkModeDescription": "Interfaccia scura per uso notturno e indoor",
         "deleteAccount": "Elimina account",
         "deleteAccountWarning": "Questa azione è irreversibile. Tutti i tuoi dati verranno eliminati permanentemente.",
         "stravaIntegration": "Integrazione Strava",
@@ -268,7 +303,8 @@
             "disconnectError": "Errore durante la disconnessione",
             "deleteError": "Errore durante l'eliminazione",
             "passwordMismatch": "Le password non corrispondono",
-            "passwordUpdated": "Password aggiornata",
+            "passwordTooShort": "La password deve avere almeno 8 caratteri",
+            "passwordUpdated": "Password aggiornata con successo",
             "updateError": "Errore aggiornamento",
             "notificationDenied": "Permessi notifiche non concessi",
             "useMenuHint": "Usa il menu nel profilo in basso a sinistra o nelle impostazioni rapide"

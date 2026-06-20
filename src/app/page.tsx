@@ -101,7 +101,7 @@ export default function LandingPage() {
             {/* Main Catchphrase */}
             <motion.h1
               variants={fadeInUp}
-              className="text-6xl sm:text-8xl lg:text-9xl font-black leading-[0.8] tracking-tighter uppercase italic text-center"
+              className="text-5xl sm:text-7xl lg:text-8xl font-black leading-[0.85] tracking-tighter uppercase italic text-center"
             >
               Ride <br />
               <span className="text-gradient">Limitless.</span>
@@ -172,10 +172,10 @@ export default function LandingPage() {
             <span className="text-primary-500 text-[11px] font-black uppercase tracking-[0.4em] mb-4 block italic text-center w-full">
               {t('features.overline')}
             </span>
-            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tighter uppercase italic leading-none mb-6 text-center w-full">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter uppercase italic leading-none mb-6 text-center w-full">
               {t('features.title')}
             </h2>
-            <p className="text-neutral-500 font-medium italic text-lg text-center mx-auto max-w-2xl px-4">
+            <p className="text-neutral-500 font-medium text-lg text-center mx-auto max-w-2xl px-4">
               {t('hero.subtitle')}
             </p>
           </div>
@@ -255,7 +255,7 @@ export default function LandingPage() {
             <span className="text-primary-500 text-[11px] font-black uppercase tracking-[0.4em] italic mb-4 block text-center w-full">
               {t('howItWorks.overline')}
             </span>
-            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tighter uppercase italic leading-none text-center w-full">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter uppercase italic leading-none text-center w-full">
               {t('howItWorks.title')}
             </h2>
           </div>
@@ -291,10 +291,10 @@ export default function LandingPage() {
               >
                 <div className="text-7xl font-black italic tracking-tighter text-neutral-800 opacity-30">{step.id}</div>
                 <div className="w-16 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full" />
-                <h3 className="text-2xl font-black uppercase italic tracking-tight flex items-center justify-center gap-3 text-center">
+                <h3 className="text-2xl font-bold tracking-tight flex items-center justify-center gap-3 text-center">
                   {t(`howItWorks.${step.titleKey}`)}
                 </h3>
-                <p className="text-neutral-500 font-medium leading-relaxed italic max-w-xs text-center mx-auto">{t(`howItWorks.${step.descKey}`)}</p>
+                <p className="text-neutral-500 font-medium leading-relaxed max-w-xs text-center mx-auto">{t(`howItWorks.${step.descKey}`)}</p>
               </motion.div>
             ))}
           </div>
@@ -308,7 +308,7 @@ export default function LandingPage() {
       </section>
 
       {/* Modern CTA Footer */}
-      <section className="py-48 relative bg-neutral-950 flex flex-col items-center justify-center text-center overflow-hidden">
+      <section className="py-32 relative bg-neutral-950 flex flex-col items-center justify-center text-center overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-primary-500/5 rounded-full blur-[200px] pointer-events-none" />
 
         <motion.div
@@ -317,18 +317,18 @@ export default function LandingPage() {
           viewport={{ once: true }}
           className="max-w-4xl px-6 space-y-12 relative z-10"
         >
-          <h2 className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter uppercase italic leading-[0.8]">
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter uppercase italic leading-[0.85]">
             {t('cta.mainTitle')} <br />
             <span className="text-gradient">{t('cta.mainSubtitle')}</span>
           </h2>
           <div className="flex justify-center gap-4">
             <Link href="/register">
-              <Button size="lg" className="h-20 px-16 text-2xl font-black shadow-2xl uppercase italic tracking-tighter">
+              <Button size="lg" className="h-16 px-14 text-xl font-black shadow-2xl uppercase italic tracking-tighter">
                 {t('cta.button')}
               </Button>
             </Link>
             <Link href="/login">
-              <Button size="lg" variant="secondary" className="h-20 px-12 text-2xl font-black uppercase italic tracking-tighter border-white/20 hover:bg-white/10">
+              <Button size="lg" variant="secondary" className="h-16 px-10 text-xl font-black uppercase italic tracking-tighter border-white/20 hover:bg-white/10">
                 Login
               </Button>
             </Link>

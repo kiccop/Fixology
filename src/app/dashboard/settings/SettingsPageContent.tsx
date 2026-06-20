@@ -17,7 +17,8 @@ import {
     LogOut,
     ExternalLink,
     Fingerprint,
-    Lock as LockIcon
+    Lock as LockIcon,
+    SunMoon
 } from 'lucide-react'
 import { Card, Button, Input, Modal, StravaLogo } from '@/components/ui'
 import { createClient } from '@/lib/supabase/client'
@@ -28,6 +29,7 @@ import { it } from 'date-fns/locale'
 import { biometricAuth } from '@/lib/biometric'
 import { useEffect } from 'react'
 import { useStravaAuth } from '@/lib/hooks/useStravaAuth'
+import { useTheme } from '@/lib/hooks/useTheme'
 
 interface SettingsPageContentProps {
     profile: any
@@ -71,6 +73,10 @@ export function SettingsPageContent({
     const [newPass, setNewPass] = useState('')
     const [confirmPass, setConfirmPass] = useState('')
     const [isUpdatingPass, setIsUpdatingPass] = useState(false)
+
+    // Theme management
+    const { theme, toggleTheme } = useTheme()
+    const isDarkMode = theme === 'dark'
 
     // Handle Strava OAuth deep link callbacks on mobile
     useStravaAuth()
@@ -267,6 +273,27 @@ export function SettingsPageContent({
                                 )}
                             </button>
                         ))}
+                    </div>
+                </Card>
+            </motion.div>
+
+            {/* Theme Section */}
+            <motion.div variants={fadeIn}>
+                <Card>
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className="w-10 h-10 rounded-xl bg-primary-500/10 flex items-center justify-center">
+                            <SunMoon className="w-5 h-5 text-primary-400" />
+                        </div>
+                        <h2 className="text-lg font-semibold">{t('theme')}</h2>
+                    </div>
+
+                    <div className="space-y-4">
+                        <ToggleOption
+                            label={t('darkMode')}
+                            description={t('darkModeDescription')}
+                            checked={isDarkMode}
+                            onChange={toggleTheme}
+                        />
                     </div>
                 </Card>
             </motion.div>
