@@ -44,7 +44,12 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className="dark">
+    <html lang={locale} className="dark" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{
+          __html: `(function(){try{var t=localStorage.getItem('theme')||'dark';document.documentElement.className=t;}catch(e){}})()`
+        }} />
+      </head>
       <body className={`${inter.variable} font-sans antialiased`}>
         <ErrorBoundary>
           <MobileInitializer />
