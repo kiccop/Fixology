@@ -28,6 +28,7 @@ import { Card, Button, ProgressBar, Badge, Modal } from '@/components/ui'
 import { AddComponentModal } from './AddComponentModal'
 import { AddMaintenanceModal } from './AddMaintenanceModal'
 import { createClient } from '@/lib/supabase/client'
+import { APP_CONFIG } from '@/lib/config'
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import { format } from 'date-fns'
@@ -264,9 +265,35 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                 )
             }
 
-            doc.save(`Libretto_${bike.name.replace(/\s+/g, '_')}.pdf`)
-            toast.dismiss(loadingToast)
-            toast.success('Libretto generato con successo!')
+            const filename = `Libretto_${bike.name.replace(/\s+/g, '_')}.pdf`
+
+            // Mobile download via Web Share API (works on Android/iOS)
+            if (APP_CONFIG.isMobile && navigator.share) {
+                const pdfBlob = doc.output('blob')
+                const file = new File([pdfBlob], filename, { type: 'application/pdf' })
+
+                try {
+                    await navigator.share({
+                        files: [file],
+                        title: 'Libretto Manutenzione',
+                        text: `${bike.name} - myBikeLog`
+                    })
+                    toast.dismiss(loadingToast)
+                    toast.success('PDF condiviso con successo!')
+                } catch (shareError: any) {
+                    // User cancelled share or share failed - fallback to blob download
+                    if (shareError.name !== 'AbortError') {
+                        throw shareError
+                    }
+                    // If cancelled, just dismiss loading toast
+                    toast.dismiss(loadingToast)
+                }
+            } else {
+                // Desktop or fallback: use standard save
+                doc.save(filename)
+                toast.dismiss(loadingToast)
+                toast.success('Libretto scaricato con successo!')
+            }
         } catch (error) {
             toast.dismiss(loadingToast)
             console.error('PDF Generation error:', error)

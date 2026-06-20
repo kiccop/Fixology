@@ -51,7 +51,7 @@ export default async function RootLayout({
           <NextIntlClientProvider messages={messages}>
             {children}
             <Toaster
-              position="top-right"
+              position="bottom-center"
               toastOptions={{
                 style: {
                   background: 'var(--neutral-800)',
