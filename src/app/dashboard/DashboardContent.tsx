@@ -285,7 +285,7 @@ export function DashboardContent({
                                         <div className="flex items-start justify-between mb-2">
                                             <div>
                                                 <h3 className="text-sm font-medium">
-                                                    {tComponents(`types.${component.type}`)}
+                                                    {component.is_custom ? component.name : tComponents(`types.${component.type}`)}
                                                 </h3>
                                                 <p className="text-xs text-neutral-500">
                                                     {component.bike?.name}
