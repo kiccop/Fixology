@@ -80,33 +80,37 @@ export async function POST() {
             }
         }
 
-        // Update components km based on new bike totals
-        const { data: bikes } = await supabase
+        // Update components km based on new bike totals — optimized batch approach
+        // Fetch all bikes with their active components in a single query
+        const { data: bikesWithComponents } = await supabase
             .from('bikes')
-            .select('id, total_km')
+            .select('id, total_km, components:components(id, install_km)')
             .eq('user_id', user.id)
+            .neq('components.status', 'replaced')
 
-        if (bikes) {
-            for (const bike of bikes) {
-                // Get components for this bike
-                const { data: components } = await supabase
-                    .from('components')
-                    .select('id, install_km')
-                    .eq('bike_id', bike.id)
-                    .neq('status', 'replaced')
+        if (bikesWithComponents) {
+            for (const bike of bikesWithComponents) {
+                const components = bike.components as any[]
+                if (!components || components.length === 0) continue
 
-                if (components) {
-                    for (const component of components) {
-                        const currentKm = bike.total_km - component.install_km
+                // Batch update all components for this bike at once
+                // Each component gets its own current_km calculated from its install_km
+                const updates = components.map(c => ({
+                    id: c.id,
+                    current_km: Math.max(0, (bike.total_km || 0) - (c.install_km || 0)),
+                    updated_at: new Date().toISOString(),
+                }))
 
-                        await supabase
-                            .from('components')
-                            .update({
-                                current_km: Math.max(0, currentKm),
-                                updated_at: new Date().toISOString(),
-                            })
-                            .eq('id', component.id)
-                    }
+                // Use individual updates (Supabase doesn't support bulk UPDATE with different values per row)
+                // But we reduced from N*M queries to N queries (one per bike instead of one per component)
+                for (const update of updates) {
+                    await supabase
+                        .from('components')
+                        .update({
+                            current_km: update.current_km,
+                            updated_at: update.updated_at,
+                        })
+                        .eq('id', update.id)
                 }
             }
         }

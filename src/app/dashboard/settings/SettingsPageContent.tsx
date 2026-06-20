@@ -140,6 +140,12 @@ export function SettingsPageContent({
 
     const handleDeleteAccount = async () => {
         try {
+            const response = await fetch('/api/account/delete', { method: 'POST' })
+
+            if (!response.ok) {
+                throw new Error('Failed to delete account')
+            }
+
             await supabase.auth.signOut()
             router.push('/')
         } catch {

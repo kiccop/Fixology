@@ -94,7 +94,7 @@ export function AddComponentModal({
             const currentKm = Math.max(0, currentBikeKm - data.install_km)
             const currentHours = Math.max(0, currentBikeHours - data.install_hours)
 
-            const { error } = await supabase.from('components').insert({
+            const { data: newComponent, error } = await supabase.from('components').insert({
                 bike_id: bikeId,
                 type: data.type,
                 name: componentName,
@@ -108,27 +108,16 @@ export function AddComponentModal({
                 is_custom: isCustom,
                 status: 'ok',
                 install_date: new Date().toISOString().split('T')[0],
-            })
+            }).select('id').single()
 
             // Also create initial maintenance log
-            if (!error) {
-                const { data: newComponent } = await supabase
-                    .from('components')
-                    .select('id')
-                    .eq('bike_id', bikeId)
-                    .eq('type', data.type)
-                    .order('created_at', { ascending: false })
-                    .limit(1)
-                    .single()
-
-                if (newComponent) {
-                    await supabase.from('maintenance_logs').insert({
-                        component_id: newComponent.id,
-                        action_type: 'installed',
-                        km_at_action: data.install_km,
-                        hours_at_action: data.install_hours,
-                    })
-                }
+            if (!error && newComponent) {
+                await supabase.from('maintenance_logs').insert({
+                    component_id: newComponent.id,
+                    action_type: 'installed',
+                    km_at_action: data.install_km,
+                    hours_at_action: data.install_hours,
+                })
             }
 
             if (error) {

@@ -33,9 +33,10 @@ export async function GET(request: NextRequest) {
             return NextResponse.redirect(new URL('/login?error=not_authenticated', baseUrl))
         }
 
-        // Verify state matches user ID
-        if (state && state !== user.id) {
-            console.warn('State mismatch, possible CSRF')
+        // Verify state matches user ID to prevent CSRF
+        if (!state || state !== user.id) {
+            console.error('State mismatch, possible CSRF attack')
+            return NextResponse.redirect(new URL('/dashboard?error=csrf_mismatch', baseUrl))
         }
 
         // Exchange code for tokens

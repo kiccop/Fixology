@@ -232,7 +232,14 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                             imgWidth = imgHeight * ratio
                         }
 
-                        doc.addImage(img, 'JPEG', 14, currentY + 15, imgWidth, imgHeight)
+                        // Detect image format from URL extension
+                        const urlExt = log.receipt_url.split('.').pop()?.toLowerCase()
+                        let imgFormat: 'JPEG' | 'PNG' = 'JPEG'
+                        if (urlExt === 'png') {
+                            imgFormat = 'PNG'
+                        }
+
+                        doc.addImage(img, imgFormat, 14, currentY + 15, imgWidth, imgHeight)
                         currentY += imgHeight + 30 // Padding for next item
                     } catch (err) {
                         console.error('Error adding image to PDF:', err)

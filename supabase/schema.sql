@@ -381,16 +381,34 @@ CREATE TRIGGER bikes_updated_at
 -- Nota: Assicurati di creare manualmente il bucket 'receipts' nella dashboard di Supabase
 -- prima di applicare queste policy se non esiste già.
 
+-- Public read access for receipts
 CREATE POLICY "Public Receipt Access"
   ON storage.objects FOR SELECT
   USING (bucket_id = 'receipts');
 
-CREATE POLICY "Authenticated User Upload"
+-- Restrict uploads to user's own bikes only
+-- Path format: {bike_id}/{timestamp}.{ext}
+CREATE POLICY "User Upload Own Bike Receipts"
   ON storage.objects FOR INSERT
   TO authenticated
-  WITH CHECK (bucket_id = 'receipts');
+  WITH CHECK (
+    bucket_id = 'receipts'
+    AND EXISTS (
+      SELECT 1 FROM public.bikes
+      WHERE bikes.id::text = split_part(name, '/', 1)
+      AND bikes.user_id = auth.uid()
+    )
+  );
 
-CREATE POLICY "Authenticated User Delete"
+-- Restrict delete to user's own bike receipts only
+CREATE POLICY "User Delete Own Bike Receipts"
   ON storage.objects FOR DELETE
   TO authenticated
-  USING (bucket_id = 'receipts');
+  USING (
+    bucket_id = 'receipts'
+    AND EXISTS (
+      SELECT 1 FROM public.bikes
+      WHERE bikes.id::text = split_part(name, '/', 1)
+      AND bikes.user_id = auth.uid()
+    )
+  );
