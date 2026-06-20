@@ -50,7 +50,7 @@
         "useBiometric": "Usa Biometria",
         "sessionExpired": "Sessione scaduta, effettua il login con password",
         "backToHome": "Torna alla home",
-        "poweredBy": "Powered by mechanical precision"
+        "poweredBy": "Alimentato dalla precisione meccanica"
     },
     "nav": {
         "dashboard": "Dashboard",
@@ -158,10 +158,14 @@
             "shift_cable": "Cavi cambio",
             "jockey_wheels": "Pulegge cambio",
             "bar_tape": "Nastro manubrio",
+            "handlebar": "Manubrio",
             "bottom_bracket": "Movimento centrale",
+            "headset": "Serie sterzo",
             "saddle": "Sella",
             "pedals": "Pedali",
             "sealing_liquid": "Lattice copertoni",
+            "suspension_fork": "Forcella ammortizzata",
+            "rear_shock": "Ammortizzatore posteriore",
             "hubs": "Mozzi",
             "wheels": "Ruote",
             "dropper_post": "Reggisella telescopico",
@@ -286,7 +290,7 @@
             "cta": "Inizia ora",
             "secondaryCta": "Scopri le funzionalità",
             "stats": {
-                "cloudSync": "Sync Cloud",
+                "cloudSync": "Sincronizzazione Cloud",
                 "bikeLimit": "Limite Bici"
             }
         },
@@ -294,7 +298,7 @@
             "overline": "Dati & Performance",
             "title": "Monitoraggio perfetto",
             "sync": {
-                "title": "Sync Cloud",
+                "title": "Sincronizzazione Cloud",
                 "description": "Integrazione API nativa con Strava per l'importazione istantanea di flotta e chilometraggio."
             },
             "components": {

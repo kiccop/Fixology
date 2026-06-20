@@ -50,7 +50,7 @@
         "useBiometric": "Usar Biométrica",
         "sessionExpired": "Sesión expirada, inicia sesión con contraseña",
         "backToHome": "Volver al inicio",
-        "poweredBy": "Powered by mechanical precision"
+        "poweredBy": "Impulsado por la precisión mecánica"
     },
     "nav": {
         "dashboard": "Panel",
@@ -65,8 +65,8 @@
     "dashboard": {
         "welcome": "Bienvenido de nuevo",
         "overview": "Resumen",
-        "totalBikes": "Bicis totales",
-        "totalKm": "Km totales",
+        "totalBikes": "Total de bicicletas",
+        "totalKm": "Kilometraje total",
         "componentsToCheck": "Componentes a revisar",
         "upcomingMaintenance": "Próximo mantenimiento",
         "recentActivity": "Actividad reciente",
@@ -158,17 +158,17 @@
             "shift_cable": "Cables de cambio",
             "jockey_wheels": "Rodillos del cambio",
             "bar_tape": "Cinta de manillar",
-            "bottom_bracket": "Pedalier",
-            "cleats": "Calas",
-            "suspension_fork": "Horquilla de suspensión",
-            "rear_shock": "Amortiguador trasero",
             "handlebar": "Manillar",
+            "bottom_bracket": "Caja de pedalier",
+            "headset": "Dirección",
             "saddle": "Sillín",
             "pedals": "Pedales",
+            "sealing_liquid": "Líquido sellante",
+            "suspension_fork": "Horquilla de suspensión",
+            "rear_shock": "Amortiguador trasero",
             "hubs": "Bujes",
             "wheels": "Ruedas",
             "dropper_post": "Tija telescópica",
-            "sealing_liquid": "Líquido sellante",
             "custom": "Personalizado"
         },
         "markAsReplaced": "Marcar como reemplazado",
@@ -290,7 +290,7 @@
             "cta": "Empieza ahora",
             "secondaryCta": "Explorar características",
             "stats": {
-                "cloudSync": "Sync Cloud",
+                "cloudSync": "Sincronización Cloud",
                 "bikeLimit": "Límite de Bicis"
             }
         },
@@ -298,7 +298,7 @@
             "overline": "Datos y Rendimiento",
             "title": "Monitoreo Perfecto",
             "sync": {
-                "title": "Sync Cloud",
+                "title": "Sincronización Cloud",
                 "description": "Integración nativa con la API de Strava para la importación instantánea de flota y kilometraje."
             },
             "components": {

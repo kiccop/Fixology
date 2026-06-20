@@ -158,10 +158,14 @@
             "shift_cable": "Shift cables",
             "jockey_wheels": "Jockey wheels",
             "bar_tape": "Bar tape",
+            "handlebar": "Handlebar",
             "bottom_bracket": "Bottom bracket",
+            "headset": "Headset",
             "saddle": "Saddle",
             "pedals": "Pedals",
-            "sealing_liquid": "Sealing Liquid",
+            "sealing_liquid": "Sealant",
+            "suspension_fork": "Suspension fork",
+            "rear_shock": "Rear shock",
             "hubs": "Hubs",
             "wheels": "Wheels",
             "dropper_post": "Dropper post",
@@ -298,7 +302,7 @@
                 "description": "Native API integration with Strava for instant fleet and mileage synchronization."
             },
             "components": {
-                "title": "Asset Management",
+                "title": "Component Management",
                 "description": "Granular monitoring of chain, drivetrain, and brakes with custom wear algorithms."
             },
             "alerts": {
@@ -306,7 +310,7 @@
                 "description": "The app will notify you when it is necessary to proceed with component maintenance."
             },
             "history": {
-                "title": "Service Ledger",
+                "title": "Service History",
                 "description": "Complete logging of maintenance and costs to track every cent spent on your bike."
             },
             "booklet": {

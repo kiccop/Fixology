@@ -1,7 +1,7 @@
 {
     "common": {
         "appName": "myBikeLog",
-        "tagline": "Votre vélo, toujours au top",
+        "tagline": "Votre vélo, toujours en parfait état",
         "loading": "Chargement...",
         "save": "Enregistrer",
         "cancel": "Annuler",
@@ -50,7 +50,7 @@
         "useBiometric": "Utiliser la Biométrie",
         "sessionExpired": "Session expirée, veuillez vous connecter avec votre mot de passe",
         "backToHome": "Retour à l'accueil",
-        "poweredBy": "Powered by mechanical precision"
+        "poweredBy": "Alimenté par la précision mécanique"
     },
     "nav": {
         "dashboard": "Tableau de bord",
@@ -65,8 +65,8 @@
     "dashboard": {
         "welcome": "Bon retour",
         "overview": "Aperçu",
-        "totalBikes": "Vélos total",
-        "totalKm": "Km total",
+        "totalBikes": "Total des vélos",
+        "totalKm": "Kilométrage total",
         "componentsToCheck": "Composants à vérifier",
         "upcomingMaintenance": "Entretien à venir",
         "recentActivity": "Activité récente",
@@ -158,17 +158,17 @@
             "shift_cable": "Câbles de dérailleur",
             "jockey_wheels": "Galets de dérailleur",
             "bar_tape": "Ruban de guidon",
-            "bottom_bracket": "Boîtier de pédalier",
-            "cleats": "Cales",
-            "suspension_fork": "Fourche suspendue",
-            "rear_shock": "Amortisseur arrière",
             "handlebar": "Guidon",
+            "bottom_bracket": "Boîtier de pédalier",
+            "headset": "Jeu de direction",
             "saddle": "Selle",
             "pedals": "Pédales",
+            "sealing_liquid": "Liquide préventif",
+            "suspension_fork": "Fourche suspendue",
+            "rear_shock": "Amortisseur arrière",
             "hubs": "Moyeux",
             "wheels": "Roues",
             "dropper_post": "Tige de selle télescopique",
-            "sealing_liquid": "Liquide préventif",
             "custom": "Personnalisé"
         },
         "markAsReplaced": "Marquer comme remplacé",
@@ -290,7 +290,7 @@
             "cta": "Commencer maintenant",
             "secondaryCta": "Explorer les fonctionnalités",
             "stats": {
-                "cloudSync": "Sync Cloud",
+                "cloudSync": "Synchronisation Cloud",
                 "bikeLimit": "Limite de Vélos"
             }
         },
@@ -298,7 +298,7 @@
             "overline": "Données & Performance",
             "title": "Suivi Parfait",
             "sync": {
-                "title": "Sync Cloud",
+                "title": "Synchronisation Cloud",
                 "description": "Intégration native de l'API Strava pour l'importation instantanée de la flotte et du kilométrage."
             },
             "components": {
