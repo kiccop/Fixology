@@ -156,7 +156,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         transform transition-transform duration-300 ease-in-out
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
       `}>
-                <div className="flex flex-col h-full bg-gradient-to-b from-neutral-900/50 to-transparent">
+                <div className="flex flex-col h-full bg-gradient-to-b from-neutral-900/50 to-transparent pt-safe">
                     {/* Logo */}
                     <div className="p-6 h-24 flex items-center">
                         <Link href="/dashboard" className="flex items-center gap-3">
@@ -287,7 +287,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
             {/* Main Content */}
             <div className="flex-1 flex flex-col min-h-screen">
                 {/* Top Bar - Mobile only */}
-                <header className="sticky top-0 z-30 h-24 bg-black/80 backdrop-blur-xl border-b border-white/5 px-6 flex items-center lg:hidden pt-[max(env(safe-area-inset-top),32px)]">
+                <header className="sticky top-0 z-30 h-24 bg-black/80 backdrop-blur-xl border-b border-white/5 px-6 flex items-center lg:hidden pt-safe">
                     <button
                         onClick={() => setSidebarOpen(true)}
                         className="p-2 -ml-2 rounded-xl hover:bg-white/5 transition-colors touch-manipulation"

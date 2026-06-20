@@ -12,7 +12,7 @@ export default function CookiePolicyPage() {
     return (
         <div className="min-h-screen bg-neutral-950 text-white selection:bg-primary-500/30 flex flex-col">
             {/* Simple Header */}
-            <nav className="fixed top-0 left-0 right-0 z-50 bg-neutral-950/50 backdrop-blur-xl border-b border-white/5">
+            <nav className="fixed top-0 left-0 right-0 z-50 bg-neutral-950/50 backdrop-blur-xl border-b border-white/5 pt-safe">
                 <div className="max-w-4xl mx-auto px-6 h-20 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-2 group">
                         <ArrowLeft className="w-5 h-5 text-neutral-500 group-hover:text-primary-400 transition-colors" />
@@ -27,7 +27,7 @@ export default function CookiePolicyPage() {
                 </div>
             </nav>
 
-            <main className="flex-1 pt-32 pb-20">
+            <main className="flex-1 pt-40 pb-20">
                 <div className="max-w-4xl mx-auto px-6">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
