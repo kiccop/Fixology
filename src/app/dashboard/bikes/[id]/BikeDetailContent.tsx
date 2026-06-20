@@ -280,30 +280,49 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
             const filename = `Libretto_${bike.name.replace(/\s+/g, '_')}.pdf`
 
             if (APP_CONFIG.isMobile) {
-                // Mobile: upload to Supabase Storage, open in native browser
+                // Mobile: upload to Supabase Storage, get signed URL, open in native browser
                 try {
                     const pdfBlob = doc.output('blob')
-                    const filePath = `${bike.id}/pdf/${Date.now()}_${filename}`
+                    // Use bike.id as first path segment to match RLS policy
+                    const filePath = `${bike.id}/${Date.now()}_${filename}`
 
-                    // Upload to Supabase Storage (bucket 'receipts' already has RLS for user's bikes)
+                    // Upload to Supabase Storage
                     const { error: uploadError } = await supabase.storage
                         .from('receipts')
-                        .upload(filePath, pdfBlob, { contentType: 'application/pdf' })
+                        .upload(filePath, pdfBlob, {
+                            contentType: 'application/pdf',
+                            cacheControl: '3600'
+                        })
 
-                    if (uploadError) throw uploadError
+                    if (uploadError) {
+                        console.error('Storage upload error:', uploadError)
+                        throw new Error(`Upload failed: ${uploadError.message}`)
+                    }
 
-                    // Get public URL
-                    const { data: { publicUrl } } = supabase.storage
+                    // Create signed URL valid for 10 minutes (works without auth cookies)
+                    const { data: signedData, error: signedError } = await supabase.storage
                         .from('receipts')
-                        .getPublicUrl(filePath)
+                        .createSignedUrl(filePath, 600)
 
-                    // Open in native browser (Android browser can view & download PDFs)
-                    await Browser.open({ url: publicUrl })
+                    if (signedError || !signedData?.signedUrl) {
+                        console.error('Signed URL error:', signedError)
+                        throw new Error('Failed to create signed URL')
+                    }
 
-                    // Clean up: delete file after 5 minutes
+                    // Open in native Android browser (can view & download PDFs)
+                    await Browser.open({
+                        url: signedData.signedUrl,
+                        presentationStyle: 'fullscreen'
+                    })
+
+                    // Clean up: delete file after 10 minutes
                     setTimeout(async () => {
-                        await supabase.storage.from('receipts').remove([filePath])
-                    }, 5 * 60 * 1000)
+                        try {
+                            await supabase.storage.from('receipts').remove([filePath])
+                        } catch (e) {
+                            // ignore cleanup errors
+                        }
+                    }, 10 * 60 * 1000)
 
                     toast.dismiss(loadingToast)
                     toast.success(t('toasts.pdfDownloaded'))
