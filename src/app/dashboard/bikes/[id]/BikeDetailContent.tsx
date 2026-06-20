@@ -29,6 +29,8 @@ import { AddComponentModal } from './AddComponentModal'
 import { AddMaintenanceModal } from './AddMaintenanceModal'
 import { createClient } from '@/lib/supabase/client'
 import { APP_CONFIG } from '@/lib/config'
+import { Filesystem, Directory } from '@capacitor/filesystem'
+import { Share } from '@capacitor/share'
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import { format } from 'date-fns'
@@ -268,29 +270,39 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
 
             const filename = `Libretto_${bike.name.replace(/\s+/g, '_')}.pdf`
 
-            // Mobile download via Web Share API (works on Android/iOS)
-            if (APP_CONFIG.isMobile && navigator.share) {
-                const pdfBlob = doc.output('blob')
-                const file = new File([pdfBlob], filename, { type: 'application/pdf' })
-
+            // Mobile: save to device and share
+            if (APP_CONFIG.isMobile) {
                 try {
-                    await navigator.share({
-                        files: [file],
-                        title: 'Libretto Manutenzione',
-                        text: `${bike.name} - myBikeLog`
+                    // Convert PDF to base64
+                    const pdfBase64 = doc.output('datauristring').split(',')[1]
+
+                    // Save to device's Documents directory
+                    const savedFile = await Filesystem.writeFile({
+                        path: filename,
+                        data: pdfBase64,
+                        directory: Directory.Documents,
+                        recursive: true,
                     })
+
+                    // Share the file
+                    await Share.share({
+                        title: 'Libretto Manutenzione',
+                        text: `${bike.name} - myBikeLog`,
+                        url: savedFile.uri,
+                        dialogTitle: 'Condividi Libretto'
+                    })
+
                     toast.dismiss(loadingToast)
-                    toast.success(t('toasts.pdfShared'))
-                } catch (shareError: any) {
-                    // User cancelled share or share failed - fallback to blob download
-                    if (shareError.name !== 'AbortError') {
-                        throw shareError
-                    }
-                    // If cancelled, just dismiss loading toast
+                    toast.success(t('toasts.pdfDownloaded'))
+                } catch (mobileError: any) {
                     toast.dismiss(loadingToast)
+                    console.error('Mobile PDF error:', mobileError)
+                    // Fallback to blob download if native fails
+                    doc.save(filename)
+                    toast.success(t('toasts.pdfDownloaded'))
                 }
             } else {
-                // Desktop or fallback: use standard save
+                // Desktop: standard download
                 doc.save(filename)
                 toast.dismiss(loadingToast)
                 toast.success(t('toasts.pdfDownloaded'))
