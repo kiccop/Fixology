@@ -29,8 +29,7 @@ import { AddComponentModal } from './AddComponentModal'
 import { AddMaintenanceModal } from './AddMaintenanceModal'
 import { createClient } from '@/lib/supabase/client'
 import { APP_CONFIG } from '@/lib/config'
-import { Filesystem, Directory } from '@capacitor/filesystem'
-import { Share } from '@capacitor/share'
+import { Browser } from '@capacitor/browser'
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import { format } from 'date-fns'
@@ -189,7 +188,8 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
             }
 
             // --- PHOTO EXHIBIT SECTION ---
-            const logsWithReceipts = allLogs.filter(log => log.receipt_url)
+            // Skip photos on mobile to avoid CORS/timeout issues
+            const logsWithReceipts = !APP_CONFIG.isMobile ? allLogs.filter(log => log.receipt_url) : []
             if (logsWithReceipts.length > 0) {
                 doc.addPage()
                 doc.setFontSize(18)
@@ -279,66 +279,38 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
 
             const filename = `Libretto_${bike.name.replace(/\s+/g, '_')}.pdf`
 
-            // Generate PDF as blob
-            const pdfBlob = doc.output('blob')
-
             if (APP_CONFIG.isMobile) {
-                // Mobile: use Capacitor Filesystem + Share
+                // Mobile: upload to Supabase Storage, open in native browser
                 try {
-                    // Convert blob to base64
-                    const reader = new FileReader()
-                    const base64Promise = new Promise<string>((resolve, reject) => {
-                        reader.onloadend = () => {
-                            const result = reader.result as string
-                            const base64 = result.split(',')[1]
-                            resolve(base64)
-                        }
-                        reader.onerror = reject
-                    })
-                    reader.readAsDataURL(pdfBlob)
-                    const pdfBase64 = await base64Promise
+                    const pdfBlob = doc.output('blob')
+                    const filePath = `${bike.id}/pdf/${Date.now()}_${filename}`
 
-                    // Write to cache directory (more reliable than Documents)
-                    const savedFile = await Filesystem.writeFile({
-                        path: filename,
-                        data: pdfBase64,
-                        directory: Directory.Cache,
-                        recursive: true,
-                    })
+                    // Upload to Supabase Storage (bucket 'receipts' already has RLS for user's bikes)
+                    const { error: uploadError } = await supabase.storage
+                        .from('receipts')
+                        .upload(filePath, pdfBlob, { contentType: 'application/pdf' })
 
-                    // Get the full URI
-                    const uriResult = await Filesystem.getUri({
-                        path: savedFile.uri,
-                        directory: Directory.Cache,
-                    })
+                    if (uploadError) throw uploadError
 
-                    // Share the file
-                    await Share.share({
-                        title: filename,
-                        url: uriResult.uri,
-                        dialogTitle: 'Salva o Condividi Libretto'
-                    })
+                    // Get public URL
+                    const { data: { publicUrl } } = supabase.storage
+                        .from('receipts')
+                        .getPublicUrl(filePath)
+
+                    // Open in native browser (Android browser can view & download PDFs)
+                    await Browser.open({ url: publicUrl })
+
+                    // Clean up: delete file after 5 minutes
+                    setTimeout(async () => {
+                        await supabase.storage.from('receipts').remove([filePath])
+                    }, 5 * 60 * 1000)
 
                     toast.dismiss(loadingToast)
                     toast.success(t('toasts.pdfDownloaded'))
                 } catch (mobileError: any) {
                     console.error('Mobile PDF error:', mobileError)
-                    // Fallback: try opening as data URI in browser
-                    try {
-                        const dataUri = doc.output('datauristring')
-                        const newWindow = window.open()
-                        if (newWindow) {
-                            newWindow.location.href = dataUri
-                            toast.dismiss(loadingToast)
-                            toast.success(t('toasts.pdfDownloaded'))
-                        } else {
-                            throw new Error('Cannot open window')
-                        }
-                    } catch (fallbackError) {
-                        console.error('PDF fallback error:', fallbackError)
-                        toast.dismiss(loadingToast)
-                        toast.error(t('toasts.pdfError'))
-                    }
+                    toast.dismiss(loadingToast)
+                    toast.error(t('toasts.pdfError'))
                 }
             } else {
                 // Desktop: standard download
