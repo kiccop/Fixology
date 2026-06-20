@@ -119,7 +119,7 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
             doc.text(t('title'), 14, 90)
 
             const componentRows = activeComponents.map((c: any) => [
-                t(`types.${c.type}`),
+                c.is_custom ? c.name : t(`types.${c.type}`),
                 `${Math.max(0, (bike.total_km || 0) - c.install_km)} / ${c.threshold_km || '∞'} km`,
                 t(`status.${c.status}`).toUpperCase(),
                 format(new Date(c.install_date || new Date()), 'dd/MM/yyyy')
@@ -141,7 +141,7 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
                     c.maintenance_logs.forEach((log: any) => {
                         allLogs.push({
                             ...log,
-                            componentName: t(`types.${c.type}`)
+                            componentName: c.is_custom ? c.name : t(`types.${c.type}`)
                         })
                     })
                 }
