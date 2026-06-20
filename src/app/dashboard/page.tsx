@@ -17,12 +17,12 @@ export default async function DashboardPage() {
         .eq('id', user?.id)
         .single()
 
-    // Get bikes with component counts
+    // Get bikes with components data for charts
     const { data: bikes } = await supabase
         .from('bikes')
         .select(`
       *,
-      components:components(count)
+      components:components(id, type, name, is_custom, status, threshold_km, threshold_hours, current_km, current_hours, install_km, install_hours)
     `)
         .eq('user_id', user?.id)
         .order('is_primary', { ascending: false })
