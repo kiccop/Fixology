@@ -166,9 +166,9 @@ export default function RegisterPage() {
                     {/* Terms */}
                     <p className="text-xs text-neutral-500 text-center mt-4 pt-4 border-t border-white/5">
                         Registrandoti accetti i nostri{' '}
-                        <a href="#" className="text-primary-400 hover:underline">Termini di Servizio</a>
+                        <Link href="/terms-of-service" className="text-primary-400 hover:underline">Termini di Servizio</Link>
                         {' '}e la{' '}
-                        <a href="#" className="text-primary-400 hover:underline">Privacy Policy</a>
+                        <Link href="/privacy-policy" className="text-primary-400 hover:underline">Privacy Policy</Link>
                     </p>
                 </Card>
 

@@ -1,7 +1,16 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
+import { rateLimit } from '@/lib/rate-limit'
 
-export async function POST() {
+export async function POST(request: NextRequest) {
+    // Apply strict rate limiting: 3 requests per hour per IP
+    const rateLimitResponse = await rateLimit(request, {
+        maxRequests: 3,
+        windowMs: 60 * 60 * 1000,
+    })
+    if (rateLimitResponse) return rateLimitResponse
+
     try {
         const supabase = await createClient()
 
@@ -86,12 +95,13 @@ export async function POST() {
         // 8. Delete profile
         await supabase.from('profiles').delete().eq('id', userId)
 
-        // 9. Finally delete the auth user
-        const { error: deleteError } = await supabase.auth.admin.deleteUser(userId)
+        // 9. Finally delete the auth user using admin client (requires service role key)
+        const adminClient = createAdminClient()
+        const { error: deleteError } = await adminClient.auth.admin.deleteUser(userId)
 
         if (deleteError) {
             console.error('Error deleting auth user:', deleteError)
-            // Even if admin delete fails, we've deleted all data
+            return NextResponse.json({ error: 'Failed to delete auth user' }, { status: 500 })
         }
 
         return NextResponse.json({ success: true })

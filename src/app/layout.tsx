@@ -6,6 +6,8 @@ import { getLocale, getMessages } from 'next-intl/server';
 import { Toaster } from 'sonner';
 import { MobileInitializer } from '@/components/MobileInitializer';
 import { CookieBanner } from '@/components/CookieBanner';
+import { OfflineBanner } from '@/components/OfflineBanner';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import "./globals.css";
 
 const inter = Inter({
@@ -44,21 +46,24 @@ export default async function RootLayout({
   return (
     <html lang={locale} className="dark">
       <body className={`${inter.variable} font-sans antialiased`}>
-        <MobileInitializer />
-        <NextIntlClientProvider messages={messages}>
-          {children}
-          <Toaster
-            position="top-right"
-            toastOptions={{
-              style: {
-                background: 'var(--neutral-800)',
-                border: '1px solid var(--glass-border)',
-                color: 'var(--neutral-100)',
-              },
-            }}
-          />
-          <CookieBanner />
-        </NextIntlClientProvider>
+        <ErrorBoundary>
+          <MobileInitializer />
+          <NextIntlClientProvider messages={messages}>
+            {children}
+            <Toaster
+              position="top-right"
+              toastOptions={{
+                style: {
+                  background: 'var(--neutral-800)',
+                  border: '1px solid var(--glass-border)',
+                  color: 'var(--neutral-100)',
+                },
+              }}
+            />
+            <CookieBanner />
+            <OfflineBanner />
+          </NextIntlClientProvider>
+        </ErrorBoundary>
       </body>
     </html>
   );

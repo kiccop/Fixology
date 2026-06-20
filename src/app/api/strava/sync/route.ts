@@ -1,8 +1,16 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { stravaService, StravaService } from '@/lib/strava/service'
 import { createClient } from '@/lib/supabase/server'
+import { rateLimit } from '@/lib/rate-limit'
 
-export async function POST() {
+export async function POST(request: NextRequest) {
+    // Apply rate limiting: 30 requests per 15 minutes per IP
+    const rateLimitResponse = await rateLimit(request, {
+        maxRequests: 30,
+        windowMs: 15 * 60 * 1000,
+    })
+    if (rateLimitResponse) return rateLimitResponse
+
     try {
         const supabase = await createClient()
 

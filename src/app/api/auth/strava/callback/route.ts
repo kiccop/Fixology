@@ -1,8 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { stravaService, StravaService } from '@/lib/strava/service'
 import { createClient } from '@/lib/supabase/server'
+import { rateLimit } from '@/lib/rate-limit'
 
 export async function GET(request: NextRequest) {
+    // Apply rate limiting: 10 requests per 15 minutes per IP
+    const rateLimitResponse = await rateLimit(request, {
+        maxRequests: 10,
+        windowMs: 15 * 60 * 1000,
+    })
+    if (rateLimitResponse) return rateLimitResponse
+
     const searchParams = request.nextUrl.searchParams
     const code = searchParams.get('code')
     const error = searchParams.get('error')
