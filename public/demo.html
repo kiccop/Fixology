@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>myBikeLog - Demo Animata</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #0a0a0f;
+            color: #f3f4f6;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .demo-container {
+            width: 100%;
+            max-width: 1200px;
+            height: 675px;
+            position: relative;
+            background: linear-gradient(135deg, #0a0a0f 0%, #12121a 100%);
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Phone Mockup */
+        .phone-frame {
+            position: absolute;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 320px;
+            height: 640px;
+            background: #000;
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: #0a0a0f;
+            border-radius: 32px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* App Screens */
+        .app-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .app-screen.active {
+            opacity: 1;
+        }
+
+        /* Screen 1: Dashboard */
+        .dashboard-header {
+            margin-bottom: 20px;
+        }
+
+        .dashboard-header h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .dashboard-header p {
+            font-size: 0.9rem;
+            color: #9ca3af;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 15px;
+        }
+
+        .stat-card .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .label {
+            font-size: 0.7rem;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-card .value {
+            font-size: 1.5rem;
+            font-weight: 900;
+            font-style: italic;
+        }
+
+        /* Screen 2: Component Alert */
+        .alert-card {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .alert-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .alert-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(239, 68, 68, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .alert-title {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .alert-subtitle {
+            font-size: 0.8rem;
+            color: #9ca3af;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ef4444 0%, #f87171 100%);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 1s ease;
+        }
+
+        /* Screen 3: Strava Sync */
+        .sync-animation {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+        }
+
+        .sync-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff6b35 0%, #00d9c4 100%);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .sync-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .sync-subtitle {
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        .sync-progress {
+            margin-top: 30px;
+            width: 100%;
+        }
+
+        .sync-bar {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .sync-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b35 0%, #00d9c4 100%);
+            width: 0%;
+            transition: width 2s ease;
+        }
+
+        /* Screen 4: PDF */
+        .pdf-preview {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            color: #1a1a2e;
+            margin-top: 20px;
+        }
+
+        .pdf-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ff6b35;
+        }
+
+        .pdf-header h4 {
+            color: #ff6b35;
+            font-size: 1.2rem;
+            font-weight: 900;
+            font-style: italic;
+        }
+
+        .pdf-header p {
+            font-size: 0.8rem;
+            color: #6b7280;
+            margin-top: 5px;
+        }
+
+        .pdf-table {
+            width: 100%;
+            font-size: 0.7rem;
+        }
+
+        .pdf-table th {
+            background: #f3f4f6;
+            padding: 8px;
+            text-align: left;
+            font-weight: 700;
+        }
+
+        .pdf-table td {
+            padding: 8px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        /* Text Overlay */
+        .text-overlay {
+            position: absolute;
+            left: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            max-width: 500px;
+            z-index: 10;
+        }
+
+        .text-overlay h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-style: italic;
+            margin-bottom: 1rem;
+            line-height: 1;
+        }
+
+        .text-overlay h2 span {
+            background: linear-gradient(135deg, #ff6b35 0%, #00d9c4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .text-overlay p {
+            font-size: 1.2rem;
+            color: #9ca3af;
+            line-height: 1.6;
+        }
+
+        /* Scene Transitions */
+        .scene {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .scene.active {
+            opacity: 1;
+        }
+
+        /* Progress Indicator */
+        .progress-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 20;
+        }
+
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: #ff6b35;
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        /* Timer */
+        .timer {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            z-index: 20;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <!-- Timer -->
+        <div class="timer">0:30</div>
+
+        <!-- Scene 1: Dashboard -->
+        <div class="scene active" id="scene1">
+            <div class="text-overlay">
+                <h2>Dashboard <span>Intelligente</span></h2>
+                <p>Tutti i tuoi dati sotto controllo. Grafici usura, distribuzione km, stato componenti in tempo reale.</p>
+            </div>
+            
+            <div class="phone-frame">
+                <div class="phone-screen">
+                    <div class="app-screen active">
+                        <div class="dashboard-header">
+                            <h3>Bentornato, Enrico</h3>
+                            <p>Panoramica</p>
+                        </div>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="icon" style="background: rgba(59, 130, 246, 0.2);">🚴</div>
+                                <div class="label">Bici Totali</div>
+                                <div class="value">2</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="icon" style="background: rgba(16, 185, 129, 0.2);">📈</div>
+                                <div class="label">Km Totali</div>
+                                <div class="value">35.866</div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card" style="margin-bottom: 20px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                <span style="font-size: 0.9rem; font-weight: 700;">Stato Componenti</span>
+                                <span style="font-size: 0.8rem; color: #9ca3af;">6 totali</span>
+                            </div>
+                            <div style="display: flex; gap: 5px;">
+                                <div style="flex: 4; height: 8px; background: #10b981; border-radius: 4px;"></div>
+                                <div style="flex: 1; height: 8px; background: #f59e0b; border-radius: 4px;"></div>
+                                <div style="flex: 1; height: 8px; background: #ef4444; border-radius: 4px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scene 2: Alert -->
+        <div class="scene" id="scene2">
+            <div class="text-overlay">
+                <h2>Alert <span>Preventivi</span></h2>
+                <p>Ricevi notifiche prima che un componente si rompa. Mai più guasti improvvisi durante l'uscita.</p>
+            </div>
+            
+            <div class="phone-frame">
+                <div class="phone-screen">
+                    <div class="app-screen active">
+                        <div class="dashboard-header">
+                            <h3>Manutenzioni in Arrivo</h3>
+                            <p>1 componente richiede attenzione</p>
+                        </div>
+                        
+                        <div class="alert-card">
+                            <div class="alert-header">
+                                <div class="alert-icon">⚠️</div>
+                                <div>
+                                    <div class="alert-title">Catena</div>
+                                    <div class="alert-subtitle">Gravel bike</div>
+                                </div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="chainProgress"></div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size: 0.8rem;">
+                                <span style="color: #9ca3af;">3.600 / 4.000 km</span>
+                                <span style="color: #ef4444; font-weight: 700;">90%</span>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 20px; padding: 15px; background: rgba(255, 255, 255, 0.03); border-radius: 16px;">
+                            <div style="font-size: 0.8rem; color: #9ca3af; margin-bottom: 10px;">Azione Consigliata</div>
+                            <div style="font-size: 1rem; font-weight: 700;">Prenota cambio catena</div>
+                            <button style="margin-top: 10px; width: 100%; padding: 12px; background: linear-gradient(135deg, #ff6b35 0%, #e55a2b 100%); border: none; border-radius: 12px; color: white; font-weight: 700; cursor: pointer;">
+                                Trova Bike Shop →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scene 3: Strava Sync -->
+        <div class="scene" id="scene3">
+            <div class="text-overlay">
+                <h2>Sync <span>Strava</span></h2>
+                <p>Importa le tue bici e sincronizza i chilometri automaticamente. Nessun inserimento manuale.</p>
+            </div>
+            
+            <div class="phone-frame">
+                <div class="phone-screen">
+                    <div class="app-screen active">
+                        <div class="sync-animation">
+                            <div class="sync-icon">⚡</div>
+                            <div class="sync-title">Sincronizzazione in Corso</div>
+                            <div class="sync-subtitle">Importazione bici da Strava...</div>
+                            
+                            <div class="sync-progress">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.8rem;">
+                                    <span>Progresso</span>
+                                    <span id="syncPercent">0%</span>
+                                </div>
+                                <div class="sync-bar">
+                                    <div class="sync-bar-fill" id="syncBar"></div>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 40px; text-align: left; width: 100%;">
+                                <div style="padding: 10px; background: rgba(255, 255, 255, 0.03); border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-size: 0.9rem;">Gravel bike</span>
+                                    <span style="font-size: 0.8rem; color: #10b981;">✓ 21.783 km</span>
+                                </div>
+                                <div style="padding: 10px; background: rgba(255, 255, 255, 0.03); border-radius: 12px; display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-size: 0.9rem;">Saltafossi</span>
+                                    <span style="font-size: 0.8rem; color: #10b981;">✓ 14.083 km</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scene 4: PDF -->
+        <div class="scene" id="scene4">
+            <div class="text-overlay">
+                <h2>Libretto <span>PDF</span></h2>
+                <p>Genera un certificato di manutenzione professionale. Perfetto per la rivendita o il meccanico.</p>
+            </div>
+            
+            <div class="phone-frame">
+                <div class="phone-screen">
+                    <div class="app-screen active">
+                        <div class="dashboard-header">
+                            <h3>Libretto Generato</h3>
+                            <p>Pronto per il download</p>
+                        </div>
+                        
+                        <div class="pdf-preview">
+                            <div class="pdf-header">
+                                <h4>MYBIKELOG</h4>
+                                <p>Report Storico Manutenzioni</p>
+                            </div>
+                            
+                            <table class="pdf-table">
+                                <thead>
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Componente</th>
+                                        <th>Azione</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>20/06/2026</td>
+                                        <td>Catena</td>
+                                        <td>Sostituito</td>
+                                    </tr>
+                                    <tr>
+                                        <td>15/03/2026</td>
+                                        <td>Pastiglie</td>
+                                        <td>Sostituito</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10/01/2026</td>
+                                        <td>Copertoni</td>
+                                        <td>Sostituito</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <button style="margin-top: 20px; width: 100%; padding: 15px; background: linear-gradient(135deg, #ff6b35 0%, #e55a2b 100%); border: none; border-radius: 12px; color: white; font-weight: 700; font-size: 1rem; cursor: pointer;">
+                            📄 Scarica PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Indicator -->
+        <div class="progress-indicator">
+            <div class="progress-dot active" data-scene="1"></div>
+            <div class="progress-dot" data-scene="2"></div>
+            <div class="progress-dot" data-scene="3"></div>
+            <div class="progress-dot" data-scene="4"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentScene = 1;
+        const totalScenes = 4;
+        const sceneDuration = 7500; // 7.5 seconds per scene (30s total)
+
+        function updateTimer(seconds) {
+            document.querySelector('.timer').textContent = `0:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function showScene(sceneNum) {
+            // Hide all scenes
+            document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.progress-dot').forEach(d => d.classList.remove('active'));
+            
+            // Show current scene
+            document.getElementById(`scene${sceneNum}`).classList.add('active');
+            document.querySelector(`.progress-dot[data-scene="${sceneNum}"]`).classList.add('active');
+            
+            // Animate specific elements
+            if (sceneNum === 2) {
+                setTimeout(() => {
+                    document.getElementById('chainProgress').style.width = '90%';
+                }, 500);
+            }
+            
+            if (sceneNum === 3) {
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += 2;
+                    document.getElementById('syncBar').style.width = progress + '%';
+                    document.getElementById('syncPercent').textContent = progress + '%';
+                    if (progress >= 100) clearInterval(interval);
+                }, 40);
+            }
+        }
+
+        function nextScene() {
+            currentScene++;
+            if (currentScene > totalScenes) {
+                currentScene = 1;
+            }
+            showScene(currentScene);
+            updateTimer(30 - ((currentScene - 1) * 7.5));
+        }
+
+        // Auto-advance scenes
+        setInterval(nextScene, sceneDuration);
+
+        // Initial timer
+        updateTimer(30);
+    </script>
+</body>
+</html>
