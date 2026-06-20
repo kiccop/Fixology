@@ -107,13 +107,14 @@ html.light body {
 }
 
 /* Text color overrides */
-html.light .text-white { color: #1e1e2a !important; }
-html.light .text-neutral-100 { color: #1e1e2a !important; }
-html.light .text-neutral-200 { color: #374151 !important; }
-html.light .text-neutral-300 { color: #4b5563 !important; }
-html.light .text-neutral-400 { color: #6b7280 !important; }
-html.light .text-neutral-500 { color: #9ca3af !important; }
-html.light .text-neutral-600 { color: #b0b4bd !important; }
+html.light .text-white { color: #1a1a2e !important; }
+html.light .text-neutral-100 { color: #1a1a2e !important; }
+html.light .text-neutral-200 { color: #2d2d44 !important; }
+html.light .text-neutral-300 { color: #404060 !important; }
+html.light .text-neutral-400 { color: #555570 !important; }
+html.light .text-neutral-500 { color: #6b7280 !important; }
+html.light .text-neutral-600 { color: #6b7280 !important; }
+html.light .text-neutral-700 { color: #4b5563 !important; }
 
 /* Background overrides */
 html.light .bg-neutral-950 { background-color: #ffffff !important; }
@@ -253,6 +254,100 @@ html.light .bg-black\/80 {
 /* Progress bar backgrounds */
 html.light .progress-bar {
   background: rgba(0, 0, 0, 0.08);
+}
+
+/* ============================================
+   Sidebar Light Mode
+   ============================================ */
+
+/* Sidebar background */
+html.light aside {
+  background-color: #f0f2f5 !important;
+  border-right-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+html.light aside .bg-gradient-to-b {
+  background-image: linear-gradient(to bottom, rgba(240, 242, 245, 0.8), transparent) !important;
+}
+
+/* Sidebar nav items - inactive */
+html.light aside nav a {
+  color: #4b5563 !important;
+}
+
+html.light aside nav a:hover {
+  color: #1a1a2e !important;
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Sidebar nav items - active */
+html.light aside nav a[class*="bg-white/10"],
+html.light aside nav a[style*="bg-white/10"] {
+  background-color: rgba(255, 107, 53, 0.12) !important;
+  color: #1a1a2e !important;
+}
+
+/* Section labels (Menu Principale, Il Tuo Account) */
+html.light aside p[class*="text-neutral-500"] {
+  color: #4b5563 !important;
+}
+
+/* Account label */
+html.light aside .text-neutral-600 {
+  color: #6b7280 !important;
+}
+
+/* Username in sidebar */
+html.light aside .text-white {
+  color: #1e1e2a !important;
+}
+
+/* Sidebar user menu dropdown */
+html.light aside .bg-white\/5 {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+html.light aside .bg-white\/\[0\.03\] {
+  background-color: rgba(0, 0, 0, 0.03) !important;
+}
+
+/* Sidebar footer */
+html.light aside .bg-black\/20 {
+  background-color: rgba(0, 0, 0, 0.02) !important;
+}
+
+/* Sidebar mobile overlay */
+html.light aside + div .bg-black\/80 {
+  background-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Logo text in sidebar */
+html.light aside span[class*="text-white"] {
+  color: #1e1e2a !important;
+}
+
+/* Sidebar icons inactive */
+html.light aside nav a svg {
+  color: #6b7280 !important;
+}
+
+html.light aside nav a:hover svg {
+  color: var(--primary-500) !important;
+}
+
+/* Sidebar active icon */
+html.light aside nav a svg[class*="text-primary"] {
+  color: var(--primary-500) !important;
+}
+
+/* Sidebar user avatar circle */
+html.light aside .bg-neutral-800 {
+  background-color: #e5e7eb !important;
+}
+
+/* Sidebar border bottom for footer */
+html.light aside .border-t {
+  border-top-color: rgba(0, 0, 0, 0.08) !important;
 }
 
 /* ============================================
