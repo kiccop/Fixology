@@ -72,13 +72,22 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
             const dateLocale = locale === 'it' ? it : locale === 'es' ? es : locale === 'fr' ? fr : enUS
             const today = format(new Date(), 'PPP', { locale: dateLocale })
 
-            // Helper to load image from URL
-            const loadImage = (url: string): Promise<HTMLImageElement> => {
+            // Helper to load image from URL with timeout
+            const loadImage = (url: string, timeoutMs: number = 5000): Promise<HTMLImageElement> => {
                 return new Promise((resolve, reject) => {
                     const img = new Image()
+                    const timeoutId = setTimeout(() => {
+                        reject(new Error('Image load timeout'))
+                    }, timeoutMs)
                     img.crossOrigin = 'Anonymous'
-                    img.onload = () => resolve(img)
-                    img.onerror = (e) => reject(e)
+                    img.onload = () => {
+                        clearTimeout(timeoutId)
+                        resolve(img)
+                    }
+                    img.onerror = (e) => {
+                        clearTimeout(timeoutId)
+                        reject(e)
+                    }
                     img.src = url
                 })
             }
@@ -270,36 +279,66 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
 
             const filename = `Libretto_${bike.name.replace(/\s+/g, '_')}.pdf`
 
-            // Mobile: save to device and share
-            if (APP_CONFIG.isMobile) {
-                try {
-                    // Convert PDF to base64
-                    const pdfBase64 = doc.output('datauristring').split(',')[1]
+            // Generate PDF as blob
+            const pdfBlob = doc.output('blob')
 
-                    // Save to device's Documents directory
+            if (APP_CONFIG.isMobile) {
+                // Mobile: use Capacitor Filesystem + Share
+                try {
+                    // Convert blob to base64
+                    const reader = new FileReader()
+                    const base64Promise = new Promise<string>((resolve, reject) => {
+                        reader.onloadend = () => {
+                            const result = reader.result as string
+                            const base64 = result.split(',')[1]
+                            resolve(base64)
+                        }
+                        reader.onerror = reject
+                    })
+                    reader.readAsDataURL(pdfBlob)
+                    const pdfBase64 = await base64Promise
+
+                    // Write to cache directory (more reliable than Documents)
                     const savedFile = await Filesystem.writeFile({
                         path: filename,
                         data: pdfBase64,
-                        directory: Directory.Documents,
+                        directory: Directory.Cache,
                         recursive: true,
+                    })
+
+                    // Get the full URI
+                    const uriResult = await Filesystem.getUri({
+                        path: savedFile.uri,
+                        directory: Directory.Cache,
                     })
 
                     // Share the file
                     await Share.share({
-                        title: 'Libretto Manutenzione',
-                        text: `${bike.name} - myBikeLog`,
-                        url: savedFile.uri,
-                        dialogTitle: 'Condividi Libretto'
+                        title: filename,
+                        url: uriResult.uri,
+                        dialogTitle: 'Salva o Condividi Libretto'
                     })
 
                     toast.dismiss(loadingToast)
                     toast.success(t('toasts.pdfDownloaded'))
                 } catch (mobileError: any) {
-                    toast.dismiss(loadingToast)
                     console.error('Mobile PDF error:', mobileError)
-                    // Fallback to blob download if native fails
-                    doc.save(filename)
-                    toast.success(t('toasts.pdfDownloaded'))
+                    // Fallback: try opening as data URI in browser
+                    try {
+                        const dataUri = doc.output('datauristring')
+                        const newWindow = window.open()
+                        if (newWindow) {
+                            newWindow.location.href = dataUri
+                            toast.dismiss(loadingToast)
+                            toast.success(t('toasts.pdfDownloaded'))
+                        } else {
+                            throw new Error('Cannot open window')
+                        }
+                    } catch (fallbackError) {
+                        console.error('PDF fallback error:', fallbackError)
+                        toast.dismiss(loadingToast)
+                        toast.error(t('toasts.pdfError'))
+                    }
                 }
             } else {
                 // Desktop: standard download
