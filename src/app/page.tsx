@@ -100,7 +100,7 @@ export default function LandingPage() {
       </nav>
 
       {/* ──────── HERO ──────── */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden w-full bg-gradient-to-b from-neutral-950 via-neutral-900 to-neutral-950">
+      <section className="relative min-h-screen flex items-center justify-center w-full bg-gradient-to-b from-neutral-950 via-neutral-900 to-neutral-950">
         {/* Decorative background graphic */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none opacity-[0.03]">
           <Bike className="w-[80vw] h-[80vw] sm:w-[60vw] sm:h-[60vw] lg:w-[50vw] lg:h-[50vw] text-white" strokeWidth={1} />
