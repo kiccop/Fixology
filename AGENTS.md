@@ -48,3 +48,9 @@ Copy `.env.example` → `.env.local`. Required: `NEXT_PUBLIC_SUPABASE_URL`, `NEX
 - Component wear thresholds: km-based or hours-based (e.g. suspension uses hours).
 - Strava integration: OAuth flow via `/api/auth/strava/*` routes, sync via `/api/strava/sync`.
 - Images are unoptimized (`next.config.ts`: `images.unoptimized: true`) — relevant for Capacitor compatibility.
+
+## Session History
+
+- **Hero bug fix**: `min-h-[100dvh]` non supportato da Android WebView + `overflow-hidden` tagliava il contenuto. Sostituito con `min-h-screen`, rimosso `overflow-hidden`, rimosse blob orbs (causavano glitch), semplificato layout. Hero ora usa gradient semplice e si adatta a qualsiasi viewport.
+- **PDF download**: Implementato multi-approccio per il download su mobile: CORS proxy, blob conversion, native `DownloadListener` in `MainActivity.java`, nuova API route `/api/pdf/upload`. Fixato problema download su WebView Android.
+- **APK size**: Puliti asset inutilizzati in `android/app/src/main/assets` (immagini, audio, video, font). Ridotto significativamente la dimensione dell'APK.
