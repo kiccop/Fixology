@@ -45,6 +45,17 @@ const fadeIn = {
     animate: { opacity: 1, y: 0 },
 }
 
+// Helper to create a File object from a data URI (for Web Share API)
+function dataUriToFile(dataUri: string, filename: string): File {
+    const arr = dataUri.split(',')
+    const mime = arr[0].match(/:(.*?);/)![1]
+    const bstr = atob(arr[1])
+    let n = bstr.length
+    const u8arr = new Uint8Array(n)
+    while (n--) u8arr[n] = bstr.charCodeAt(n)
+    return new File([u8arr], filename, { type: mime })
+}
+
 export function BikeDetailContent({ bike }: BikeDetailContentProps) {
     const t = useTranslations('components')
     const tBikes = useTranslations('bikes')
@@ -280,49 +291,77 @@ export function BikeDetailContent({ bike }: BikeDetailContentProps) {
             const filename = `Libretto_${bike.name.replace(/\s+/g, '_')}.pdf`
 
             if (APP_CONFIG.isMobile) {
-                // Mobile: upload to Supabase Storage, get signed URL, open in native browser
+                // Mobile: generate PDF, try Web Share, then fallback to server upload + browser open
                 try {
-                    const pdfBlob = doc.output('blob')
-                    // Use bike.id as first path segment to match RLS policy
-                    const filePath = `${bike.id}/${Date.now()}_${filename}`
+                    const dataUri = doc.output('datauristring')
+                    const base64 = dataUri.split(',')[1]
 
-                    // Upload to Supabase Storage
-                    const { error: uploadError } = await supabase.storage
-                        .from('receipts')
-                        .upload(filePath, pdfBlob, {
-                            contentType: 'application/pdf',
-                            cacheControl: '3600'
-                        })
-
-                    if (uploadError) {
-                        console.error('Storage upload error:', uploadError)
-                        throw new Error(`Upload failed: ${uploadError.message}`)
+                    // 1. Try Web Share API first — works without any native plugins
+                    if (typeof navigator !== 'undefined' && 'share' in navigator) {
+                        try {
+                            const pdfFile = dataUriToFile(dataUri, filename)
+                            if ('canShare' in navigator && navigator.canShare({ files: [pdfFile] })) {
+                                await navigator.share({
+                                    files: [pdfFile],
+                                    title: filename,
+                                    text: tBikes('serviceReport'),
+                                })
+                                toast.dismiss(loadingToast)
+                                toast.success(t('toasts.pdfShared'))
+                                return
+                            }
+                        } catch (shareErr: any) {
+                            if (shareErr?.name === 'AbortError') {
+                                toast.dismiss(loadingToast)
+                                return
+                            }
+                            console.warn('Web Share failed, continuing to fallback', shareErr)
+                        }
                     }
 
-                    // Create signed URL valid for 10 minutes (works without auth cookies)
-                    const { data: signedData, error: signedError } = await supabase.storage
-                        .from('receipts')
-                        .createSignedUrl(filePath, 600)
+                    // 2. Upload PDF through service-role API route (bypasses RLS)
+                    const { data: { session } } = await supabase.auth.getSession()
+                    const accessToken = session?.access_token
+                    if (!accessToken) throw new Error('No authentication session')
 
-                    if (signedError || !signedData?.signedUrl) {
-                        console.error('Signed URL error:', signedError)
-                        throw new Error('Failed to create signed URL')
-                    }
-
-                    // Open in native Android browser (can view & download PDFs)
-                    await Browser.open({
-                        url: signedData.signedUrl,
-                        presentationStyle: 'fullscreen'
+                    const response = await fetch('/api/pdf/upload', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${accessToken}`,
+                        },
+                        body: JSON.stringify({ base64, bikeId: bike.id, filename }),
                     })
 
-                    // Clean up: delete file after 10 minutes
-                    setTimeout(async () => {
-                        try {
-                            await supabase.storage.from('receipts').remove([filePath])
-                        } catch (e) {
-                            // ignore cleanup errors
+                    if (!response.ok) {
+                        const errData = await response.json().catch(() => ({}))
+                        throw new Error(errData?.error || `Upload failed (${response.status})`)
+                    }
+
+                    const { signedUrl } = await response.json()
+                    if (!signedUrl) throw new Error('No signed URL returned')
+
+                    // 3. Open signed URL in system browser (native download capability)
+                    //    Use Browser.open → window.open → location.href → anchor click
+                    let opened = false
+
+                    try {
+                        await Browser.open({ url: signedUrl, presentationStyle: 'fullscreen' })
+                        opened = true
+                    } catch (browserErr) {
+                        console.warn('Browser.open not available', browserErr)
+                    }
+
+                    if (!opened) {
+                        const win = window.open(signedUrl, '_blank')
+                        if (win) {
+                            opened = true
+                        } else {
+                            // window.open blocked — try location.href
+                            window.location.href = signedUrl
+                            opened = true
                         }
-                    }, 10 * 60 * 1000)
+                    }
 
                     toast.dismiss(loadingToast)
                     toast.success(t('toasts.pdfDownloaded'))
