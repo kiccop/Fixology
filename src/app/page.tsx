@@ -100,8 +100,14 @@ export default function LandingPage() {
       </nav>
 
       {/* ──────── HERO ──────── */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center w-full bg-gradient-to-b from-neutral-950 via-neutral-900 to-neutral-950">
-        <div className="relative z-10 w-full max-w-4xl mx-auto px-5 sm:px-8 py-24 sm:py-28 lg:py-32 text-center">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden w-full bg-gradient-to-b from-neutral-950 via-neutral-900 to-neutral-950">
+        {/* Decorative background graphic */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none opacity-[0.03]">
+          <Bike className="w-[80vw] h-[80vw] sm:w-[60vw] sm:h-[60vw] lg:w-[50vw] lg:h-[50vw] text-white" strokeWidth={1} />
+        </div>
+        <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+
+        <div className="relative z-10 w-full max-w-4xl mx-auto px-5 sm:px-8 py-20 sm:py-24 xl:py-32 text-center">
           <motion.div initial="initial" animate="animate" variants={stagger} className="flex flex-col items-center gap-6 sm:gap-8">
 
             <motion.div variants={fadeInUp}>
@@ -113,13 +119,10 @@ export default function LandingPage() {
 
             <motion.h1
               variants={fadeInUp}
-              className="text-[clamp(3rem,12vw,6rem)] font-black leading-[1.05] tracking-tighter uppercase italic"
+              className="text-[clamp(3rem,13vw,6.5rem)] font-black leading-[0.9] sm:leading-[0.88] tracking-tighter uppercase italic"
             >
-              <span>Ride</span>
-              <br className="sm:hidden" />
-              <span className="sm:ml-4 bg-gradient-to-r from-primary-500 via-primary-400 to-secondary-400 bg-clip-text text-transparent">
-                Limitless.
-              </span>
+              <div>Ride</div>
+              <div className="text-primary-400">Limitless.</div>
             </motion.h1>
 
             <motion.p
@@ -164,7 +167,7 @@ export default function LandingPage() {
 
             {/* Scroll hint */}
             <motion.div
-              className="pt-6 flex flex-col items-center gap-1.5 opacity-25"
+              className="pt-4 flex flex-col items-center gap-1.5 opacity-25"
               animate={{ y: [0, 6, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
