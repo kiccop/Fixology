@@ -101,10 +101,6 @@ export default function LandingPage() {
 
       {/* ──────── HERO ──────── */}
       <section className="relative min-h-screen flex items-center justify-center w-full bg-gradient-to-b from-neutral-950 via-neutral-900 to-neutral-950">
-        {/* Decorative background graphic */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none opacity-[0.03]">
-          <Bike className="w-[80vw] h-[80vw] sm:w-[60vw] sm:h-[60vw] lg:w-[50vw] lg:h-[50vw] text-white" strokeWidth={1} />
-        </div>
         <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
 
         <div className="relative z-10 w-full max-w-4xl mx-auto px-5 sm:px-8 py-20 sm:py-24 xl:py-32 text-center">
@@ -119,10 +115,10 @@ export default function LandingPage() {
 
             <motion.h1
               variants={fadeInUp}
-              className="text-[clamp(3rem,13vw,6.5rem)] font-black leading-[0.9] sm:leading-[0.88] tracking-tighter uppercase italic"
+              className="w-full text-[clamp(3rem,13vw,6.5rem)] font-black leading-[0.9] sm:leading-[0.88] tracking-tighter uppercase italic"
             >
-              <div>Ride</div>
-              <div className="text-primary-400">Limitless.</div>
+              <span className="block">Ride</span>
+              <span className="block text-primary-400">Limitless.</span>
             </motion.h1>
 
             <motion.p
@@ -134,7 +130,7 @@ export default function LandingPage() {
 
             <motion.div
               variants={fadeInUp}
-              className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full max-w-sm"
+              className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-sm mx-auto"
             >
               <Link href="/register" className="w-full sm:w-auto">
                 <Button
@@ -239,7 +235,7 @@ export default function LandingPage() {
                 transition={{ delay: i * 0.08, duration: 0.5 }}
                 className="text-center"
               >
-                <div className="text-[clamp(2.2rem,6vw,3.8rem)] font-black italic bg-gradient-to-br from-primary-500 to-secondary-500 bg-clip-text text-transparent leading-none mb-2 sm:mb-3">
+                <div className="text-[clamp(2.2rem,6vw,3.8rem)] font-black italic text-primary-400 leading-none mb-2 sm:mb-3">
                   {s.value}
                 </div>
                 <div className="text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-neutral-500 font-bold">
@@ -334,7 +330,7 @@ export default function LandingPage() {
           <h2 className="text-[clamp(2rem,7vw,4rem)] font-black tracking-tighter uppercase italic leading-[0.9]">
             {t('cta.mainTitle')}
             <br />
-            <span className="bg-gradient-to-r from-primary-500 via-primary-400 to-secondary-400 bg-clip-text text-transparent">
+            <span className="text-primary-400">
               {t('cta.mainSubtitle')}
             </span>
           </h2>
