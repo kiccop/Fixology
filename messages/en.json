@@ -326,7 +326,9 @@
             "secondaryCta": "Explore features",
             "stats": {
                 "cloudSync": "Cloud Sync",
-                "bikeLimit": "Bike Limit"
+                "bikeLimit": "Bike Limit",
+                "languages": "Supported Languages",
+                "monitoring": "Active Monitoring"
             }
         },
         "features": {
@@ -355,7 +357,20 @@
             "receipts": {
                 "title": "Digital Proof",
                 "description": "Upload photos of mechanic receipts for tamper-proof maintenance tracking."
+            },
+            "privacy": {
+                "title": "Privacy First",
+                "description": "Your data is yours. No tracking, no third-party selling. GDPR compliant."
+            },
+            "multiplatform": {
+                "title": "Multi-Platform",
+                "description": "Web, iOS, Android. Use myBikeLog anywhere, anytime."
             }
+        },
+        "video": {
+            "overline": "Video Demo",
+            "title": "Watch myBikeLog in Action",
+            "subtitle": "30 seconds to understand how to transform your bike maintenance"
         },
         "howItWorks": {
             "overline": "Step by step",

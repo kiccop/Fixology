@@ -165,6 +165,33 @@ export default function LandingPage() {
         </motion.div>
       </section>
 
+      {/* Video Demo Section */}
+      <section className="py-32 relative bg-gradient-to-b from-neutral-950 to-neutral-900/80 w-full flex flex-col items-center overflow-hidden">
+        <div className="absolute top-1/3 left-1/4 w-[600px] h-[600px] bg-primary-500/5 rounded-full blur-[150px] pointer-events-none" />
+        <div className="max-w-7xl mx-auto px-6 w-full">
+          <div className="flex flex-col items-center mb-16 mx-auto w-full">
+            <span className="text-primary-500 text-[11px] font-black uppercase tracking-[0.4em] mb-4 block italic text-center w-full">
+              {t('video.overline')}
+            </span>
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter uppercase italic leading-none mb-4 text-center w-full">
+              {t('video.title')}
+            </h2>
+            <p className="text-neutral-400 font-medium text-lg text-center mx-auto max-w-2xl">{t('video.subtitle')}</p>
+          </div>
+
+          <div className="max-w-5xl mx-auto">
+            <div className="relative aspect-video rounded-3xl overflow-hidden border border-white/10 shadow-2xl shadow-primary-500/10 bg-neutral-900">
+              <iframe
+                src="/demo.html"
+                className="absolute inset-0 w-full h-full"
+                allow="autoplay"
+                title="myBikeLog Demo"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Features Grid - Centered & Symmetrical */}
       <section id="features" className="py-32 relative overflow-hidden bg-neutral-900/20 w-full flex flex-col items-center">
         <div className="max-w-7xl mx-auto px-6 text-center">
@@ -217,6 +244,18 @@ export default function LandingPage() {
                 title: t('features.receipts.title'),
                 description: t('features.receipts.description'),
                 color: "text-secondary-400"
+              },
+              {
+                icon: Lock,
+                title: t('features.privacy.title'),
+                description: t('features.privacy.description'),
+                color: "text-green-500"
+              },
+              {
+                icon: Smartphone,
+                title: t('features.multiplatform.title'),
+                description: t('features.multiplatform.description'),
+                color: "text-blue-400"
               }
             ].map((feature, i) => (
               <motion.div
@@ -241,6 +280,36 @@ export default function LandingPage() {
                       <StravaLogo className="opacity-70 group-hover:opacity-100 transition-opacity" />
                     </div>
                   )}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-32 relative bg-gradient-to-r from-primary-500/5 via-transparent to-secondary-500/5 w-full flex flex-col items-center overflow-hidden">
+        <div className="max-w-6xl mx-auto px-6 w-full">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+            {[
+              { value: "100%", label: t('hero.stats.cloudSync') },
+              { value: "∞", label: t('hero.stats.bikeLimit') },
+              { value: "4", label: t('hero.stats.languages') },
+              { value: "24/7", label: t('hero.stats.monitoring') }
+            ].map((stat, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="text-center"
+              >
+                <div className="text-4xl sm:text-5xl lg:text-6xl font-black italic bg-gradient-to-br from-primary-500 to-secondary-500 bg-clip-text text-transparent mb-2">
+                  {stat.value}
+                </div>
+                <div className="text-[11px] uppercase tracking-widest text-neutral-500 font-bold">
+                  {stat.label}
                 </div>
               </motion.div>
             ))}

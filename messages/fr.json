@@ -326,7 +326,9 @@
             "secondaryCta": "Explorer les fonctionnalités",
             "stats": {
                 "cloudSync": "Synchronisation Cloud",
-                "bikeLimit": "Limite de Vélos"
+                "bikeLimit": "Limite de Vélos",
+                "languages": "Langues Supportées",
+                "monitoring": "Surveillance Active"
             }
         },
         "features": {
@@ -355,7 +357,20 @@
             "receipts": {
                 "title": "Preuves Digitales",
                 "description": "Téléchargez vos factures pour un historique d'entretien certifié et sécurisé."
+            },
+            "privacy": {
+                "title": "Confidentialité Avant Tout",
+                "description": "Vos données vous appartiennent. Pas de tracking, pas de vente à des tiers. Conforme RGPD."
+            },
+            "multiplatform": {
+                "title": "Multi-Plateforme",
+                "description": "Web, iOS, Android. Utilisez myBikeLog où vous voulez, quand vous voulez."
             }
+        },
+        "video": {
+            "overline": "Démo Vidéo",
+            "title": "Voir myBikeLog en Action",
+            "subtitle": "30 secondes pour comprendre comment transformer l'entretien de votre vélo"
         },
         "howItWorks": {
             "overline": "Étape par étape",

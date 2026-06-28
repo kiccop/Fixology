@@ -327,7 +327,9 @@
             "secondaryCta": "Scopri le funzionalità",
             "stats": {
                 "cloudSync": "Sincronizzazione Cloud",
-                "bikeLimit": "Limite Bici"
+                "bikeLimit": "Limite Bici",
+                "languages": "Lingue Supportate",
+                "monitoring": "Monitoraggio Attivo"
             }
         },
         "features": {
@@ -356,7 +358,20 @@
             "receipts": {
                 "title": "Prove Digitali",
                 "description": "Carica foto delle ricevute del meccanico per una tracciabilità a prova di errore."
+            },
+            "privacy": {
+                "title": "Privacy First",
+                "description": "I tuoi dati sono tuoi. Nessun tracking, nessuna vendita a terzi. GDPR compliant."
+            },
+            "multiplatform": {
+                "title": "Multi-Piattaforma",
+                "description": "Web, iOS, Android. Usa myBikeLog dove vuoi, quando vuoi."
             }
+        },
+        "video": {
+            "overline": "Video Demo",
+            "title": "Guarda myBikeLog in Azione",
+            "subtitle": "30 secondi per capire come trasformare la manutenzione della tua bici"
         },
         "howItWorks": {
             "overline": "Passo dopo passo",
